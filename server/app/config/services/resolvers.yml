@@ -1,0 +1,9 @@
+services:
+    app.infrastructure.graph_ql.resolver.bookmark_resolver:
+        class: App\Infrastructure\GraphQL\Resolver\BookmarkResolver
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'
+            - '@app.infrastructure.graph_ql.normalizer.bookmark_normalizer'
+        tags:
+            - { name: overblog_graphql.resolver, alias: "bookmark", method: "resolveBookmark" }
+            - { name: overblog_graphql.resolver, alias: "bookmarks", method: "resolveBookmarks" }

@@ -33,3 +33,8 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+imports:
+    - { resource: services/normalizers.yml }
+    - { resource: services/repositories.yml }
+    - { resource: services/resolvers.yml }

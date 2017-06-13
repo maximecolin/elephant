@@ -2,4 +2,12 @@ Query:
     type: object
     config:
         description: "Elephant API"
-        fields: []
+        fields:
+            bookmark:
+                type: "Bookmark"
+                args:
+                    id: Int!
+                resolve: "@=resolver('bookmark', [args])"
+            bookmarks:
+                type: "[Bookmark]"
+                resolve: "@=resolver('bookmarks', [args])"

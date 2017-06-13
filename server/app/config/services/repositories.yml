@@ -1,0 +1,5 @@
+services:
+    app.infrastructure.repository.bookmark_repository:
+        class: App\Infrastructure\Repository\BookmarkRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'

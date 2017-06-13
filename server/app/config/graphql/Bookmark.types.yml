@@ -1,0 +1,14 @@
+Bookmark:
+    type: object
+    config:
+        description: Bookmark
+        fields:
+            id:
+                type: "ID!"
+                description: "Id"
+            url:
+                type: "String!"
+                description: "Url"
+            title:
+                type: "String!"
+                description: "Title"
