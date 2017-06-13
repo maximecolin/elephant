@@ -1,0 +1,5 @@
+Query:
+    type: object
+    config:
+        description: "Elephant API"
+        fields: []
