@@ -2,35 +2,14 @@ Mutation:
     type: object
     config:
         fields:
-            createBookmark:
-                type: "CreateBookmarkPayload!"
-                resolve: "@=mutation('create_bookmark', [args['url'], args['title']])"
-                args:
-                    url:
-                        type: "String!"
-                    title:
-                        type: "String!"
-            updateBookmark:
-                type: "UpdateBookmarkPayload!"
-                resolve: "@=mutation('update_bookmark', [args['id'], args['url'], args['title']])"
+            bookmark:
+                type: "Bookmark!"
+                resolve: "@=mutation('bookmark', [args['url'], args['title'], args['id']])"
                 args:
                     id:
-                        type: "Int!"
+                        type: "Int"
+                        defaultValue: null
                     url:
                         type: "String!"
                     title:
                         type: "String!"
-
-CreateBookmarkPayload:
-    type: object
-    config:
-        fields:
-            bookmark:
-                type: "Bookmark"
-
-UpdateBookmarkPayload:
-    type: object
-    config:
-        fields:
-            bookmark:
-                type: "Bookmark"

@@ -5,5 +5,4 @@ services:
             - '@tactician.commandbus'
             - '@app.infrastructure.graph_ql.normalizer.bookmark_normalizer'
         tags:
-            - { name: overblog_graphql.mutation, alias: "create_bookmark", method: "createBookmark" }
-            - { name: overblog_graphql.mutation, alias: "update_bookmark", method: "updateBookmark" }
+            - { name: overblog_graphql.mutation, alias: "bookmark", method: "mutateBookmark" }
