@@ -1,0 +1,7 @@
+services:
+    app.application.command.create_bookmark_command_handler:
+        class: App\Application\Command\CreateBookmarkCommandHandler
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\CreateBookmarkCommand }

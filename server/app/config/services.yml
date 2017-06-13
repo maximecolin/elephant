@@ -35,6 +35,8 @@ services:
     #         $someArgument: 'some_value'
 
 imports:
+    - { resource: services/commands.yml }
+    - { resource: services/mutators.yml }
     - { resource: services/normalizers.yml }
     - { resource: services/repositories.yml }
     - { resource: services/resolvers.yml }

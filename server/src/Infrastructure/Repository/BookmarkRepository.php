@@ -44,4 +44,12 @@ class BookmarkRepository extends AbstractDoctrineRepository implements BookmarkR
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param Bookmark $bookmark
+     */
+    public function add(Bookmark $bookmark)
+    {
+        $this->entityManager->persist($bookmark);
+    }
 }

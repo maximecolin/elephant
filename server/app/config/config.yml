@@ -80,7 +80,7 @@ overblog_graphql:
     definitions:
         schema:
             query: Query
-            mutation: ~
+            mutation: Mutation
         mappings:
             types:
                 -

@@ -1,0 +1,8 @@
+services:
+    app.infrastructure.graph_ql.mutator.bookmark_mutator:
+        class: App\Infrastructure\GraphQL\Mutator\BookmarkMutator
+        arguments:
+            - '@tactician.commandbus'
+            - '@app.infrastructure.graph_ql.normalizer.bookmark_normalizer'
+        tags:
+            - { name: overblog_graphql.mutation, alias: "create_bookmark", method: "createBookmark" }

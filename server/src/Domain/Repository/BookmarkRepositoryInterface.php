@@ -19,4 +19,9 @@ interface BookmarkRepositoryInterface
      * @return array
      */
     public function findAll() : array;
+
+    /**
+     * @param Bookmark $bookmark
+     */
+    public function add(Bookmark $bookmark);
 }

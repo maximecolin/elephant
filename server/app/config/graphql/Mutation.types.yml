@@ -1,0 +1,19 @@
+Mutation:
+    type: object
+    config:
+        fields:
+            CreateBookmark:
+                type: "CreateBookmarkPayload!"
+                resolve: "@=mutation('create_bookmark', [args['url'], args['title']])"
+                args:
+                    url:
+                        type: "String!"
+                    title:
+                        type: "String!"
+
+CreateBookmarkPayload:
+    type: object
+    config:
+        fields:
+            bookmark:
+                type: "Bookmark"
