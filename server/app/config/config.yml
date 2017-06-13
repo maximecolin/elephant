@@ -86,3 +86,11 @@ overblog_graphql:
                 -
                     type: yml # or xml
                     dir: "%kernel.project_dir%/app/config/graphql"
+
+# Tactician CommandBus configuration
+tactician:
+    commandbus:
+        default:
+            middleware:
+                - tactician.middleware.doctrine
+                - tactician.middleware.command_handler
