@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\GraphQL\Resolver;
 
-use App\Domain\Exception\ModelNotFoundException;
+use App\Domain\Exception\DomainException;
 use App\Domain\Repository\BookmarkRepositoryInterface;
 use App\Infrastructure\GraphQL\Normalizer\BookmarkNormalizer;
 use Overblog\GraphQLBundle\Definition\Argument;
@@ -44,7 +44,7 @@ class BookmarkResolver
             $bookmark = $this->repository->findOneById($argument['id']);
 
             return $this->normalizer->normalize($bookmark);
-        } catch (ModelNotFoundException $exception) {
+        } catch (DomainException $exception) {
            throw new UserError($exception->getMessage());
         }
     }

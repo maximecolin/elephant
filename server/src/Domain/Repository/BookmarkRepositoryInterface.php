@@ -16,6 +16,14 @@ interface BookmarkRepositoryInterface
     public function findOneById(int $id) : Bookmark;
 
     /**
+     * @param string $url
+     *
+     * @return Bookmark
+     * @throws ModelNotFoundException
+     */
+    public function findOnByUrl(string $url) : Bookmark;
+
+    /**
      * @return array
      */
     public function findAll() : array;

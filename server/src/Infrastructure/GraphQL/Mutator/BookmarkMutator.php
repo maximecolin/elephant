@@ -4,7 +4,7 @@ namespace App\Infrastructure\GraphQL\Mutator;
 
 use App\Application\Command\CreateBookmarkCommand;
 use App\Application\Command\UpdateBookmarkCommand;
-use App\Domain\Exception\ModelNotFoundException;
+use App\Domain\Exception\DomainException;
 use App\Domain\Model\Bookmark;
 use App\Infrastructure\GraphQL\Normalizer\BookmarkNormalizer;
 use League\Tactician\CommandBus;
@@ -39,15 +39,20 @@ class BookmarkMutator
      * @param string $title
      *
      * @return array
+     * @throws UserError
      */
     public function createBookmark(string $url, string $title)
     {
-        $command = new CreateBookmarkCommand($url, $title);
+        try {
+            $command = new CreateBookmarkCommand($url, $title);
 
-        /** @var Bookmark $bookmark */
-        $bookmark = $this->bus->handle($command);
+            /** @var Bookmark $bookmark */
+            $bookmark = $this->bus->handle($command);
 
-        return ['bookmark' => $this->normalizer->normalize($bookmark)];
+            return ['bookmark' => $this->normalizer->normalize($bookmark)];
+        } catch (DomainException $exception) {
+            throw new UserError($exception->getMessage());
+        }
     }
 
     /**
@@ -67,7 +72,7 @@ class BookmarkMutator
             $bookmark = $this->bus->handle($command);
 
             return ['bookmark' => $this->normalizer->normalize($bookmark)];
-        } catch (ModelNotFoundException $exception) {
+        } catch (DomainException $exception) {
             throw new UserError($exception->getMessage());
         }
     }

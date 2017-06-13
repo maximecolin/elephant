@@ -1,0 +1,5 @@
+services:
+    app.domain.rules.bookmark.unique_url_checker:
+        class: App\Domain\Rules\Bookmark\UniqueUrlChecker
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'

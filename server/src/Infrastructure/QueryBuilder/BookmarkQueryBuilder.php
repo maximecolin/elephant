@@ -31,4 +31,18 @@ class BookmarkQueryBuilder extends QueryBuilder
 
         return $this;
     }
+
+    /**
+     * @param string $url
+     *
+     * @return $this
+     */
+    public function filterByUrl(string $url)
+    {
+        $this
+            ->andWhere('bookmark.url = :url')
+            ->setParameter('url', $url);
+
+        return $this;
+    }
 }
