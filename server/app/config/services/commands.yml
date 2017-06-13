@@ -5,3 +5,10 @@ services:
             - '@app.infrastructure.repository.bookmark_repository'
         tags:
             - { name: tactician.handler, command: App\Application\Command\CreateBookmarkCommand }
+
+    app.application.command.update_bookmark_command_handler:
+        class: App\Application\Command\UpdateBookmarkCommandHandler
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\UpdateBookmarkCommand }

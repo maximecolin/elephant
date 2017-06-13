@@ -60,4 +60,18 @@ class Bookmark
     {
         return $this->title;
     }
+
+    /**
+     * @param string $url
+     * @param string $title
+     *
+     * @return $this
+     */
+    public function update(string $url, string $title)
+    {
+        $this->url = $url;
+        $this->title = $title;
+
+        return $this;
+    }
 }

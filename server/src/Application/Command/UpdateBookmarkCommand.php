@@ -2,8 +2,13 @@
 
 namespace App\Application\Command;
 
-class CreateBookmarkCommand
+class UpdateBookmarkCommand
 {
+    /**
+     * @var int
+     */
+    public $id;
+
     /**
      * @var string
      */
@@ -15,13 +20,15 @@ class CreateBookmarkCommand
     public $title;
 
     /**
-     * CreateBookmarkCommand constructor.
+     * UpdateBookmarkCommand constructor.
      *
+     * @param int    $id
      * @param string $url
      * @param string $title
      */
-    public function __construct(string $url, string $title)
+    public function __construct(int $id, string $url, string $title)
     {
+        $this->id = $id;
         $this->url = $url;
         $this->title = $title;
     }
