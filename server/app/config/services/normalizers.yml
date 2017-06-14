@@ -1,3 +1,6 @@
 services:
     app.infrastructure.graph_ql.normalizer.bookmark_normalizer:
         class: App\Infrastructure\GraphQL\Normalizer\BookmarkNormalizer
+
+    app.infrastructure.graph_ql.normalizer.collection_normalizer:
+        class: App\Infrastructure\GraphQL\Normalizer\CollectionNormalizer

@@ -1,0 +1,25 @@
+Collection:
+    type: object
+    config:
+        description: Collection
+        fields:
+            id:
+                type: "ID!"
+                description: "Id"
+            title:
+                type: "String!"
+                description: "Title"
+
+Collections:
+    type: object
+    config:
+        description: Collections
+        fields:
+            total:
+                type: "Int"
+            offset:
+                type: "Int"
+            limit:
+                type: "Int"
+            edges:
+                type: "[Collection]"

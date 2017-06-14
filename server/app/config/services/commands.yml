@@ -14,3 +14,19 @@ services:
             - '@app.domain.rules.bookmark.unique_url_checker'
         tags:
             - { name: tactician.handler, command: App\Application\Command\UpdateBookmarkCommand }
+
+    app.application.command.create_collection_command_handler:
+        class: App\Application\Command\CreateCollectionCommandHandler
+        arguments:
+            - '@app.infrastructure.repository.collection_repository'
+            - '@app.domain.rules.collection.unique_title_checker'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\CreateCollectionCommand }
+
+    app.application.command.update_collection_command_handler:
+        class: App\Application\Command\UpdateCollectionCommandHandler
+        arguments:
+            - '@app.infrastructure.repository.collection_repository'
+            - '@app.domain.rules.collection.unique_title_checker'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\UpdateCollectionCommand }

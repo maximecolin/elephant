@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Domain\Model;
+
+class Collection
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $title;
+
+    /**
+     * Collection constructor.
+     *
+     * @param string $title
+     */
+    public function __construct(string $title)
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     *
+     * @return $this
+     */
+    public function update(string $title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+}

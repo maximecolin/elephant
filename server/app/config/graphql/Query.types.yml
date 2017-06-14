@@ -19,3 +19,19 @@ Query:
                         type: Int
                         defaultValue: 10
                 resolve: "@=resolver('bookmarks', [args])"
+            collection:
+                type: "Collection"
+                args:
+                    id:
+                        type: "Int!"
+                resolve: "@=resolver('collection', [args])"
+            collections:
+                type: "Collections"
+                args:
+                    offset:
+                        type: Int
+                        defaultValue: 0
+                    limit:
+                        type: Int
+                        defaultValue: 10
+                resolve: "@=resolver('collections', [args])"

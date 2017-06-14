@@ -3,3 +3,8 @@ services:
         class: App\Domain\Rules\Bookmark\UniqueUrlChecker
         arguments:
             - '@app.infrastructure.repository.bookmark_repository'
+
+    app.domain.rules.collection.unique_title_checker:
+        class: App\Domain\Rules\Collection\UniqueTitleChecker
+        arguments:
+            - '@app.infrastructure.repository.collection_repository'

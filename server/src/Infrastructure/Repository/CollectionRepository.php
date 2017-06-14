@@ -3,25 +3,25 @@
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Exception\ModelNotFoundException;
-use App\Domain\Model\Bookmark;
-use App\Domain\Repository\BookmarkRepositoryInterface;
-use App\Infrastructure\QueryBuilder\BookmarkQueryBuilder;
+use App\Domain\Model\Collection;
+use App\Domain\Repository\CollectionRepositoryInterface;
+use App\Infrastructure\QueryBuilder\CollectionQueryBuilder;
 use Doctrine\ORM\NoResultException;
 
-class BookmarkRepository extends AbstractDoctrineRepository implements BookmarkRepositoryInterface
+class CollectionRepository extends AbstractDoctrineRepository implements CollectionRepositoryInterface
 {
     /**
-     * @return BookmarkQueryBuilder
+     * @return CollectionQueryBuilder
      */
     private function createQueryBuilder()
     {
-        return new BookmarkQueryBuilder($this->entityManager);
+        return new CollectionQueryBuilder($this->entityManager);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findOneById(int $id) : Bookmark
+    public function findOneById(int $id) : Collection
     {
         try {
             return $this
@@ -30,23 +30,23 @@ class BookmarkRepository extends AbstractDoctrineRepository implements BookmarkR
                 ->getQuery()
                 ->getSingleResult();
         } catch (NoResultException $exception) {
-            throw new ModelNotFoundException('Bookmark not found.', $exception);
+            throw new ModelNotFoundException('Collection not found.', $exception);
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findOnByUrl(string $url) : Bookmark
+    public function findOnByTitle(string $title) : Collection
     {
         try {
             return $this
                 ->createQueryBuilder()
-                ->filterByUrl($url)
+                ->filterByTitle($title)
                 ->getQuery()
                 ->getSingleResult();
         } catch (NoResultException $exception) {
-            throw new ModelNotFoundException('Bookmark not found.', $exception);
+            throw new ModelNotFoundException('Collection not found.', $exception);
         }
     }
 
@@ -73,10 +73,10 @@ class BookmarkRepository extends AbstractDoctrineRepository implements BookmarkR
     }
 
     /**
-     * @param Bookmark $bookmark
+     * @param Collection $collection
      */
-    public function add(Bookmark $bookmark)
+    public function add(Collection $collection)
     {
-        $this->entityManager->persist($bookmark);
+        $this->entityManager->persist($collection);
     }
 }

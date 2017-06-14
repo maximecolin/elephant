@@ -9,7 +9,14 @@ Mutation:
                     id:
                         type: "Int"
                         defaultValue: null
-                    url:
+                    title:
                         type: "String!"
+            collection:
+                type: "Collection!"
+                resolve: "@=mutation('collection', [args['title'], args['id']])"
+                args:
+                    id:
+                        type: "Int"
+                        defaultValue: null
                     title:
                         type: "String!"
