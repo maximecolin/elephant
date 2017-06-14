@@ -20,20 +20,7 @@
               </button>
             </li>
           </ul>
-          <ul class="nav nav-pills flex-column">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Reports</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Analytics</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Export</a>
-            </li>
-          </ul>
+          <collection-nav></collection-nav>
           <ul class="nav nav-pills flex-column new-collection-menu col-sm-4 col-md-3 pl-0 pr-0">
             <li class="nav-item">
               <button type="button" class="btn btn-default btn-block">
@@ -56,11 +43,13 @@
 
 <script>
 import BookmarkList from '@/components/BookmarkList'
+import CollectionNav from '@/components/CollectionNav'
 
 export default {
   name: 'app',
   components: {
-    BookmarkList
+    BookmarkList,
+    CollectionNav
   }
 }
 </script>
