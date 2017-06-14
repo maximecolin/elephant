@@ -29,7 +29,7 @@ export default {
 <template>
     <ul class="nav nav-pills flex-column">
         <li class="nav-item" v-for="collection in collections.edges">
-            <a class="nav-link" href="#">{{ collection.title }}</a>
+            <router-link class="nav-link" :to="{ name: 'Collection', params: { id: collection.id } }">{{ collection.title }}</router-link>
         </li>
     </ul>
 </template>
