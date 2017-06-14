@@ -6,8 +6,16 @@ Query:
             bookmark:
                 type: "Bookmark"
                 args:
-                    id: Int!
+                    id:
+                        type: "Int!"
                 resolve: "@=resolver('bookmark', [args])"
             bookmarks:
-                type: "[Bookmark]"
+                type: "Bookmarks"
+                args:
+                    offset:
+                        type: Int
+                        defaultValue: 0
+                    limit:
+                        type: Int
+                        defaultValue: 10
                 resolve: "@=resolver('bookmarks', [args])"

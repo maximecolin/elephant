@@ -24,9 +24,17 @@ interface BookmarkRepositoryInterface
     public function findOnByUrl(string $url) : Bookmark;
 
     /**
+     * @param int $offset
+     * @param int $limit
+     *
      * @return array
      */
-    public function findAll() : array;
+    public function findAll(int $offset, int $limit) : array;
+
+    /**
+     * @return int
+     */
+    public function countAll() : int;
 
     /**
      * @param Bookmark $bookmark

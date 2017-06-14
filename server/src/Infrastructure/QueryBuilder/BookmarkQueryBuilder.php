@@ -19,6 +19,33 @@ class BookmarkQueryBuilder extends QueryBuilder
     }
 
     /**
+     * @return int
+     */
+    public function count()
+    {
+        $this
+            ->select('COUNT(bookmark.id)')
+            ->resetDQLPart('orderBy');
+
+        return (int) $this->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return $this
+     */
+    public function paginate(int $offset, int $limit)
+    {
+        $this
+            ->setFirstResult($offset)
+            ->setMaxResults($limit);
+
+        return $this;
+    }
+
+    /**
      * @param int $id
      *
      * @return $this

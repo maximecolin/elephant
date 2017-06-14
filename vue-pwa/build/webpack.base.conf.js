@@ -28,6 +28,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/,
+        loader: 'css-loader'
+      },
+      {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
@@ -44,7 +48,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('test'), resolve('node_modules/bootstrap')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

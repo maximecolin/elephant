@@ -54,12 +54,23 @@ class BookmarkRepository extends AbstractDoctrineRepository implements BookmarkR
     /**
      * {@inheritdoc}
      */
-    public function findAll(): array
+    public function findAll(int $offset, int $limit) : array
     {
         return $this
             ->createQueryBuilder()
+            ->paginate($offset, $limit)
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countAll() : int
+    {
+        return $this
+            ->createQueryBuilder()
+            ->count();
     }
 
     /**

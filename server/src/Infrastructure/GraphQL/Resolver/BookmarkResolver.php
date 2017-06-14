@@ -56,8 +56,14 @@ class BookmarkResolver
      */
     public function resolveBookmarks(Argument $argument)
     {
-        $bookmarks = $this->repository->findAll();
+        $total = $this->repository->countAll();
+        $edges = $this->repository->findAll($argument['offset'], $argument['limit']);
 
-        return array_map([$this->normalizer, 'normalize'], $bookmarks);
+        return [
+            'total' => $total,
+            'offset' => $argument['offset'],
+            'limit' => $argument['limit'],
+            'edges' => array_map([$this->normalizer, 'normalize'], $edges),
+        ];
     }
 }

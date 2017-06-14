@@ -102,6 +102,15 @@ app_patterns:
     # Gzip
     - file:     app_gzip
       template: configs/app_gzip.{{ env }}.j2
+    # Access Control Headers
+    - file:     app_access_control
+      config:
+        - add_header: "Access-Control-Allow-Origin \"*\" always"
+        - add_header: "Access-Control-Allow-Methods \"GET, POST, PUT, PATCH, DELETE, OPTIONS\" always"
+        - add_header: "Access-Control-Allow-Headers \"Authorization, Content-Type, Accept-Encoding, Cache-Control, key\" always"
+        - add_header: "Access-Control-Allow-Credentials \"true\" always"
+        - if ($request_method = OPTIONS):
+          - return: 204
     # App
     - file: app.conf
       config:
@@ -112,6 +121,7 @@ app_patterns:
           - access_log:  "{{ app.log_dir }}/nginx.access.log"
           - error_log:   "{{ app.log_dir }}/nginx.error.log"
           - include:     conf.d/app_gzip
+          - include:     conf.d/app_access_control
           - location /:
             - try_files: $uri /app.php$is_args$args
           - location ~ ^/(app(_[-\w]+)?)\.php(/|$):

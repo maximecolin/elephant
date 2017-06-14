@@ -12,3 +12,17 @@ Bookmark:
             title:
                 type: "String!"
                 description: "Title"
+
+Bookmarks:
+    type: object
+    config:
+        description: Bookmarks
+        fields:
+            total:
+                type: "Int"
+            offset:
+                type: "Int"
+            limit:
+                type: "Int"
+            edges:
+                type: "[Bookmark]"
