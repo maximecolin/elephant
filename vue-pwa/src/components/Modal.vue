@@ -38,17 +38,19 @@
         <div class="modal-dialog" role="document" v-on:click.stop="">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addModalLabel">Modal title</h5>
+                    <slot name="header">Modal title</slot>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" v-on:click="close()">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Woohoo, you're reading this text in a modal!</p>
+                    <slot>Modal body</slot>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="close()">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <slot name="footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="close()">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </slot>
                 </div>
             </div>
         </div>

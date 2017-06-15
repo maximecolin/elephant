@@ -40,7 +40,16 @@
             </div>
         </div>
 
-        <modal :open="open" v-on:close="open = false"></modal>
+        <modal :open="open" v-on:close="open = false">
+            <header slot="header">
+                Nouveau favoris
+            </header>
+            <main>
+                <form>
+                    <input type="text" name="url" />
+                </form>
+            </main>
+        </modal>
 
     </div>
 </template>
