@@ -25,8 +25,7 @@
           this.display = true
           setTimeout(() => { this.show = true }, 100)
         } else {
-          this.show = false
-          setTimeout(() => { this.display = false }, 400)
+          this.close()
         }
       }
     }
@@ -49,7 +48,6 @@
                 <div class="modal-footer">
                     <slot name="footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="close()">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                     </slot>
                 </div>
             </div>

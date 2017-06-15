@@ -40,23 +40,14 @@
             </div>
         </div>
 
-        <modal :open="open" v-on:close="open = false">
-            <header slot="header">
-                Nouveau favoris
-            </header>
-            <main>
-                <form>
-                    <input type="text" name="url" />
-                </form>
-            </main>
-        </modal>
+        <new-bookmark-modal :open="open" v-on:close="open = false"></new-bookmark-modal>
 
     </div>
 </template>
 
 <script>
 import CollectionNav from '@/components/CollectionNav'
-import Modal from '@/components/Modal'
+import NewBookmarkModal from '@/components/NewBookmarkModal'
 
 export default {
   name: 'app',
@@ -65,7 +56,7 @@ export default {
   }),
   components: {
     CollectionNav,
-    Modal
+    NewBookmarkModal
   }
 }
 </script>
