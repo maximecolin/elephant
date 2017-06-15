@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import BookmarkList from '@/components/BookmarkList'
+import Collection from '@/components/Collection'
 
 Vue.use(Router)
 
@@ -16,7 +17,7 @@ export default new Router({
     {
       path: '/collection/:id',
       name: 'Collection',
-      component: BookmarkList
+      component: Collection
     }
   ]
 })
