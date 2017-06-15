@@ -12,3 +12,8 @@ App\Domain\Model\Bookmark:
             unique: true
         title:
             type: string
+    manyToOne:
+        collection:
+            targetEntity: App\Domain\Model\Collection
+            joinColumn:
+                onDelete: SET NULL

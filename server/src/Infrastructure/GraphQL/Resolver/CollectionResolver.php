@@ -5,8 +5,10 @@ namespace App\Infrastructure\GraphQL\Resolver;
 use App\Domain\Exception\DomainException;
 use App\Domain\Repository\CollectionRepositoryInterface;
 use App\Infrastructure\GraphQL\Normalizer\CollectionNormalizer;
+use GraphQL\Type\Definition\ResolveInfo;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Overblog\GraphQLBundle\Error\UserError;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 class CollectionResolver
 {
@@ -50,14 +52,22 @@ class CollectionResolver
     }
 
     /**
-     * @param Argument $argument
+     * @param Argument    $argument
+     * @param ResolveInfo $info
      *
      * @return array
      */
-    public function resolveCollections(Argument $argument)
+    public function resolveCollections(Argument $argument, ResolveInfo $info)
     {
-        $total = $this->repository->countAll();
-        $edges = $this->repository->findAll($argument['offset'], $argument['limit']);
+        $selection = new ParameterBag($info->getFieldSelection());
+
+        $total = $selection->has('total')
+            ? $this->repository->countAll()
+            : 0;
+
+        $edges = $selection->has('edges')
+            ? $this->repository->findAll($argument['offset'], $argument['limit'])
+            : [];
 
         return [
             'total' => $total,

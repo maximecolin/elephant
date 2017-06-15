@@ -40,4 +40,20 @@ interface BookmarkRepositoryInterface
      * @param Bookmark $bookmark
      */
     public function add(Bookmark $bookmark);
+
+    /**
+     * @param int $id
+     *
+     * @return int
+     */
+    public function countAllByCollectionId(int $id) : int;
+
+    /**
+     * @param int $id
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function findAllByCollectionId(int $id, int $offset, int $limit) : array;
 }

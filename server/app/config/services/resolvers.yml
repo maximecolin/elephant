@@ -7,6 +7,7 @@ services:
         tags:
             - { name: overblog_graphql.resolver, alias: "bookmark", method: "resolveBookmark" }
             - { name: overblog_graphql.resolver, alias: "bookmarks", method: "resolveBookmarks" }
+            - { name: overblog_graphql.resolver, alias: "collectionBookmarks", method: "resolveCollectionBookmarks" }
 
     app.infrastructure.graph_ql.resolver.collection_resolver:
         class: App\Infrastructure\GraphQL\Resolver\CollectionResolver

@@ -9,6 +9,16 @@ Collection:
             title:
                 type: "String!"
                 description: "Title"
+            bookmarks:
+                type: "Bookmarks"
+                args:
+                    offset:
+                        type: "Int"
+                        defaultValue: 0
+                    limit:
+                        type: "Int"
+                        defaultValue: 10
+                resolve: '@=resolver("collectionBookmarks", [value, args, info])'
 
 Collections:
     type: object

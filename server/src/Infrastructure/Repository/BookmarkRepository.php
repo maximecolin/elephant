@@ -79,4 +79,28 @@ class BookmarkRepository extends AbstractDoctrineRepository implements BookmarkR
     {
         $this->entityManager->persist($bookmark);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countAllByCollectionId(int $id) : int
+    {
+        return $this
+            ->createQueryBuilder()
+            ->filterByCollectionId($id)
+            ->count();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findAllByCollectionId(int $id, int $offset, int $limit) : array
+    {
+        return $this
+            ->createQueryBuilder()
+            ->filterByCollectionId($id)
+            ->paginate($offset, $limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

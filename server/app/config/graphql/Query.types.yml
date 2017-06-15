@@ -18,7 +18,7 @@ Query:
                     limit:
                         type: Int
                         defaultValue: 10
-                resolve: "@=resolver('bookmarks', [args])"
+                resolve: "@=resolver('bookmarks', [args, info])"
             collection:
                 type: "Collection"
                 args:
@@ -34,4 +34,4 @@ Query:
                     limit:
                         type: Int
                         defaultValue: 10
-                resolve: "@=resolver('collections', [args])"
+                resolve: "@=resolver('collections', [args, info])"

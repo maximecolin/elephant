@@ -20,15 +20,22 @@ class Bookmark
     private $title;
 
     /**
+     * @var Collection
+     */
+    private $collection;
+
+    /**
      * Bookmark constructor.
      *
-     * @param string $url
-     * @param string $title
+     * @param string          $url
+     * @param string          $title
+     * @param Collection|null $collection
      */
-    public function __construct(string $url, string $title)
+    public function __construct(string $url, string $title, Collection $collection = null)
     {
-        $this->url   = $url;
-        $this->title = $title;
+        $this->url        = $url;
+        $this->title      = $title;
+        $this->collection = $collection;
     }
 
     /**
@@ -62,6 +69,16 @@ class Bookmark
     }
 
     /**
+     * Get collection
+     *
+     * @return Collection
+     */
+    public function getCollection()
+    {
+        return $this->collection;
+    }
+
+    /**
      * @param string $url
      * @param string $title
      *
@@ -71,6 +88,18 @@ class Bookmark
     {
         $this->url = $url;
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @param Collection $collection
+     *
+     * @return $this
+     */
+    public function moveTo(Collection $collection)
+    {
+        $this->collection = $collection;
 
         return $this;
     }

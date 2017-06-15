@@ -72,4 +72,18 @@ class BookmarkQueryBuilder extends QueryBuilder
 
         return $this;
     }
+
+    /**
+     * @param int $id
+     *
+     * @return $this
+     */
+    public function filterByCollectionId(int $id)
+    {
+        $this
+            ->andWhere('bookmark.collection = :collection_id')
+            ->setParameter('collection_id', $id);
+
+        return $this;
+    }
 }
