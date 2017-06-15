@@ -7,6 +7,9 @@ const collectionsQuery = gql`
       edges {
         id
         title
+        bookmarks {
+          total
+        }
       }
     }
   }
@@ -29,7 +32,10 @@ export default {
 <template>
     <ul class="nav nav-pills flex-column">
         <li class="nav-item" v-for="collection in collections.edges">
-            <router-link class="nav-link" :to="{ name: 'Collection', params: { id: collection.id } }">{{ collection.title }}</router-link>
+            <router-link class="nav-link" :to="{ name: 'Collection', params: { id: collection.id } }">
+                {{ collection.title }}
+                <span class="badge badge-pill badge-default pull-right">{{ collection.bookmarks.total }}</span>
+            </router-link>
         </li>
     </ul>
 </template>
