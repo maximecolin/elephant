@@ -44,6 +44,21 @@
         }
     }
 
+    /* Counter badge */
+
+    .nav .nav-item .nav-link {
+        .badge {
+            margin-top: 3px;
+        }
+
+        &.active {
+            .badge-default {
+                background-color: #fff;
+                color: $badge-default-bg;
+            }
+        }
+    }
+
 }
 
 

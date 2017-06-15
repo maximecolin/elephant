@@ -32,7 +32,7 @@ export default {
 <template>
     <ul class="nav nav-pills flex-column">
         <li class="nav-item" v-for="collection in collections.edges">
-            <router-link class="nav-link" :to="{ name: 'Collection', params: { id: collection.id } }">
+            <router-link class="nav-link" v-bind:class="{ active: collection.id === $route.params.id }" :to="{ name: 'Collection', params: { id: collection.id } }">
                 {{ collection.title }}
                 <span class="badge badge-pill badge-default pull-right">{{ collection.bookmarks.total }}</span>
             </router-link>
