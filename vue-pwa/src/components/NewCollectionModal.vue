@@ -27,7 +27,7 @@
 
     <modal :open="isOpen" v-on:close="$emit('close')">
         <header slot="header">
-            <i class="fa fa-star-o"></i> Nouveau favoris
+            <i class="fa fa-folder-o"></i> Nouvelle collection
         </header>
         <main>
             <div>
@@ -35,10 +35,6 @@
                     <div class="form-group">
                         <label for="newBookmarkTitle">Titre</label>
                         <input type="text" class="form-control" id="newBookmarkTitle" v-model="title" placeholder="Entrez un titre">
-                    </div>
-                    <div class="form-group">
-                        <label for="newBookmarkUrl">Url</label>
-                        <input type="url" class="form-control" id="newBookmarkUrl" v-model="url" placeholder="Entrez l'url">
                     </div>
                 </form>
             </div>
