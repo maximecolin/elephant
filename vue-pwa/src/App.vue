@@ -17,7 +17,7 @@
 
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item text-sm-center pl-2 pr-2">
-                            <button type="button" class="btn btn-success btn-block">
+                            <button type="button" class="btn btn-success btn-block" v-on:click="open = true">
                                 <i class="fa fa-star-o"></i>
                                 Ajouter un favoris
                             </button>
@@ -40,16 +40,23 @@
             </div>
         </div>
 
+        <modal :open="open" v-on:close="open = false"></modal>
+
     </div>
 </template>
 
 <script>
 import CollectionNav from '@/components/CollectionNav'
+import Modal from '@/components/Modal'
 
 export default {
   name: 'app',
+  data: () => ({
+    open: false
+  }),
   components: {
-    CollectionNav
+    CollectionNav,
+    Modal
   }
 }
 </script>
