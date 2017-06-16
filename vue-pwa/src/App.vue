@@ -57,6 +57,9 @@ export default {
     CollectionNav,
     NewBookmarkModal,
     NewCollectionModal
+  },
+  mounted () {
+    this.$store.dispatch('init')
   }
 }
 </script>

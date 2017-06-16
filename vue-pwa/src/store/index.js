@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import CollectionsQuery from '../graphql/CollectionsQuery'
+import apollo from '../apollo'
 
 Vue.use(Vuex)
 
@@ -8,7 +10,8 @@ export default new Vuex.Store({
     modal: {
       addBookmark: false,
       addCollection: false
-    }
+    },
+    collections: []
   },
   mutations: {
     openAddBookmarkModal (state) {
@@ -22,6 +25,19 @@ export default new Vuex.Store({
     },
     closeAddCollectionModal (state) {
       state.modal.addCollection = false
+    },
+    SET_COLLECTIONS (state, collections) {
+      state.collections = collections
+    }
+  },
+  actions: {
+    init (context) {
+      apollo.query({
+        query: CollectionsQuery
+      }).then((result) => {
+        context.commit('SET_COLLECTIONS', result.data.collections)
+      })
+    },
     }
   }
 })

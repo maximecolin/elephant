@@ -1,15 +1,9 @@
 <script>
-import CollectionsQuery from '../graphql/CollectionsQuery'
 
 export default {
-  data: () => ({
-    collections: [],
-    loading: 0
-  }),
-  apollo: {
-    collections: {
-      query: CollectionsQuery,
-      loadingKey: 'loading'
+  computed: {
+    collections () {
+      return this.$store.state.collections
     }
   }
 }
