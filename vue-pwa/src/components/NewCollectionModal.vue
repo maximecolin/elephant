@@ -1,16 +1,6 @@
 <script>
-  import gql from 'graphql-tag'
-
   import Modal from '@/components/Modal'
-
-  const newCollectionMutation = gql`
-    mutation($title: String!) {
-      collection(title: $title) {
-        id
-        title
-      }
-    }
-  `
+  import NewCollectionMutation from '../graphql/NewCollectionMutation'
 
   export default {
     components: {
@@ -34,7 +24,7 @@
     methods: {
       submit () {
         this.$apollo.mutate({
-          mutation: newCollectionMutation,
+          mutation: NewCollectionMutation,
           variables: {
             title: this.title
           }

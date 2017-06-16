@@ -1,19 +1,5 @@
 <script>
-import gql from 'graphql-tag'
-
-const collectionsQuery = gql`
-  query {
-    collections(offset: 0 limit: 100) {
-      edges {
-        id
-        title
-        bookmarks {
-          total
-        }
-      }
-    }
-  }
-`
+import CollectionsQuery from '../graphql/CollectionsQuery'
 
 export default {
   data: () => ({
@@ -22,7 +8,7 @@ export default {
   }),
   apollo: {
     collections: {
-      query: collectionsQuery,
+      query: CollectionsQuery,
       loadingKey: 'loading'
     }
   }

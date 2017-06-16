@@ -1,20 +1,5 @@
 <script>
-  import gql from 'graphql-tag'
-
-  const bookmarksQuery = gql`
-    query {
-      bookmarks {
-        total
-        offset
-        limit
-        edges {
-          id
-          title
-          url
-        }
-      }
-    }
-  `
+  import BookmarksQuery from '../graphql/BookmarksQuery'
 
   export default{
     data: () => ({
@@ -23,7 +8,7 @@
     }),
     apollo: {
       bookmarks: {
-        watchQuery: bookmarksQuery,
+        watchQuery: BookmarksQuery,
         loadingKey: 'loading'
       }
     }

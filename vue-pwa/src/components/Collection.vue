@@ -1,20 +1,5 @@
 <script>
-  import gql from 'graphql-tag'
-
-  const collectionQuery = gql`
-    query Collection($id: Int!, $offset: Int!, $limit: Int!) {
-      collection(id: $id) {
-        title
-        bookmarks(offset: $offset, limit: $limit) {
-          edges {
-            id
-            title
-            url
-          }
-        }
-      }
-    }
-  `
+  import CollectionQuery from '../graphql/CollectionQuery'
 
   export default {
     data: () => ({
@@ -40,7 +25,7 @@
     },
     apollo: {
       collection: {
-        query: collectionQuery,
+        query: CollectionQuery,
         variables () {
           return {
             id: this.id,
