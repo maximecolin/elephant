@@ -41,7 +41,7 @@
         </div>
 
         <new-bookmark-modal></new-bookmark-modal>
-        <new-collection-modal :open="newCollectionOpen" v-on:close="newCollectionOpen = false"></new-collection-modal>
+        <new-collection-modal></new-collection-modal>
 
     </div>
 </template>
@@ -53,10 +53,6 @@ import NewCollectionModal from '@/components/NewCollectionModal'
 
 export default {
   name: 'app',
-  data: () => ({
-    newBookmarkOpen: false,
-    newCollectionOpen: false
-  }),
   components: {
     CollectionNav,
     NewBookmarkModal,
