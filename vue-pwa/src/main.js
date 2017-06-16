@@ -3,6 +3,7 @@ import VueApollo from 'vue-apollo'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
 
 Vue.config.productionTip = false
 
@@ -31,6 +32,7 @@ const apolloProvider = new VueApollo({
 new Vue({
   el: '#app',
   router,
+  store,
   apolloProvider,
   render: h => h(App)
 })
