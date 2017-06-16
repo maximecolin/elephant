@@ -1,5 +1,16 @@
 <script>
+  import gql from 'graphql-tag'
+
   import Modal from '@/components/Modal'
+
+  const newCollectionMutation = gql`
+    mutation($title: String!) {
+      collection(title: $title) {
+        id
+        title
+      }
+    }
+  `
 
   export default {
     components: {
@@ -11,13 +22,22 @@
     data () {
       return {
         isOpen: this.open,
-        title: null,
-        url: null
+        title: null
       }
     },
     watch: {
       open (value) {
         this.isOpen = value
+      }
+    },
+    methods: {
+      submit () {
+        this.$apollo.mutate({
+          mutation: newCollectionMutation,
+          variables: {
+            title: this.title
+          }
+        })
       }
     }
   }
@@ -41,7 +61,7 @@
         </main>
         <footer slot="footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="isOpen = false">Annuler</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" v-on:click="submit()">Enregistrer</button>
         </footer>
     </modal>
 
