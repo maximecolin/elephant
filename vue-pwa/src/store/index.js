@@ -6,15 +6,22 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     modal: {
-      add: false
+      addBookmark: false,
+      addCollection: false
     }
   },
   mutations: {
-    openAddModal (state) {
-      state.modal.add = true
+    openAddBookmarkModal (state) {
+      state.modal.addBookmark = true
     },
-    closeAddModal (state) {
-      state.modal.add = false
+    closeAddBookmarkModal (state) {
+      state.modal.addBookmark = false
+    },
+    openAddCollectionModal (state) {
+      state.modal.addCollection = true
+    },
+    closeAddCollectionModal (state) {
+      state.modal.addCollection = false
     }
   }
 })

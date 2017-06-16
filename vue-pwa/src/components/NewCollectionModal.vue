@@ -16,13 +16,14 @@
     components: {
       Modal
     },
-    props: {
-      open: Boolean
-    },
     data () {
       return {
-        isOpen: this.open,
         title: null
+      }
+    },
+    computed: {
+      isOpen () {
+        return this.$store.state.modal.addCollection
       }
     },
     watch: {
@@ -45,7 +46,7 @@
 
 <template>
 
-    <modal :open="isOpen" v-on:close="$emit('close')">
+    <modal :open="isOpen" v-on:close="$store.commit('closeAddCollectionModal')">
         <header slot="header">
             <i class="fa fa-folder-o"></i> Nouvelle collection
         </header>
@@ -60,7 +61,7 @@
             </div>
         </main>
         <footer slot="footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="isOpen = false">Annuler</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="$store.commit('closeAddCollectionModal')">Annuler</button>
             <button type="button" class="btn btn-primary" v-on:click="submit()">Enregistrer</button>
         </footer>
     </modal>

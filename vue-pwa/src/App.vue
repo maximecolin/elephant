@@ -17,7 +17,7 @@
 
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item text-sm-center pl-2 pr-2">
-                            <button type="button" class="btn btn-success btn-block" v-on:click="newBookmarkOpen = true">
+                            <button type="button" class="btn btn-success btn-block" v-on:click="$store.commit('openAddBookmarkModal')">
                                 <i class="fa fa-star-o"></i>
                                 Ajouter un favoris
                             </button>
@@ -26,7 +26,7 @@
                     <collection-nav></collection-nav>
                     <ul class="nav nav-pills flex-column new-collection-menu col-sm-4 col-md-3 pl-0 pr-0">
                         <li class="nav-item">
-                            <button type="button" class="btn btn-default btn-block" v-on:click="newCollectionOpen = true">
+                            <button type="button" class="btn btn-default btn-block" v-on:click="$store.commit('openAddCollectionModal')">
                                 <i class="fa fa-folder-o"></i>
                                 Nouvelle collection ...
                             </button>
@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <new-bookmark-modal :open="newBookmarkOpen" v-on:close="newBookmarkOpen = false"></new-bookmark-modal>
+        <new-bookmark-modal></new-bookmark-modal>
         <new-collection-modal :open="newCollectionOpen" v-on:close="newCollectionOpen = false"></new-collection-modal>
 
     </div>

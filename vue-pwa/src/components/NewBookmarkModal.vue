@@ -5,14 +5,15 @@
     components: {
       Modal
     },
-    props: {
-      open: Boolean
-    },
     data () {
       return {
-        isOpen: this.open,
         title: null,
         url: null
+      }
+    },
+    computed: {
+      isOpen () {
+        return this.$store.state.modal.addBookmark
       }
     },
     watch: {
@@ -25,7 +26,7 @@
 
 <template>
 
-    <modal :open="isOpen" v-on:close="$emit('close')">
+    <modal :open="isOpen" v-on:close="$store.commit('closeAddBookmarkModal')">
         <header slot="header">
             <i class="fa fa-star-o"></i> Nouveau favoris
         </header>
@@ -44,7 +45,7 @@
             </div>
         </main>
         <footer slot="footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="isOpen = false">Annuler</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="$store.commit('closeAddBookmarkModal')">Annuler</button>
             <button type="button" class="btn btn-primary">Save changes</button>
         </footer>
     </modal>
