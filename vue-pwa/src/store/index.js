@@ -24,16 +24,16 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    openAddBookmarkModal (state) {
+    OPEN_ADD_BOOKMARK_MODAL (state) {
       state.modal.addBookmark = true
     },
-    closeAddBookmarkModal (state) {
+    CLOSE_ADD_BOOKMARK_MODAL (state) {
       state.modal.addBookmark = false
     },
-    openAddCollectionModal (state) {
+    OPEN_ADD_COLLECTION_MODAL (state) {
       state.modal.addCollection = true
     },
-    closeAddCollectionModal (state) {
+    CLOSE_ADD_COLLECTION_MODAL (state) {
       state.modal.addCollection = false
     },
     SET_COLLECTIONS (state, collections) {
@@ -48,14 +48,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    init (context) {
+    INIT (context) {
       apollo.query({
         query: CollectionsQuery
       }).then((result) => {
         context.commit('SET_COLLECTIONS', result.data.collections)
       })
     },
-    addCollection ({ commit, state }, collection) {
+    ADD_COLLECTION ({ commit, state }, collection) {
       apollo.mutate({
         mutation: NewCollectionMutation,
         variables: {
@@ -63,7 +63,7 @@ export default new Vuex.Store({
         }
       }).then((result) => {
         commit('ADD_COLLECTION', result.data.collection)
-        commit('closeAddCollectionModal')
+        commit('CLOSE_ADD_COLLECTION_MODAL')
       })
     }
   }

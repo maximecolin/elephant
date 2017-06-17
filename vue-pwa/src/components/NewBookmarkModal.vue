@@ -26,7 +26,7 @@
 
 <template>
 
-    <modal :open="isOpen" v-on:close="$store.commit('closeAddBookmarkModal')">
+    <modal :open="isOpen" v-on:close="$store.commit('CLOSE_ADD_BOOKMARK_MODAL')">
         <header slot="header">
             <i class="fa fa-star-o"></i> Nouveau favoris
         </header>
@@ -45,7 +45,7 @@
             </div>
         </main>
         <footer slot="footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="$store.commit('closeAddBookmarkModal')">Annuler</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="$store.commit('CLOSE_ADD_BOOKMARK_MODAL')">Annuler</button>
             <button type="button" class="btn btn-primary">Save changes</button>
         </footer>
     </modal>

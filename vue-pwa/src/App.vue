@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" v-on:keyup.esc="close()">
 
         <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
             <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,7 +17,7 @@
 
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item text-sm-center pl-2 pr-2">
-                            <button type="button" class="btn btn-success btn-block" v-on:click="$store.commit('openAddBookmarkModal')">
+                            <button type="button" class="btn btn-success btn-block" v-on:click="$store.commit('OPEN_ADD_BOOKMARK_MODAL')">
                                 <i class="fa fa-star-o"></i>
                                 Ajouter un favoris
                             </button>
@@ -26,7 +26,7 @@
                     <collection-nav></collection-nav>
                     <ul class="nav nav-pills flex-column new-collection-menu col-sm-4 col-md-3 pl-0 pr-0">
                         <li class="nav-item">
-                            <button type="button" class="btn btn-default btn-block" v-on:click="$store.commit('openAddCollectionModal')">
+                            <button type="button" class="btn btn-default btn-block" v-on:click="$store.commit('OPEN_ADD_COLLECTION_MODAL')">
                                 <i class="fa fa-folder-o"></i>
                                 Nouvelle collection ...
                             </button>
@@ -59,7 +59,18 @@ export default {
     NewCollectionModal
   },
   mounted () {
-    this.$store.dispatch('init')
+    this.$store.dispatch('INIT')
+  },
+  methods: {
+    close () {
+      if (this.$store.state.modal.addBookmark) {
+        this.$store.commit('CLOSE_ADD_BOOKMARK_MODAL')
+      }
+
+      if (this.$store.state.modal.addCollection) {
+        this.$store.commit('CLOSE_ADD_COLLECTION_MODAL')
+      }
+    }
   }
 }
 </script>

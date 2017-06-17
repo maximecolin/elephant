@@ -26,10 +26,10 @@
           title: this.title
         }
 
-        this.$store.dispatch('addCollection', collection)
+        this.$store.dispatch('ADD_COLLECTION', collection)
       },
       close () {
-        this.$store.commit('closeAddCollectionModal')
+        this.$store.commit('CLOSE_ADD_COLLECTION_MODAL')
         this.title = null
       }
     }
@@ -44,7 +44,7 @@
         </header>
         <main>
             <div>
-                <form>
+                <form v-on:submit.prevent="submit()">
                     <div class="form-group">
                         <label for="newBookmarkTitle">Titre</label>
                         <input type="text" class="form-control" id="newBookmarkTitle" v-model="title" placeholder="Entrez un titre">
