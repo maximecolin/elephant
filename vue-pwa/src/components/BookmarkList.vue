@@ -8,7 +8,7 @@
     }),
     apollo: {
       bookmarks: {
-        watchQuery: BookmarksQuery,
+        query: BookmarksQuery,
         loadingKey: 'loading'
       }
     }

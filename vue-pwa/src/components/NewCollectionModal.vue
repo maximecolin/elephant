@@ -1,6 +1,5 @@
 <script>
   import Modal from '@/components/Modal'
-  import NewCollectionMutation from '../graphql/NewCollectionMutation'
 
   export default {
     components: {
@@ -23,12 +22,15 @@
     },
     methods: {
       submit () {
-        this.$apollo.mutate({
-          mutation: NewCollectionMutation,
-          variables: {
-            title: this.title
-          }
-        })
+        let collection = {
+          title: this.title
+        }
+
+        this.$store.dispatch('addCollection', collection)
+      },
+      close () {
+        this.$store.commit('closeAddCollectionModal')
+        this.title = null
       }
     }
   }
@@ -36,7 +38,7 @@
 
 <template>
 
-    <modal :open="isOpen" v-on:close="$store.commit('closeAddCollectionModal')">
+    <modal :open="isOpen" v-on:close="close()">
         <header slot="header">
             <i class="fa fa-folder-o"></i> Nouvelle collection
         </header>
@@ -51,7 +53,7 @@
             </div>
         </main>
         <footer slot="footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="$store.commit('closeAddCollectionModal')">Annuler</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" v-on:click="close()">Annuler</button>
             <button type="button" class="btn btn-primary" v-on:click="submit()">Enregistrer</button>
         </footer>
     </modal>

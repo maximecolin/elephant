@@ -5,6 +5,9 @@ export default gql`
     collection(title: $title) {
       id
       title
+      bookmarks {
+        total
+      }
     }
   }
 `
