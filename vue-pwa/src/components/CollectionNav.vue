@@ -1,12 +1,11 @@
 <script>
-
-export default {
-  computed: {
-    collections () {
-      return this.$store.state.collections.edges
+  export default {
+    computed: {
+      collections () {
+        return this.$store.state.collections.edges
+      }
     }
   }
-}
 </script>
 
 <template>
@@ -19,6 +18,3 @@ export default {
         </li>
     </ul>
 </template>
-
-<style>
-</style>

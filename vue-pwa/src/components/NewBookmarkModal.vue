@@ -15,11 +15,6 @@
       isOpen () {
         return this.$store.state.modal.addBookmark
       }
-    },
-    watch: {
-      open (value) {
-        this.isOpen = value
-      }
     }
   }
 </script>
@@ -51,6 +46,3 @@
     </modal>
 
 </template>
-
-<style>
-</style>

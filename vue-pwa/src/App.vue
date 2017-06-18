@@ -1,3 +1,32 @@
+<script>
+  import CollectionNav from '@/components/CollectionNav'
+  import NewBookmarkModal from '@/components/NewBookmarkModal'
+  import NewCollectionModal from '@/components/NewCollectionModal'
+
+  export default {
+    name: 'app',
+    components: {
+      CollectionNav,
+      NewBookmarkModal,
+      NewCollectionModal
+    },
+    mounted () {
+      this.$store.dispatch('INIT')
+    },
+    methods: {
+      close () {
+        if (this.$store.state.modal.addBookmark) {
+          this.$store.commit('CLOSE_ADD_BOOKMARK_MODAL')
+        }
+
+        if (this.$store.state.modal.addCollection) {
+          this.$store.commit('CLOSE_ADD_COLLECTION_MODAL')
+        }
+      }
+    }
+  }
+</script>
+
 <template>
     <div id="app" v-on:keyup.esc="close()">
 
@@ -45,35 +74,6 @@
 
     </div>
 </template>
-
-<script>
-import CollectionNav from '@/components/CollectionNav'
-import NewBookmarkModal from '@/components/NewBookmarkModal'
-import NewCollectionModal from '@/components/NewCollectionModal'
-
-export default {
-  name: 'app',
-  components: {
-    CollectionNav,
-    NewBookmarkModal,
-    NewCollectionModal
-  },
-  mounted () {
-    this.$store.dispatch('INIT')
-  },
-  methods: {
-    close () {
-      if (this.$store.state.modal.addBookmark) {
-        this.$store.commit('CLOSE_ADD_BOOKMARK_MODAL')
-      }
-
-      if (this.$store.state.modal.addCollection) {
-        this.$store.commit('CLOSE_ADD_COLLECTION_MODAL')
-      }
-    }
-  }
-}
-</script>
 
 <style lang="sass">
   @import "sass/app"

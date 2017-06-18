@@ -15,11 +15,6 @@
         return this.$store.state.modal.addCollection
       }
     },
-    watch: {
-      open (value) {
-        this.isOpen = value
-      }
-    },
     methods: {
       submit () {
         let collection = {
@@ -59,6 +54,3 @@
     </modal>
 
 </template>
-
-<style>
-</style>
