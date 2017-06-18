@@ -1,13 +1,8 @@
 <script>
-  import CollectionQuery from '../graphql/CollectionQuery'
-
   export default {
     data: () => ({
-      collection: null,
-      loading: 0,
       page: 1,
-      limit: 10,
-      id: null
+      limit: 10
     }),
     mounted () {
       this.handleRoute()
@@ -15,25 +10,21 @@
     computed: {
       offset () {
         return (this.page - 1) * this.limit
+      },
+      collection () {
+        return this.$store.state.collections.edges[this.id] || null
+      },
+      bookmarks () {
+        return this.collection.bookmarks.edges || []
+      },
+      id () {
+        return parseInt(this.$route.params.id, 10)
       }
     },
     methods: {
       handleRoute () {
-        this.id = parseInt(this.$route.params.id, 10)
         this.page = this.$route.query.page ? parseInt(this.$route.query.page, 10) : 1
-      }
-    },
-    apollo: {
-      collection: {
-        query: CollectionQuery,
-        variables () {
-          return {
-            id: this.id,
-            offset: this.offset,
-            limit: this.limit
-          }
-        },
-        loadingKey: 'loading'
+        this.$store.dispatch('GET_COLLECTION', this.id)
       }
     },
     watch: {
@@ -46,7 +37,7 @@
 
 <template>
     <div>
-        <template v-if="collection === null || loading > 0">
+        <template v-if="collection === null">
             Loading ...
         </template>
         <template v-else>

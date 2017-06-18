@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import NewCollectionMutation from '../graphql/NewCollectionMutation'
 import CollectionsQuery from '../graphql/CollectionsQuery'
+import CollectionQuery from '../graphql/CollectionQuery'
 import apollo from '../apollo'
 
 Vue.use(Vuex)
@@ -55,15 +56,27 @@ export default new Vuex.Store({
         context.commit('SET_COLLECTIONS', result.data.collections)
       })
     },
-    ADD_COLLECTION ({ commit, state }, collection) {
+    GET_COLLECTION (context, id) {
+      apollo.query({
+        query: CollectionQuery,
+        variables: {
+          id,
+          offset: 0,
+          limit: 100
+        }
+      }).then((result) => {
+        context.commit('ADD_COLLECTION', result.data.collection)
+      })
+    },
+    ADD_COLLECTION (context, collection) {
       apollo.mutate({
         mutation: NewCollectionMutation,
         variables: {
           title: collection.title
         }
       }).then((result) => {
-        commit('ADD_COLLECTION', result.data.collection)
-        commit('CLOSE_ADD_COLLECTION_MODAL')
+        context.commit('ADD_COLLECTION', result.data.collection)
+        context.commit('CLOSE_ADD_COLLECTION_MODAL')
       })
     }
   }
