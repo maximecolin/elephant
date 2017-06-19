@@ -4,13 +4,17 @@ Mutation:
         fields:
             bookmark:
                 type: "Bookmark!"
-                resolve: "@=mutation('bookmark', [args['url'], args['title'], args['id']])"
+                resolve: "@=mutation('bookmark', [args['url'], args['title'], args['collectionId'], args['id']])"
                 args:
                     id:
                         type: "Int"
                         defaultValue: null
                     title:
                         type: "String!"
+                    url:
+                        type: "String!"
+                    collectionId:
+                        type: "Int!"
             collection:
                 type: "Collection!"
                 resolve: "@=mutation('collection', [args['title'], args['id']])"

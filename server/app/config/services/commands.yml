@@ -3,6 +3,7 @@ services:
         class: App\Application\Command\CreateBookmarkCommandHandler
         arguments:
             - '@app.infrastructure.repository.bookmark_repository'
+            - '@app.infrastructure.repository.collection_repository'
             - '@app.domain.rules.bookmark.unique_url_checker'
         tags:
             - { name: tactician.handler, command: App\Application\Command\CreateBookmarkCommand }

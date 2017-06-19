@@ -37,17 +37,18 @@ class BookmarkMutator
     /**
      * @param string   $url
      * @param string   $title
+     * @param int      $collectionId
      * @param int|null $id
      *
      * @return array
      * @throws UserError
      */
-    public function mutateBookmark(string $url, string $title, int $id = null) : array
+    public function mutateBookmark(string $url, string $title, int $collectionId, int $id = null) : array
     {
         try {
             $command = $id === null
-                ? new CreateBookmarkCommand($url, $title)
-                : new UpdateBookmarkCommand($id, $url, $title);
+                ? new CreateBookmarkCommand($url, $title, $collectionId)
+                : new UpdateBookmarkCommand($id, $url, $title, $collectionId);
 
             /** @var Bookmark $bookmark */
             $bookmark = $this->bus->handle($command);

@@ -12,10 +12,10 @@
         return (this.page - 1) * this.limit
       },
       collection () {
-        return this.$store.state.collections.edges[this.id] || null
+        return this.$store.state.collections[this.id] || null
       },
       bookmarks () {
-        return this.collection.bookmarks.edges || []
+        return this.$store.state.bookmarks[this.id] || []
       },
       id () {
         return parseInt(this.$route.params.id, 10)
@@ -43,7 +43,7 @@
         <template v-else>
             <h1>{{ collection.title }}</h1>
             <ul>
-                <li v-for="bookmark in collection.bookmarks.edges">
+                <li v-for="bookmark in bookmarks">
                     {{ bookmark.url }}
                 </li>
             </ul>
