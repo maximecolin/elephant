@@ -123,6 +123,7 @@ export default new Vuex.Store({
         // },
         // // Update cache of query which depends on the mutation data
         // // @see http://dev.apollodata.com/core/read-and-write.html#updating-the-cache-after-a-mutation
+        // // @see http://dev.apollodata.com/react/api-mutations.html#graphql-mutation-options-update
         // // @see https://dev-blog.apollodata.com/mutations-and-optimistic-ui-in-apollo-client-517eacee8fb0
         // update: (proxy, { data: { createBookmark } }) => {
         //   // Update CollectionsQuery
