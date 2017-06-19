@@ -101,7 +101,7 @@ export default new Vuex.Store({
           title: collection.title
         }
       }).then((result) => {
-        context.commit('ADD_COLLECTION', result.data.collection)
+        context.commit('ADD_COLLECTION', result.data.createCollection)
         context.commit('CLOSE_ADD_COLLECTION_MODAL')
       })
     },

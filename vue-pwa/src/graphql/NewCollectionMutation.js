@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 export default gql`
   mutation($title: String!) {
-    collection(title: $title) {
+    createCollection(title: $title) {
       id
       title
       bookmarks {

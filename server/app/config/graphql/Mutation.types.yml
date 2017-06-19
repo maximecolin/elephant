@@ -30,12 +30,17 @@ Mutation:
                 args:
                     id:
                         type: "Int"
-            collection:
+            createCollection:
                 type: "Collection!"
-                resolve: "@=mutation('collection', [args['title'], args['id']])"
+                resolve: "@=mutation('createCollection', [args['title']])"
+                args:
+                    title:
+                        type: "String!"
+            updateCollection:
+                type: "Collection!"
+                resolve: "@=mutation('updateCollection', [args['id'], args['title']])"
                 args:
                     id:
-                        type: "Int"
-                        defaultValue: null
+                        type: "Int!"
                     title:
                         type: "String!"

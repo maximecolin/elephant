@@ -35,21 +35,35 @@ class CollectionMutator
     }
 
     /**
-     * @param string   $title
-     * @param int|null $id
+     * @param string $title
      *
      * @return array
      * @throws UserError
      */
-    public function mutateCollection(string $title, int $id = null) : array
+    public function mutateCreateCollection(string $title)
     {
         try {
-            $command = $id === null
-                ? new CreateCollectionCommand($title)
-                : new UpdateCollectionCommand($id, $title);
-
             /** @var Collection $collection */
-            $collection = $this->bus->handle($command);
+            $collection = $this->bus->handle(new CreateCollectionCommand($title));
+
+            return $this->normalizer->normalize($collection);
+        } catch (DomainException $exception) {
+            throw new UserError($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param int    $id
+     * @param string $title
+     *
+     * @return array
+     * @throws UserError
+     */
+    public function mutateUpdateCollection(int $id, string $title)
+    {
+        try {
+            /** @var Collection $collection */
+            $collection = $this->bus->handle(new UpdateCollectionCommand($id, $title));
 
             return $this->normalizer->normalize($collection);
         } catch (DomainException $exception) {

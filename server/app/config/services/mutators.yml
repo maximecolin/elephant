@@ -15,4 +15,5 @@ services:
             - '@tactician.commandbus'
             - '@app.infrastructure.graph_ql.normalizer.collection_normalizer'
         tags:
-            - { name: overblog_graphql.mutation, alias: "collection", method: "mutateCollection" }
+            - { name: overblog_graphql.mutation, alias: "createCollection", method: "mutateCreateCollection" }
+            - { name: overblog_graphql.mutation, alias: "updateCollection", method: "mutateUpdateCollection" }
