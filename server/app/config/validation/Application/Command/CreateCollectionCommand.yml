@@ -1,0 +1,5 @@
+App\Application\Command\CreateCollectionCommand:
+    properties:
+        title:
+            - NotBlank: ~
+            - Type: { type: string }

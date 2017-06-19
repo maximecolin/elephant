@@ -1,0 +1,11 @@
+App\Application\Command\CreateBookmarkCommand:
+    properties:
+        url:
+            - NotBlank: ~
+            - Url: ~
+        title:
+            - NotBlank: ~
+            - Type: { type: string }
+        collectionId:
+            - NotBlank: ~
+            - Type: { type: integer }

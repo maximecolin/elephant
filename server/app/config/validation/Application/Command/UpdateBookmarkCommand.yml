@@ -1,0 +1,14 @@
+App\Application\Command\UpdateBookmarkCommand:
+    properties:
+        id:
+            - NotBlank: ~
+            - Type: { type: integer }
+        url:
+            - NotBlank: ~
+            - Url: ~
+        title:
+            - NotBlank: ~
+            - Type: { type: string }
+        collectionId:
+            - NotBlank: ~
+            - Type: { type: integer }

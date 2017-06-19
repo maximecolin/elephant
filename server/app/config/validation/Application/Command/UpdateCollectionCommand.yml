@@ -1,0 +1,8 @@
+App\Application\Command\UpdateCollectionCommand:
+    properties:
+        id:
+            - NotBlank: ~
+            - Type: { type: integer }
+        title:
+            - NotBlank: ~
+            - Type: { type: string }

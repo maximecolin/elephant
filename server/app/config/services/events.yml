@@ -1,0 +1,5 @@
+services:
+    app.infrastructure.event_listener.exception_subscriber:
+        class: App\Infrastructure\EventListener\ExceptionSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
