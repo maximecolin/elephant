@@ -21,7 +21,7 @@ interface BookmarkRepositoryInterface
      * @return Bookmark
      * @throws ModelNotFoundException
      */
-    public function findOnByUrl(string $url) : Bookmark;
+    public function findOneByUrl(string $url) : Bookmark;
 
     /**
      * @param int $offset

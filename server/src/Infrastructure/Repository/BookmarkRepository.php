@@ -37,7 +37,7 @@ class BookmarkRepository extends AbstractDoctrineRepository implements BookmarkR
     /**
      * {@inheritdoc}
      */
-    public function findOnByUrl(string $url) : Bookmark
+    public function findOneByUrl(string $url) : Bookmark
     {
         try {
             return $this

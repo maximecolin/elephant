@@ -32,7 +32,7 @@ class UniqueTitleChecker
     public function check(Collection $collection)
     {
         try {
-            if ($this->collectionRepository->findOnByTitle($collection->getTitle())->getId() !== $collection->getId()) {
+            if ($this->collectionRepository->findOneByTitle($collection->getTitle())->getId() !== $collection->getId()) {
                 throw new DuplicateException('Title already exists.');
             }
         } catch (ModelNotFoundException $exception) {

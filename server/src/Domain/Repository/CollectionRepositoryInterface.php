@@ -21,7 +21,7 @@ interface CollectionRepositoryInterface
      * @return Collection
      * @throws ModelNotFoundException
      */
-    public function findOnByTitle(string $title) : Collection;
+    public function findOneByTitle(string $title) : Collection;
 
     /**
      * @param int $offset

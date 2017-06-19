@@ -37,7 +37,7 @@ class CollectionRepository extends AbstractDoctrineRepository implements Collect
     /**
      * {@inheritdoc}
      */
-    public function findOnByTitle(string $title) : Collection
+    public function findOneByTitle(string $title) : Collection
     {
         try {
             return $this

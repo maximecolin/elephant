@@ -32,7 +32,7 @@ class UniqueUrlChecker
     public function check(Bookmark $bookmark)
     {
         try {
-            if ($this->bookmarkRepository->findOnByUrl($bookmark->getUrl())->getId() !== $bookmark->getId()) {
+            if ($this->bookmarkRepository->findOneByUrl($bookmark->getUrl())->getId() !== $bookmark->getId()) {
                 throw new DuplicateException('Url already exists.');
             }
         } catch (ModelNotFoundException $exception) {
