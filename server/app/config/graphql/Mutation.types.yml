@@ -2,13 +2,22 @@ Mutation:
     type: object
     config:
         fields:
-            bookmark:
+            createBookmark:
                 type: "Bookmark!"
-                resolve: "@=mutation('bookmark', [args['url'], args['title'], args['collectionId'], args['id']])"
+                resolve: "@=mutation('createBookmark', [args['url'], args['title'], args['collectionId']])"
+                args:
+                    title:
+                        type: "String!"
+                    url:
+                        type: "String!"
+                    collectionId:
+                        type: "Int!"
+            updateBookmark:
+                type: "Bookmark!"
+                resolve: "@=mutation('updateBookmark', [args['id'], args['url'], args['title'], args['collectionId']])"
                 args:
                     id:
-                        type: "Int"
-                        defaultValue: null
+                        type: "Int!"
                     title:
                         type: "String!"
                     url:

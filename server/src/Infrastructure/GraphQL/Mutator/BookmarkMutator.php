@@ -36,23 +36,39 @@ class BookmarkMutator
     }
 
     /**
-     * @param string   $url
-     * @param string   $title
-     * @param int      $collectionId
-     * @param int|null $id
+     * @param string $url
+     * @param string $title
+     * @param int    $collectionId
      *
      * @return array
      * @throws UserError
      */
-    public function mutateBookmark(string $url, string $title, int $collectionId, int $id = null) : array
+    public function mutateCreateBookmark(string $url, string $title, int $collectionId)
     {
         try {
-            $command = $id === null
-                ? new CreateBookmarkCommand($url, $title, $collectionId)
-                : new UpdateBookmarkCommand($id, $url, $title, $collectionId);
-
             /** @var Bookmark $bookmark */
-            $bookmark = $this->bus->handle($command);
+            $bookmark = $this->bus->handle(new CreateBookmarkCommand($url, $title, $collectionId));
+
+            return $this->normalizer->normalize($bookmark);
+        } catch (DomainException $exception) {
+            throw new UserError($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param int    $id
+     * @param string $url
+     * @param string $title
+     * @param int    $collectionId
+     *
+     * @return array
+     * @throws UserError
+     */
+    public function mutateUpdateBookmark(int $id, string $url, string $title, int $collectionId)
+    {
+        try {
+            /** @var Bookmark $bookmark */
+            $bookmark = $this->bus->handle(new UpdateBookmarkCommand($id, $url, $title, $collectionId));
 
             return $this->normalizer->normalize($bookmark);
         } catch (DomainException $exception) {

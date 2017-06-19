@@ -114,7 +114,7 @@ export default new Vuex.Store({
           collectionId: payload.collectionId
         }
       }).then((result) => {
-        context.commit('ADD_BOOKMARK', { collectionId: payload.collectionId, bookmark: result.data.bookmark })
+        context.commit('ADD_BOOKMARK', { collectionId: payload.collectionId, bookmark: result.data.createBookmark })
         context.commit('CLOSE_ADD_BOOKMARK_MODAL')
       })
     },
