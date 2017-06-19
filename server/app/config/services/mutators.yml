@@ -6,6 +6,7 @@ services:
             - '@app.infrastructure.graph_ql.normalizer.bookmark_normalizer'
         tags:
             - { name: overblog_graphql.mutation, alias: "bookmark", method: "mutateBookmark" }
+            - { name: overblog_graphql.mutation, alias: "removeBookmark", method: "mutateRemoveBookmark" }
 
     app.infrastructure.graph_ql.mutator.collection_mutator:
         class: App\Infrastructure\GraphQL\Mutator\CollectionMutator

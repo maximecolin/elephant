@@ -103,4 +103,12 @@ class BookmarkRepository extends AbstractDoctrineRepository implements BookmarkR
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove(Bookmark $bookmark)
+    {
+        $this->entityManager->remove($bookmark);
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Application\Command;
 
 use App\Domain\Model\Bookmark;
 use App\Domain\Repository\BookmarkRepositoryInterface;
-use App\Domain\Rules\Bookmark\UniqueTitleChecker;
+use App\Domain\Rules\Bookmark\UniqueUrlChecker;
 
 class UpdateBookmarkCommandHandler
 {
@@ -14,7 +14,7 @@ class UpdateBookmarkCommandHandler
     private $bookmarkRepository;
 
     /**
-     * @var UniqueTitleChecker
+     * @var UniqueUrlChecker
      */
     private $uniqueUrlChecker;
 
@@ -22,9 +22,9 @@ class UpdateBookmarkCommandHandler
      * UpdateBookmarkCommandHandler constructor.
      *
      * @param BookmarkRepositoryInterface $bookmarkRepository
-     * @param UniqueTitleChecker          $uniqueUrlChecker
+     * @param UniqueUrlChecker          $uniqueUrlChecker
      */
-    public function __construct(BookmarkRepositoryInterface $bookmarkRepository, UniqueTitleChecker $uniqueUrlChecker)
+    public function __construct(BookmarkRepositoryInterface $bookmarkRepository, UniqueUrlChecker $uniqueUrlChecker)
     {
         $this->bookmarkRepository = $bookmarkRepository;
         $this->uniqueUrlChecker = $uniqueUrlChecker;

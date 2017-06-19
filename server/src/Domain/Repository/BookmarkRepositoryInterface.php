@@ -56,4 +56,9 @@ interface BookmarkRepositoryInterface
      * @return array
      */
     public function findAllByCollectionId(int $id, int $offset, int $limit) : array;
+
+    /**
+     * @param Bookmark $bookmark
+     */
+    public function remove(Bookmark $bookmark);
 }

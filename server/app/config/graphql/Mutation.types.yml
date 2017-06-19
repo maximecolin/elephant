@@ -15,6 +15,12 @@ Mutation:
                         type: "String!"
                     collectionId:
                         type: "Int!"
+            removeBookmark:
+                type: "Boolean"
+                resolve: "@=mutation('removeBookmark', [args['id']])"
+                args:
+                    id:
+                        type: "Int"
             collection:
                 type: "Collection!"
                 resolve: "@=mutation('collection', [args['title'], args['id']])"

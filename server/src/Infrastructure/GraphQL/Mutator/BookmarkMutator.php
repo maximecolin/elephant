@@ -3,6 +3,7 @@
 namespace App\Infrastructure\GraphQL\Mutator;
 
 use App\Application\Command\CreateBookmarkCommand;
+use App\Application\Command\RemoveBookmarkCommand;
 use App\Application\Command\UpdateBookmarkCommand;
 use App\Domain\Exception\DomainException;
 use App\Domain\Model\Bookmark;
@@ -54,6 +55,21 @@ class BookmarkMutator
             $bookmark = $this->bus->handle($command);
 
             return $this->normalizer->normalize($bookmark);
+        } catch (DomainException $exception) {
+            throw new UserError($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Bookmark
+     * @throws UserError
+     */
+    public function mutateRemoveBookmark(int $id)
+    {
+        try {
+            return $this->bus->handle(new RemoveBookmarkCommand($id));
         } catch (DomainException $exception) {
             throw new UserError($exception->getMessage());
         }

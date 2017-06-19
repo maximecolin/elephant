@@ -16,6 +16,13 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\UpdateBookmarkCommand }
 
+    app.application.command.remove_bookmark_command_handler:
+        class: App\Application\Command\RemoveBookmarkCommandHandler
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\RemoveBookmarkCommand }
+
     app.application.command.create_collection_command_handler:
         class: App\Application\Command\CreateCollectionCommandHandler
         arguments:

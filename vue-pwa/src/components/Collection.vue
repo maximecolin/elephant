@@ -25,6 +25,9 @@
       handleRoute () {
         this.page = this.$route.query.page ? parseInt(this.$route.query.page, 10) : 1
         this.$store.dispatch('GET_COLLECTION', this.id)
+      },
+      remove (bookmark) {
+        this.$store.dispatch('REMOVE_BOOKMARK', { collectionId: this.id, bookmark: bookmark })
       }
     },
     watch: {
@@ -45,6 +48,7 @@
             <ul>
                 <li v-for="bookmark in bookmarks">
                     {{ bookmark.url }}
+                    <button type="button" class="btn btn-danger btn-sm" v-on:click="remove(bookmark)">&times;</button>
                 </li>
             </ul>
         </template>
