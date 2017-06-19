@@ -32,7 +32,7 @@ class CreateCollectionCommandHandler
     }
 
     /**
-     * @var CreateCollectionCommand $command
+     * @param CreateCollectionCommand $command
      *
      * @return Collection
      */

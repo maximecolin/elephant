@@ -42,7 +42,7 @@ class CreateBookmarkCommandHandler
     }
 
     /**
-     * @var CreateBookmarkCommand $command
+     * @param CreateBookmarkCommand $command
      *
      * @return Bookmark
      */

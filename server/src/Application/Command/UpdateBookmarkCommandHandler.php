@@ -31,7 +31,7 @@ class UpdateBookmarkCommandHandler
     }
 
     /**
-     * @var UpdateBookmarkCommand $command
+     * @param UpdateBookmarkCommand $command
      *
      * @return Bookmark
      */

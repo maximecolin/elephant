@@ -23,7 +23,7 @@ class RemoveBookmarkCommandHandler
     }
 
     /**
-     * @var RemoveBookmarkCommand $command
+     * @param RemoveBookmarkCommand $command
      *
      * @return Bookmark
      */

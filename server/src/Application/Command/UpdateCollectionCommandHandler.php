@@ -31,7 +31,7 @@ class UpdateCollectionCommandHandler
     }
 
     /**
-     * @var UpdateCollectionCommand $command
+     * @param UpdateCollectionCommand $command
      *
      * @return Collection
      */
