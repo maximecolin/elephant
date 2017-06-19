@@ -4,7 +4,8 @@ import ApolloClient, { createNetworkInterface } from 'apollo-client'
 const client = new ApolloClient({
   networkInterface: createNetworkInterface({
     uri: 'http://server.elephant.dev/graphql/',
-    transportBatching: true
+    transportBatching: true,
+    dataIdFromObject: object => object.id
     // opts: {
     //   headers: {
     //     key: 'SecretKey',

@@ -107,13 +107,48 @@ export default new Vuex.Store({
     },
     ADD_BOOKMARK (context, payload) {
       apollo.mutate({
+        // Perfom mutation
         mutation: NewBookmarkMutation,
         variables: {
           title: payload.title,
           url: payload.url,
           collectionId: payload.collectionId
+        },
+        // Optimistic response
+        optimisticResponse: {
+          id: -1,
+          title: payload.title,
+          url: payload.url
         }
+        // },
+        // // Update cache of query which depends on the mutation data
+        // // @see http://dev.apollodata.com/core/read-and-write.html#updating-the-cache-after-a-mutation
+        // // @see https://dev-blog.apollodata.com/mutations-and-optimistic-ui-in-apollo-client-517eacee8fb0
+        // update: (proxy, { data: { createBookmark } }) => {
+        //   // Update CollectionsQuery
+        //
+        //   const variables = { offset: 0, limit: 100 }
+        //   const data = proxy.readQuery({ query: CollectionsQuery, variables })
+        //
+        //   data.collections.edges.map((collection) => {
+        //     if (collection.id === payload.collectionId) {
+        //       collection.bookmarks.total++
+        //     }
+        //   })
+        //
+        //   proxy.writeQuery({ query: CollectionsQuery, variables, data })
+        //
+        //   // Update CollectionQuery
+        //
+        //   const variables2 = { id: payload.collectionId, offset: 0, limit: 100 }
+        //   const data2 = proxy.readQuery({ query: CollectionQuery, variables })
+        //
+        //   data2.bookmarks.total++
+        //
+        //   proxy.writeQuery({ query: CollectionQuery, variables2, data2 })
+        // }
       }).then((result) => {
+        // Update state
         context.commit('ADD_BOOKMARK', { collectionId: payload.collectionId, bookmark: result.data.createBookmark })
         context.commit('CLOSE_ADD_BOOKMARK_MODAL')
       })

@@ -24,7 +24,11 @@
     methods: {
       handleRoute () {
         this.page = this.$route.query.page ? parseInt(this.$route.query.page, 10) : 1
-        this.$store.dispatch('GET_COLLECTION', this.id)
+
+        // Don't call GET_COLLECTION if bookmarks are already fetched to prevent collection to be reset from apollo cache
+        if (this.$store.state.bookmarks[this.id] === undefined) {
+          this.$store.dispatch('GET_COLLECTION', this.id)
+        }
       },
       remove (bookmark) {
         this.$store.dispatch('REMOVE_BOOKMARK', { collectionId: this.id, bookmark: bookmark })
