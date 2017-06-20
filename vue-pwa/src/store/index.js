@@ -79,8 +79,10 @@ export default new Vuex.Store({
     },
     REMOVE_ALERT (state, alert) {
       const index = state.alerts.indexOf(alert)
-      state.alerts[index].show = false
-      setTimeout(() => { state.alerts.splice(state.alerts.indexOf(alert), 1) }, 400)
+      if (index >= 0) {
+        state.alerts[index].show = false
+        setTimeout(() => { state.alerts.splice(state.alerts.indexOf(alert), 1) }, 400)
+      }
     }
   },
   actions: {
