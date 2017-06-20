@@ -16,7 +16,8 @@ export default new Vuex.Store({
       addCollection: false
     },
     collections: {},
-    bookmarks: {}
+    bookmarks: {},
+    alerts: []
   },
   mutations: {
     OPEN_ADD_BOOKMARK_MODAL (state) {
@@ -71,6 +72,14 @@ export default new Vuex.Store({
         }
       })
       Vue.set(state.bookmarks, payload.collectionId, object)
+    },
+    ADD_ALERT (state, alert) {
+      state.alerts.push(alert)
+    },
+    REMOVE_ALERT (state, alert) {
+      const index = state.alerts.indexOf(alert)
+      state.alerts[index].show = false
+      setTimeout(() => { state.alerts.splice(state.alerts.indexOf(alert), 1) }, 400)
     }
   },
   actions: {
@@ -103,6 +112,7 @@ export default new Vuex.Store({
       }).then((result) => {
         context.commit('ADD_COLLECTION', result.data.createCollection)
         context.commit('CLOSE_ADD_COLLECTION_MODAL')
+        context.dispatch('ADD_ALERT', { type: 'inverse', message: 'Votre collection a été ajoutée', show: true })
       })
     },
     ADD_BOOKMARK (context, payload) {
@@ -152,6 +162,7 @@ export default new Vuex.Store({
         // Update state
         context.commit('ADD_BOOKMARK', { collectionId: payload.collectionId, bookmark: result.data.createBookmark })
         context.commit('CLOSE_ADD_BOOKMARK_MODAL')
+        context.dispatch('ADD_ALERT', { type: 'inverse', message: 'Votre favoris a été ajouté', show: true })
       })
     },
     REMOVE_BOOKMARK (context, payload) {
@@ -163,8 +174,13 @@ export default new Vuex.Store({
       }).then((result) => {
         if (result.data.removeBookmark === true) {
           context.commit('REMOVE_BOOKMARK', { collectionId: payload.collectionId, bookmark: payload.bookmark })
+          context.dispatch('ADD_ALERT', { type: 'inverse', message: 'Le favoris a été supprimé', show: true })
         }
       })
+    },
+    ADD_ALERT (context, alert) {
+      context.commit('ADD_ALERT', alert)
+      setTimeout(() => { context.commit('REMOVE_ALERT', alert) }, 5000)
     }
   }
 })

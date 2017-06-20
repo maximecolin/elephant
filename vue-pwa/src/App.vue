@@ -2,13 +2,15 @@
   import CollectionNav from '@/components/CollectionNav'
   import NewBookmarkModal from '@/components/NewBookmarkModal'
   import NewCollectionModal from '@/components/NewCollectionModal'
+  import Alerts from '@/components/Alerts'
 
   export default {
     name: 'app',
     components: {
       CollectionNav,
       NewBookmarkModal,
-      NewCollectionModal
+      NewCollectionModal,
+      Alerts
     },
     mounted () {
       this.$store.dispatch('INIT')
@@ -69,6 +71,7 @@
             </div>
         </div>
 
+        <alerts></alerts>
         <new-bookmark-modal></new-bookmark-modal>
         <new-collection-modal></new-collection-modal>
 
