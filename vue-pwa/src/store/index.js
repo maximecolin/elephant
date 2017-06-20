@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import NewCollectionMutation from '../graphql/NewCollectionMutation'
+import UpdateCollectionMutation from '../graphql/UpdateCollectionMutation'
 import NewBookmarkMutation from '../graphql/NewBookmarkMutation'
 import RemoveBookmarkMutation from '../graphql/RemoveBookmarkMutation'
 import CollectionsQuery from '../graphql/CollectionsQuery'
@@ -113,6 +114,18 @@ export default new Vuex.Store({
         context.commit('ADD_COLLECTION', result.data.createCollection)
         context.commit('CLOSE_ADD_COLLECTION_MODAL')
         context.dispatch('ADD_ALERT', { type: 'inverse', message: 'Votre collection a été ajoutée', show: true })
+      })
+    },
+    UPDATE_COLLECTION (context, collection) {
+      apollo.mutate({
+        mutation: UpdateCollectionMutation,
+        variables: {
+          id: collection.id,
+          title: collection.title
+        }
+      }).then((result) => {
+        context.commit('ADD_COLLECTION', result.data.updateCollection)
+        context.dispatch('ADD_ALERT', { type: 'inverse', message: 'La collection a été mise à jour', show: true })
       })
     },
     ADD_BOOKMARK (context, payload) {

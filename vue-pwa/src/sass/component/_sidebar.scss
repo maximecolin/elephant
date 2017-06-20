@@ -52,14 +52,29 @@
         }
 
         &.active {
+            a {
+                color: $white;
+            }
+
             .badge-default {
                 background-color: #fff;
                 color: $badge-default-bg;
             }
         }
+
+        .btn {
+            padding: 0;
+        }
     }
 
 }
 
+.toggle-item-hover {
+    .toggle-item-hover-show { display: inherit; }
+    .toggle-item-hover-hide { display: none; }
 
-
+    &:hover {
+        .toggle-item-hover-show { display: none; }
+        .toggle-item-hover-hide { display: inherit; }
+    }
+}
