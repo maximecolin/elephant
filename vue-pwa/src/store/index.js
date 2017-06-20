@@ -12,6 +12,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    ready: false,
     modal: {
       addBookmark: false,
       addCollection: false
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     alerts: []
   },
   mutations: {
+    MARK_AS_READY (state) {
+      state.ready = true
+    },
     OPEN_ADD_BOOKMARK_MODAL (state) {
       state.modal.addBookmark = true
     },
@@ -91,6 +95,7 @@ export default new Vuex.Store({
         query: CollectionsQuery
       }).then((result) => {
         context.commit('SET_COLLECTIONS', result.data.collections)
+        context.commit('MARK_AS_READY')
       })
     },
     GET_COLLECTION (context, id) {
