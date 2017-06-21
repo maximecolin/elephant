@@ -1,45 +1,9 @@
 @import "vendor/bootstrap";
 @import "vendor/font";
 
+@import "component/base";
+@import "component/typo";
+@import "component/modal";
 @import "component/sidebar";
 @import "component/alerts";
 @import "component/loader";
-
-/*
- * Base structure
- */
-
-/* Move down content because we have a fixed navbar that is 50px tall */
-body {
-    padding-top: 50px;
-}
-
-/*
- * Typography
- */
-
-h1 {
-    margin-bottom: 20px;
-    padding-bottom: 9px;
-    border-bottom: 1px solid #eee;
-}
-
-.navbar-brand {
-    img {
-        margin-right: 10px;
-    }
-}
-
-button {
-    cursor: pointer;
-}
-
-button, a {
-    &:active, &:hover, &:focus, &:link, &:target, &:visited {
-        outline: none !important;
-    }
-}
-
-.modal {
-    background-color: rgba(0, 0, 0, 0.7);
-}

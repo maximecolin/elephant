@@ -1,0 +1,21 @@
+h1 {
+    margin-bottom: 20px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #eee;
+}
+
+.navbar-brand {
+    img {
+        margin-right: 10px;
+    }
+}
+
+button {
+    cursor: pointer;
+}
+
+button, a {
+    &:active, &:hover, &:focus, &:link, &:target, &:visited {
+        outline: none !important;
+    }
+}
