@@ -44,3 +44,9 @@ Mutation:
                         type: "Int!"
                     title:
                         type: "String!"
+            removeCollection:
+                type: "Boolean"
+                resolve: "@=mutation('removeCollection', [args['id']])"
+                args:
+                    id:
+                        type: "Int"

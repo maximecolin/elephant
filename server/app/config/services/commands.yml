@@ -38,3 +38,10 @@ services:
             - '@app.domain.rules.collection.unique_title_checker'
         tags:
             - { name: tactician.handler, command: App\Application\Command\UpdateCollectionCommand }
+
+    app.application.command.remove_collection_command_handler:
+        class: App\Application\Command\RemoveCollectionCommandHandler
+        arguments:
+            - '@app.infrastructure.repository.collection_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\RemoveCollectionCommand }

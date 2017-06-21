@@ -17,3 +17,4 @@ services:
         tags:
             - { name: overblog_graphql.mutation, alias: "createCollection", method: "mutateCreateCollection" }
             - { name: overblog_graphql.mutation, alias: "updateCollection", method: "mutateUpdateCollection" }
+            - { name: overblog_graphql.mutation, alias: "removeCollection", method: "mutateRemoveCollection" }

@@ -3,6 +3,7 @@
 namespace App\Infrastructure\GraphQL\Mutator;
 
 use App\Application\Command\CreateCollectionCommand;
+use App\Application\Command\RemoveCollectionCommand;
 use App\Application\Command\UpdateCollectionCommand;
 use App\Domain\Exception\DomainException;
 use App\Domain\Model\Collection;
@@ -66,6 +67,21 @@ class CollectionMutator
             $collection = $this->bus->handle(new UpdateCollectionCommand($id, $title));
 
             return $this->normalizer->normalize($collection);
+        } catch (DomainException $exception) {
+            throw new UserError($exception->getMessage());
+        }
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return Collection
+     * @throws UserError
+     */
+    public function mutateRemoveCollection(int $id)
+    {
+        try {
+            return $this->bus->handle(new RemoveCollectionCommand($id));
         } catch (DomainException $exception) {
             throw new UserError($exception->getMessage());
         }

@@ -40,4 +40,9 @@ interface CollectionRepositoryInterface
      * @param Collection $collection
      */
     public function add(Collection $collection);
+
+    /**
+     * @param Collection $collection
+     */
+    public function remove(Collection $collection);
 }

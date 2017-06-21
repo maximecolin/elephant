@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import NewCollectionMutation from '../graphql/NewCollectionMutation'
 import UpdateCollectionMutation from '../graphql/UpdateCollectionMutation'
+import RemoveCollectionMutation from '../graphql/RemoveCollectionMutation'
 import NewBookmarkMutation from '../graphql/NewBookmarkMutation'
 import RemoveBookmarkMutation from '../graphql/RemoveBookmarkMutation'
 import CollectionsQuery from '../graphql/CollectionsQuery'
@@ -56,6 +57,10 @@ export default new Vuex.Store({
         title: collection.title,
         bookmarks: collection.bookmarks.total
       })
+    },
+    REMOVE_COLLECTION (state, collection) {
+      Vue.delete(state.collections, collection.id)
+      Vue.delete(state.bookmarks, collection.id)
     },
     ADD_BOOKMARK (state, payload) {
       Vue.set(state.bookmarks[payload.collectionId], payload.bookmark.id, payload.bookmark)
@@ -133,6 +138,17 @@ export default new Vuex.Store({
       }).then((result) => {
         context.commit('ADD_COLLECTION', result.data.updateCollection)
         context.dispatch('ADD_ALERT', { type: 'inverse', message: 'La collection a été mise à jour', show: true })
+      })
+    },
+    REMOVE_COLLECTION (context, collection) {
+      apollo.mutate({
+        mutation: RemoveCollectionMutation,
+        variables: {
+          id: collection.id
+        }
+      }).then((result) => {
+        context.commit('REMOVE_COLLECTION', collection)
+        context.dispatch('ADD_ALERT', { type: 'inverse', message: 'La colletion a été supprimée', show: true })
       })
     },
     ADD_BOOKMARK (context, payload) {

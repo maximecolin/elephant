@@ -79,4 +79,12 @@ class CollectionRepository extends AbstractDoctrineRepository implements Collect
     {
         $this->entityManager->persist($collection);
     }
+
+    /**
+     * @param Collection $collection
+     */
+    public function remove(Collection $collection)
+    {
+        $this->entityManager->remove($collection);
+    }
 }
