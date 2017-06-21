@@ -23,7 +23,7 @@ export default new Vuex.Store({
   },
   mutations: {
     MARK_AS_READY (state) {
-      state.ready = true
+      setTimeout(() => { state.ready = true }, 2000)
     },
     OPEN_ADD_BOOKMARK_MODAL (state) {
       state.modal.addBookmark = true

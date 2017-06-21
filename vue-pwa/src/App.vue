@@ -44,7 +44,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <router-link class="navbar-brand" :to="{ name: 'Home' }">
-                  <img src="./assets/elephant.svg" width="30" height="30" alt="">
+                  <img src="./assets/elephant.svg" width="40" height="30" alt="">
                   Elephant
                 </router-link>
             </nav>
@@ -84,7 +84,7 @@
 
         </template>
         <template v-else>
-            Loading ...
+            <div class="loader"></div>
         </template>
 
     </div>
