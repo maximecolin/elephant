@@ -49,9 +49,11 @@
         </template>
         <template v-else>
             <h1>{{ collection.title }}</h1>
-            <ul>
-                <li v-for="bookmark in bookmarks">
-                    {{ bookmark.url }}
+            <ul class="list-group">
+                <li v-for="bookmark in bookmarks" class="list-group-item collection-bookmark">
+                    {{ bookmark.title }}<br>
+                    {{ bookmark.url }}<br>
+
                     <button type="button" class="btn btn-danger btn-sm" v-on:click="remove(bookmark)">&times;</button>
                 </li>
             </ul>
