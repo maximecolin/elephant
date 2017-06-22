@@ -14,7 +14,6 @@
           return []
         },
         set (bookmarks) {
-          console.log(bookmarks)
           this.$store.dispatch('MOVE_BOOKMARK', { bookmark: bookmarks[0], collection: this.collection })
         }
       }
