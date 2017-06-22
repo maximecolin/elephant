@@ -9,16 +9,6 @@
       collections () {
         return this.$store.state.collections
       }
-    },
-    methods: {
-      remove (collection) {
-        if (confirm('Confirmer la suppression ?')) {
-          this.$store.dispatch('REMOVE_COLLECTION', collection)
-          if (this.$route.params.id === collection.id) {
-            this.$router.push({ name: 'Home' })
-          }
-        }
-      }
     }
   }
 </script>
