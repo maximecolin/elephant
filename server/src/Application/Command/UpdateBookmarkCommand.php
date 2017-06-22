@@ -22,7 +22,7 @@ class UpdateBookmarkCommand
     /**
      * @var int
      */
-    private $collectionId;
+    public $collectionId;
 
     /**
      * UpdateBookmarkCommand constructor.

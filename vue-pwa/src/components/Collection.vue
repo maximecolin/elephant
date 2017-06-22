@@ -1,5 +1,10 @@
 <script>
+  import draggable from 'vuedraggable'
+
   export default {
+    components: {
+      draggable
+    },
     data: () => ({
       page: 1,
       limit: 10
@@ -16,6 +21,9 @@
       },
       bookmarks () {
         return this.$store.state.bookmarks[this.id] || []
+      },
+      bookmarksArray () {
+        return Object.keys(this.bookmarks).map(key => this.bookmarks[key])
       },
       id () {
         return parseInt(this.$route.params.id, 10)
@@ -49,14 +57,14 @@
         </template>
         <template v-else>
             <h1>{{ collection.title }}</h1>
-            <ul class="list-group">
-                <li v-for="bookmark in bookmarks" class="list-group-item collection-bookmark">
+            <draggable v-model="bookmarksArray" :element="'ul'" :options="{ group: 'bookmarks' }" class="list-group">
+                <li v-for="bookmark in bookmarksArray" class="list-group-item collection-bookmark">
                     {{ bookmark.title }}<br>
                     {{ bookmark.url }}<br>
 
                     <button type="button" class="btn btn-danger btn-sm" v-on:click="remove(bookmark)">&times;</button>
                 </li>
-            </ul>
+            </draggable>
         </template>
     </div>
 </template>

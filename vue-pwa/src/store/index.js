@@ -4,6 +4,7 @@ import NewCollectionMutation from '../graphql/NewCollectionMutation'
 import UpdateCollectionMutation from '../graphql/UpdateCollectionMutation'
 import RemoveCollectionMutation from '../graphql/RemoveCollectionMutation'
 import NewBookmarkMutation from '../graphql/NewBookmarkMutation'
+import UpdateBookmarkMutation from '../graphql/UpdateBookmarkMutation'
 import RemoveBookmarkMutation from '../graphql/RemoveBookmarkMutation'
 import CollectionsQuery from '../graphql/CollectionsQuery'
 import CollectionQuery from '../graphql/CollectionQuery'
@@ -62,26 +63,32 @@ export default new Vuex.Store({
       Vue.delete(state.collections, collection.id)
       Vue.delete(state.bookmarks, collection.id)
     },
-    ADD_BOOKMARK (state, payload) {
-      Vue.set(state.bookmarks[payload.collectionId], payload.bookmark.id, payload.bookmark)
-      state.collections[payload.collectionId].bookmarks++
+    ADD_BOOKMARK (state, { bookmark, collectionId }) {
+      // Don't update bookmarks list if it has not been fetched yet
+      // List will be populate by GET_COLLECTION
+      if (state.bookmarks[collectionId] !== undefined) {
+        Vue.set(state.bookmarks[collectionId], bookmark.id, bookmark)
+      }
+
+      state.collections[collectionId].bookmarks++
     },
-    REMOVE_BOOKMARK (state, payload) {
-      Vue.delete(state.bookmarks[payload.collectionId], payload.bookmark.id)
-      state.collections[payload.collectionId].bookmarks--
+    REMOVE_BOOKMARK (state, { bookmark, collectionId }) {
+      Vue.delete(state.bookmarks[collectionId], bookmark.id)
+      state.collections[collectionId].bookmarks--
     },
-    SET_BOOKMARKS (state, payload) {
+    SET_BOOKMARKS (state, { bookmarks, collectionId }) {
       // having an object instead of an array makes the other methods easier
       // since we can use Vue.set() and Vue.delete()
       const object = {}
-      payload.bookmarks.map((bookmark) => {
+      bookmarks.map((bookmark) => {
         object[bookmark.id] = {
           id: bookmark.id,
           title: bookmark.title,
-          url: bookmark.url
+          url: bookmark.url,
+          collectionId: collectionId
         }
       })
-      Vue.set(state.bookmarks, payload.collectionId, object)
+      Vue.set(state.bookmarks, collectionId, object)
     },
     ADD_ALERT (state, alert) {
       state.alerts.push(alert)
@@ -151,20 +158,16 @@ export default new Vuex.Store({
         context.dispatch('ADD_ALERT', { type: 'inverse', message: 'La colletion a été supprimée', show: true })
       })
     },
-    ADD_BOOKMARK (context, payload) {
+    ADD_BOOKMARK (context, { title, url, collectionId }) {
       apollo.mutate({
         // Perfom mutation
         mutation: NewBookmarkMutation,
-        variables: {
-          title: payload.title,
-          url: payload.url,
-          collectionId: payload.collectionId
-        },
+        variables: { title, url, collectionId },
         // Optimistic response
         optimisticResponse: {
           id: -1,
-          title: payload.title,
-          url: payload.url
+          title: title,
+          url: url
         }
         // },
         // // Update cache of query which depends on the mutation data
@@ -195,23 +198,52 @@ export default new Vuex.Store({
         //   proxy.writeQuery({ query: CollectionQuery, variables2, data2 })
         // }
       }).then((result) => {
+        let bookmark = {
+          id: result.data.createBookmark.id,
+          title: result.data.createBookmark.title,
+          url: result.data.createBookmark.url,
+          collectionId
+        }
+
         // Update state
-        context.commit('ADD_BOOKMARK', { collectionId: payload.collectionId, bookmark: result.data.createBookmark })
+        context.commit('ADD_BOOKMARK', { bookmark, collectionId })
         context.commit('CLOSE_ADD_BOOKMARK_MODAL')
         context.dispatch('ADD_ALERT', { type: 'inverse', message: 'Votre favoris a été ajouté', show: true })
       })
     },
-    REMOVE_BOOKMARK (context, payload) {
+    REMOVE_BOOKMARK (context, { bookmark, collectionId }) {
       apollo.mutate({
         mutation: RemoveBookmarkMutation,
         variables: {
-          id: payload.bookmark.id
+          id: bookmark.id
         }
       }).then((result) => {
         if (result.data.removeBookmark === true) {
-          context.commit('REMOVE_BOOKMARK', { collectionId: payload.collectionId, bookmark: payload.bookmark })
+          context.commit('REMOVE_BOOKMARK', { collectionId: collectionId, bookmark: bookmark })
           context.dispatch('ADD_ALERT', { type: 'inverse', message: 'Le favoris a été supprimé', show: true })
         }
+      })
+    },
+    MOVE_BOOKMARK (context, { bookmark, collection }) {
+      apollo.mutate({
+        mutation: UpdateBookmarkMutation,
+        variables: {
+          id: bookmark.id,
+          title: bookmark.title,
+          url: bookmark.url,
+          collectionId: collection.id
+        }
+      }).then((result) => {
+        let newBookmark = {
+          id: bookmark.id,
+          title: bookmark.title,
+          url: bookmark.url,
+          collectionId: collection.id
+        }
+
+        context.commit('REMOVE_BOOKMARK', { bookmark, collectionId: bookmark.collectionId })
+        context.commit('ADD_BOOKMARK', { bookmark: newBookmark, collectionId: newBookmark.collectionId })
+        context.dispatch('ADD_ALERT', { type: 'inverse', message: 'Le favoris a été déplacé', show: true })
       })
     },
     ADD_ALERT (context, alert) {
