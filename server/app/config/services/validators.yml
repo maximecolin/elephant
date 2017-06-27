@@ -1,0 +1,7 @@
+services:
+    app.infrastructure.validator.constraints.containter_expression_validator:
+        class: App\Infrastructure\Validator\Constraints\ContainterExpressionValidator
+        arguments:
+            - '@service_container'
+        tags:
+            - { name: validator.constraint_validator, alias: validator.container_expression }

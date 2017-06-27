@@ -31,12 +31,23 @@ class UniqueUrlChecker
      */
     public function check(Bookmark $bookmark)
     {
+        if (!$this->isUnique($bookmark->getUrl(), $bookmark->getId())) {
+            throw new DuplicateException('Url already exists.');
+        }
+    }
+
+    /**
+     * @param string $url
+     * @param string $id
+     *
+     * @return bool
+     */
+    public function isUnique(string $url, string $id = null)
+    {
         try {
-            if ($this->bookmarkRepository->findOneByUrl($bookmark->getUrl())->getId() !== $bookmark->getId()) {
-                throw new DuplicateException('Url already exists.');
-            }
+            return $this->bookmarkRepository->findOneByUrl($url)->getId() === $id;
         } catch (ModelNotFoundException $exception) {
-            // If model is not found, the bookmark pass the check, then do nothing.
+            return true;
         }
     }
 }

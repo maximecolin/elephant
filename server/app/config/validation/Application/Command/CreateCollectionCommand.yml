@@ -3,3 +3,6 @@ App\Application\Command\CreateCollectionCommand:
         title:
             - NotBlank: ~
             - Type: { type: string }
+            - App\Infrastructure\Validator\Constraints\ContainerExpression:
+                expression: "service('app.domain.rules.collection.unique_title_checker').isUnique(this.title)"
+                message: "Il existe déjà une collection avec ce titre."

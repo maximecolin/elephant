@@ -3,6 +3,7 @@
 namespace App\Ui\Action\Bookmark;
 
 use App\Application\Command\CreateBookmarkCommand;
+use App\Domain\Exception\DuplicateException;
 use App\Domain\Repository\CollectionRepositoryInterface;
 use App\Ui\Form\Type\Bookmark\CreateType;
 use League\Tactician\CommandBus;
@@ -11,6 +12,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 use Symfony\Component\Routing\RouterInterface;
 
 class AddAction
@@ -41,6 +43,11 @@ class AddAction
     private $router;
 
     /**
+     * @var FlashBag
+     */
+    private $flashBag;
+
+    /**
      * AddAction constructor.
      *
      * @param CollectionRepositoryInterface $collectionRepository
@@ -48,19 +55,22 @@ class AddAction
      * @param FormFactoryInterface          $formFactory
      * @param EngineInterface               $engine
      * @param RouterInterface               $router
+     * @param FlashBag                      $flashBag
      */
     public function __construct(
         CollectionRepositoryInterface $collectionRepository,
         CommandBus $commandBus,
         FormFactoryInterface $formFactory,
         EngineInterface $engine,
-        RouterInterface $router
+        RouterInterface $router,
+        FlashBag $flashBag
     ) {
         $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
         $this->engine = $engine;
         $this->router = $router;
         $this->collectionRepository = $collectionRepository;
+        $this->flashBag = $flashBag;
     }
 
     /**
@@ -76,11 +86,17 @@ class AddAction
         $form = $this->formFactory->create(CreateType::class, $command);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle($command);
 
-            return new RedirectResponse($this->router->generate('collection', [
-                'collectionId' => $collection->getId(),
-            ]));
+            try {
+                $this->commandBus->handle($command);
+                $this->flashBag->add('inverse', 'Votre favoris a été ajouté.');
+
+                return new RedirectResponse($this->router->generate('collection', [
+                    'collectionId' => $collection->getId(),
+                ]));
+            } catch (DuplicateException $exception) {
+                $this->flashBag->add('inverse', $exception->getMessage());
+            }
         }
 
         return $this->engine->renderResponse('bookmark/add.html.twig', [

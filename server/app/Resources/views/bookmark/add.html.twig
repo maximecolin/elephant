@@ -3,6 +3,7 @@
 {% block content %}
     <h1>Nouveau favoris</h1>
     {{ form_start(form) }}
+        {{ form_errors(form) }}
         <div class="form-group">
             {{ form_label(form.url, 'Url') }}
             {{ form_widget(form.url, { attr: { class: 'form-control', placeholder: 'Entrez une url' } }) }}

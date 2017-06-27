@@ -3,6 +3,9 @@ App\Application\Command\CreateBookmarkCommand:
         url:
             - NotBlank: ~
             - Url: ~
+            - App\Infrastructure\Validator\Constraints\ContainerExpression:
+                expression: "service('app.domain.rules.bookmark.unique_url_checker').isUnique(this.url)"
+                message: "Il existe déjà un favoris avec cette url."
         title:
             - NotBlank: ~
             - Type: { type: string }

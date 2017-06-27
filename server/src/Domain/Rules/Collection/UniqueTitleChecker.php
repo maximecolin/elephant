@@ -31,12 +31,23 @@ class UniqueTitleChecker
      */
     public function check(Collection $collection)
     {
+        if (!$this->isUnique($collection->getTitle(), $collection->getId())) {
+            throw new DuplicateException('Title already exists.');
+        }
+    }
+
+    /**
+     * @param string $title
+     * @param int    $id
+     *
+     * @return bool
+     */
+    public function isUnique(string $title, int $id = null)
+    {
         try {
-            if ($this->collectionRepository->findOneByTitle($collection->getTitle())->getId() !== $collection->getId()) {
-                throw new DuplicateException('Title already exists.');
-            }
+            return $this->collectionRepository->findOneByTitle($title)->getId() === $id;
         } catch (ModelNotFoundException $exception) {
-            // If model is not found, the collection pass the check, then do nothing.
+            return true;
         }
     }
 }
