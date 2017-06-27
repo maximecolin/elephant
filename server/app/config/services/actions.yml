@@ -29,6 +29,7 @@ services:
             - '@form.factory'
             - '@templating'
             - '@router'
+            - '@session.flash_bag'
 
     app.ui.action.collection.edit_action:
         class: App\Ui\Action\Collection\EditAction

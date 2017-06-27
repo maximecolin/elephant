@@ -50,11 +50,19 @@
 
                         </nav>
                         <main class="col-sm-8 offset-sm-4 col-md-9 offset-md-3 pt-3">
-
                             {% block content %}{% endblock %}
-
                         </main>
                     </div>
+                </div>
+
+                <div class="alerts">
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-dismissible fade alert-{{ label }} show" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                 </div>
 
             </div>
