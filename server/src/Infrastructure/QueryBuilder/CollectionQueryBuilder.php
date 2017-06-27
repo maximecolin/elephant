@@ -2,6 +2,8 @@
 
 namespace App\Infrastructure\QueryBuilder;
 
+use App\Domain\Dto\CollectionNavItem;
+use App\Domain\Model\Bookmark;
 use App\Domain\Model\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -69,6 +71,20 @@ class CollectionQueryBuilder extends QueryBuilder
         $this
             ->andWhere('collection.title = :title')
             ->setParameter('title', $title);
+
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function getNavItems()
+    {
+        $this
+            ->select(sprintf('NEW %s(collection.id, collection.title, COUNT(bookmark.id))', CollectionNavItem::class))
+            ->leftJoin(Bookmark::class, 'bookmark', 'WITH', 'bookmark.collection = collection')
+            ->groupBy('collection.id, collection.title')
+        ;
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Repository;
 
+use App\Domain\Dto\CollectionNavItem;
 use App\Domain\Exception\ModelNotFoundException;
 use App\Domain\Model\Collection;
 
@@ -45,4 +46,9 @@ interface CollectionRepositoryInterface
      * @param Collection $collection
      */
     public function remove(Collection $collection);
+
+    /**
+     * @return CollectionNavItem[]
+     */
+    public function getNavItems() : array;
 }

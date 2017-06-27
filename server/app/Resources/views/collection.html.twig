@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block add_bookmarks_button %}
+    <a href="{{ path('bookmark_add', { collectionId: collection.id }) }}" class="btn btn-success btn-block">
+        <i class="fa fa-star-o"></i>
+        Ajouter un favoris
+    </a>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ collection.title }}</h1>
+    <ul class="list-group">
+        {% for bookmark in bookmarks %}
+            <li class="list-group-item collection-bookmark">
+                {{ bookmark.title }}<br>
+                {{ bookmark.url }}<br>
+
+                <form action="{{ path('bookmark_remove', { 'collectionId': collection.id, 'bookmarkId': bookmark.id }) }}" method="POST">
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <button type="submit" class="btn btn-danger btn-sm">&times;</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

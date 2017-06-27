@@ -1,0 +1,21 @@
+.loader {
+    background-image: url("../images/elephant-black.svg");
+    background-size: cover;
+    height: 175px;
+    width: 225px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+
+    animation: blink normal 1.5s infinite ease-in-out;
+}
+
+.loader-o {
+    background-image: url("../images/elephant.svg");
+}
+
+@keyframes blink {
+    0% { opacity: 1 }
+    50% { opacity: 0.5 }
+    100% { opacity: 1 }
+}

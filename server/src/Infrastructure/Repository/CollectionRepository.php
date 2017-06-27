@@ -87,4 +87,16 @@ class CollectionRepository extends AbstractDoctrineRepository implements Collect
     {
         $this->entityManager->remove($collection);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNavItems() : array
+    {
+        return $this
+            ->createQueryBuilder()
+            ->getNavItems()
+            ->getQuery()
+            ->getResult();
+    }
 }

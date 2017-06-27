@@ -14,7 +14,7 @@ class CreateCollectionCommand
      *
      * @param string $title
      */
-    public function __construct(string $title)
+    public function __construct(string $title = null)
     {
         $this->title = $title;
     }

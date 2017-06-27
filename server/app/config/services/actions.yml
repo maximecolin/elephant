@@ -1,0 +1,74 @@
+services:
+    app.ui.action.home_action:
+        class: App\Ui\Action\HomeAction
+        arguments:
+            - '@templating'
+
+    app.ui.action.collection_nav_action:
+        class: App\Ui\Action\CollectionNavAction
+        arguments:
+            - '@tactician.commandbus'
+            - '@request_stack'
+            - '@templating'
+
+    #
+    # Collection
+    #
+
+    app.ui.action.collection_action:
+        class: App\Ui\Action\CollectionAction
+        arguments:
+            - '@app.infrastructure.repository.collection_repository'
+            - '@app.infrastructure.repository.bookmark_repository'
+            - '@templating'
+
+    app.ui.action.collection.add_action:
+        class: App\Ui\Action\Collection\AddAction
+        arguments:
+            - '@tactician.commandbus'
+            - '@form.factory'
+            - '@templating'
+            - '@router'
+
+    app.ui.action.collection.edit_action:
+        class: App\Ui\Action\Collection\EditAction
+        arguments:
+            - '@app.infrastructure.repository.collection_repository'
+            - '@tactician.commandbus'
+            - '@form.factory'
+            - '@templating'
+            - '@router'
+
+    app.ui.action.collection.remove_action:
+        class: App\Ui\Action\Collection\RemoveAction
+        arguments:
+            - '@tactician.commandbus'
+            - '@router.default'
+
+    #
+    # Bookmarks
+    #
+
+    app.ui.action.bookmark.add_action:
+        class: App\Ui\Action\Bookmark\AddAction
+        arguments:
+            - '@app.infrastructure.repository.collection_repository'
+            - '@tactician.commandbus'
+            - '@form.factory'
+            - '@templating'
+            - '@router'
+
+    app.ui.action.bookmark.edit_action:
+        class: App\Ui\Action\Bookmark\EditAction
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'
+            - '@tactician.commandbus'
+            - '@form.factory'
+            - '@templating'
+            - '@router'
+
+    app.ui.action.bookmark.remove_action:
+        class: App\Ui\Action\Bookmark\RemoveAction
+        arguments:
+            - '@tactician.commandbus'
+            - '@router.default'

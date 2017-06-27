@@ -1,0 +1,29 @@
+.alerts {
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    bottom: 10px;
+
+    .alert {
+        cursor: pointer;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 5px;
+        padding: 5px 8px;
+        max-width: 400px;
+        width: auto;
+        text-align: center;
+        border: none;
+        border-radius: 20px;
+        font-weight: 300;
+        font-size: 14px;
+        color: $white;
+
+        &.alert-primary { background-color: $brand-primary; }
+        &.alert-inverse { background-color: $brand-inverse; }
+        &.alert-info { background-color: $brand-info; }
+        &.alert-danger { background-color: $brand-danger; }
+        &.alert-success { background-color: $brand-success; }
+        &.alert-warning { background-color: $brand-warning; }
+    }
+}

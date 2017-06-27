@@ -1,0 +1,7 @@
+services:
+    app.application.query.collection_nav_query_handler:
+        class: App\Application\Query\CollectionNavQueryHandler
+        arguments:
+            - '@app.infrastructure.repository.collection_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Query\CollectionNavQuery }

@@ -2,6 +2,8 @@
 
 namespace App\Application\Command;
 
+use App\Domain\Model\Bookmark;
+
 class UpdateBookmarkCommand
 {
     /**
@@ -38,5 +40,15 @@ class UpdateBookmarkCommand
         $this->url = $url;
         $this->title = $title;
         $this->collectionId = $collectionId;
+    }
+
+    /**
+     * @param Bookmark $bookmark
+     *
+     * @return UpdateBookmarkCommand
+     */
+    public static function createFromBookmark(Bookmark $bookmark)
+    {
+        return new self($bookmark->getId(), $bookmark->getUrl(), $bookmark->getTitle(), $bookmark->getCollection()->getId());
     }
 }

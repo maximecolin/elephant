@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Nouvelle collection</h1>
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.title, 'Titre') }}
+            {{ form_widget(form.title, { attr: { class: 'form-control', placeholder: 'Entrez un titre' } }) }}
+            {{ form_errors(form.title) }}
+        </div>
+        <div class="form-group text-right">
+            <a href="{{ path('home') }}" class="btn btn-link">Annuler</a>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

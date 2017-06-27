@@ -1,0 +1,90 @@
+
+.sidebar {
+
+    /* Sidebar */
+
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    border-right: 1px solid #eee;
+
+    /* Sidebar navigation */
+
+    padding-left: 0;
+    padding-right: 0;
+
+    .nav {
+        margin-bottom: 20px;
+    }
+
+    .nav-item {
+        width: 100%;
+    }
+
+    .nav-item + .nav-item {
+        margin-left: 0;
+    }
+
+    .nav-link {
+        border-radius: 0;
+    }
+
+    .new-collection-menu {
+        position: fixed;
+        bottom: 0;
+        margin-bottom: 0;
+
+        .btn {
+            border-radius: 0;
+        }
+    }
+
+    /* Counter badge */
+
+    .nav .nav-item .nav-link {
+        .badge {
+            margin-top: 3px;
+        }
+
+        &.active {
+            a, button {
+                color: $white;
+            }
+
+            .badge-default {
+                background-color: #fff;
+                color: $badge-default-bg;
+            }
+        }
+
+        .btn {
+            padding: 0;
+        }
+    }
+
+    .toggle-item-hover {
+        position: relative;
+    }
+
+    .toggle-item-hover-hide {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+}
+
+.toggle-item-hover {
+    .toggle-item-hover-show { display: inherit; }
+    .toggle-item-hover-hide { display: none; }
+
+    &:hover {
+        .toggle-item-hover-show { display: none; }
+        .toggle-item-hover-hide { display: inherit; }
+    }
+}

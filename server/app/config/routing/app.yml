@@ -1,0 +1,53 @@
+home:
+    path: /
+    defaults: { _controller: app.ui.action.home_action }
+    methods: [GET]
+
+collection_add:
+    path: /collection/add
+    defaults: { _controller: app.ui.action.collection.add_action }
+    methods: [GET, POST]
+
+collection:
+    path: /collection/{collectionId}
+    defaults: { _controller: app.ui.action.collection_action }
+    methods: [GET]
+    requirements:
+        collectionId: \d+
+
+collection_edit:
+    path: /collection/{collectionId}/edit
+    defaults: { _controller: app.ui.action.collection.edit_action }
+    methods: [GET, POST]
+    requirements:
+        collectionId: \d+
+
+collection_remove:
+    path: /collection/{collectionId}
+    defaults: { _controller: app.ui.action.collection.remove_action }
+    methods: [DELETE]
+    requirements:
+        collectionId: \d+
+
+bookmark_add:
+    path: /collection/{collectionId}/bookmark/add
+    defaults: { _controller: app.ui.action.bookmark.add_action }
+    methods: [GET, POST]
+    requirements:
+        collectionId: \d+
+
+bookmark_edit:
+    path: /collection/{collectionId}/bookmark/{bookmarkId}/remove
+    defaults: { _controller: app.ui.action.bookmark.edit_action }
+    methods: [GET, POST]
+    requirements:
+        collectionId: \d+
+        bookmarkId: \d+
+
+bookmark_remove:
+    path: /collection/{collectionId}/bookmark/{bookmarkId}/remove
+    defaults: { _controller: app.ui.action.bookmark.remove_action }
+    methods: [DELETE]
+    requirements:
+        collectionId: \d+
+        bookmarkId: \d+
