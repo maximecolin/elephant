@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class EditAction
@@ -39,6 +40,10 @@ class EditAction
      * @var RouterInterface
      */
     private $router;
+    /**
+     * @var FlashBagInterface
+     */
+    private $flashBag;
 
     /**
      * AddAction constructor.
@@ -48,19 +53,22 @@ class EditAction
      * @param FormFactoryInterface          $formFactory
      * @param EngineInterface               $engine
      * @param RouterInterface               $router
+     * @param FlashBagInterface             $flashBag
      */
     public function __construct(
         CollectionRepositoryInterface $collectionRepository,
         CommandBus $commandBus,
         FormFactoryInterface $formFactory,
         EngineInterface $engine,
-        RouterInterface $router
+        RouterInterface $router,
+        FlashBagInterface $flashBag
     ) {
         $this->collectionRepository = $collectionRepository;
         $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
         $this->engine = $engine;
         $this->router = $router;
+        $this->flashBag = $flashBag;
     }
 
     /**
@@ -77,6 +85,7 @@ class EditAction
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle($command);
+            $this->flashBag->add('inverse', 'La collection a été modifié.');
 
             return new RedirectResponse($this->router->generate('collection', [
                 'collectionId' => $collection->getId(),

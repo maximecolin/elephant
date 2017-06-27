@@ -39,12 +39,14 @@ services:
             - '@form.factory'
             - '@templating'
             - '@router'
+            - '@session.flash_bag'
 
     app.ui.action.collection.remove_action:
         class: App\Ui\Action\Collection\RemoveAction
         arguments:
             - '@tactician.commandbus'
             - '@router.default'
+            - '@session.flash_bag'
 
     #
     # Bookmarks
@@ -68,9 +70,11 @@ services:
             - '@form.factory'
             - '@templating'
             - '@router'
+            - '@session.flash_bag'
 
     app.ui.action.bookmark.remove_action:
         class: App\Ui\Action\Bookmark\RemoveAction
         arguments:
             - '@tactician.commandbus'
             - '@router.default'
+            - '@session.flash_bag'

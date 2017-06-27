@@ -4,7 +4,6 @@ namespace App\Ui\Action\Bookmark;
 
 use App\Application\Command\UpdateBookmarkCommand;
 use App\Domain\Repository\BookmarkRepositoryInterface;
-use App\Domain\Repository\CollectionRepositoryInterface;
 use App\Ui\Form\Type\Bookmark\UpdateType;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -12,6 +11,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -41,28 +41,35 @@ class EditAction
      * @var RouterInterface
      */
     private $router;
+    /**
+     * @var FlashBagInterface
+     */
+    private $flashBag;
 
     /**
      * AddAction constructor.
      *
-     * @param BookmarkRepositoryInterface   $bookmarkRepository
-     * @param CommandBus                    $commandBus
-     * @param FormFactoryInterface          $formFactory
-     * @param EngineInterface               $engine
-     * @param RouterInterface               $router
+     * @param BookmarkRepositoryInterface $bookmarkRepository
+     * @param CommandBus                  $commandBus
+     * @param FormFactoryInterface        $formFactory
+     * @param EngineInterface             $engine
+     * @param RouterInterface             $router
+     * @param FlashBagInterface           $flashBag
      */
     public function __construct(
         BookmarkRepositoryInterface $bookmarkRepository,
         CommandBus $commandBus,
         FormFactoryInterface $formFactory,
         EngineInterface $engine,
-        RouterInterface $router
+        RouterInterface $router,
+        FlashBagInterface $flashBag
     ) {
         $this->bookmarkRepository = $bookmarkRepository;
         $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
         $this->engine = $engine;
         $this->router = $router;
+        $this->flashBag = $flashBag;
     }
 
     /**
@@ -85,6 +92,7 @@ class EditAction
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle($command);
+            $this->flashBag->add('inverse', 'Le favoris a été modifié.');
 
             return new RedirectResponse($this->router->generate('collection', [
                 'collectionId' => $collectionId,

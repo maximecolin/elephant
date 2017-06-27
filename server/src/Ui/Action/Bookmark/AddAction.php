@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class AddAction
@@ -43,7 +43,7 @@ class AddAction
     private $router;
 
     /**
-     * @var FlashBag
+     * @var FlashBagInterface
      */
     private $flashBag;
 
@@ -55,7 +55,7 @@ class AddAction
      * @param FormFactoryInterface          $formFactory
      * @param EngineInterface               $engine
      * @param RouterInterface               $router
-     * @param FlashBag                      $flashBag
+     * @param FlashBagInterface             $flashBag
      */
     public function __construct(
         CollectionRepositoryInterface $collectionRepository,
@@ -63,7 +63,7 @@ class AddAction
         FormFactoryInterface $formFactory,
         EngineInterface $engine,
         RouterInterface $router,
-        FlashBag $flashBag
+        FlashBagInterface $flashBag
     ) {
         $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
