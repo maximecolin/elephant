@@ -3,3 +3,8 @@ services:
         class: App\Infrastructure\EventListener\ExceptionSubscriber
         tags:
             - { name: kernel.event_subscriber }
+
+    app.infrastructure.event_listener.model_not_found_exception_subscriber:
+        class: App\Infrastructure\EventListener\ModelNotFoundExceptionSubscriber
+        tags:
+            - { name: kernel.event_subscriber }

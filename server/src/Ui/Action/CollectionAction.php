@@ -3,8 +3,10 @@
 namespace App\Ui\Action;
 
 use App\Application\Query\CollectionViewQuery;
+use App\Domain\Exception\ModelNotFoundException;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CollectionAction
 {
