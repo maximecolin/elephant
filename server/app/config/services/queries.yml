@@ -5,3 +5,11 @@ services:
             - '@app.infrastructure.repository.collection_repository'
         tags:
             - { name: tactician.handler, command: App\Application\Query\CollectionNavQuery }
+
+    app.application.query.collection_view_query_handler:
+        class: App\Application\Query\CollectionViewQueryHandler
+        arguments:
+            - '@app.infrastructure.repository.collection_repository'
+            - '@app.infrastructure.repository.bookmark_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Query\CollectionViewQuery }

@@ -10,7 +10,7 @@
 {% block content %}
     <h1>{{ collection.title }}</h1>
     <ul class="list-group">
-        {% for bookmark in bookmarks %}
+        {% for bookmark in collection.bookmarks %}
             <li class="list-group-item collection-bookmark">
                 {{ bookmark.title }}<br>
                 {{ bookmark.url }}<br>

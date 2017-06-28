@@ -2,21 +2,16 @@
 
 namespace App\Ui\Action;
 
-use App\Domain\Repository\BookmarkRepositoryInterface;
-use App\Domain\Repository\CollectionRepositoryInterface;
+use App\Application\Query\CollectionViewQuery;
+use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 class CollectionAction
 {
     /**
-     * @var CollectionRepositoryInterface
+     * @var CommandBus
      */
-    private $collectionRepository;
-
-    /**
-     * @var BookmarkRepositoryInterface
-     */
-    private $bookmarkRepository;
+    private $commandBus;
 
     /**
      * @var EngineInterface
@@ -26,17 +21,14 @@ class CollectionAction
     /**
      * CollectionAction constructor.
      *
-     * @param CollectionRepositoryInterface $collectionRepository
-     * @param BookmarkRepositoryInterface   $bookmarkRepository
-     * @param EngineInterface               $engine
+     * @param CommandBus      $commandBus
+     * @param EngineInterface $engine
      */
     public function __construct(
-        CollectionRepositoryInterface $collectionRepository,
-        BookmarkRepositoryInterface $bookmarkRepository,
+        CommandBus $commandBus,
         EngineInterface $engine
     ) {
-        $this->collectionRepository = $collectionRepository;
-        $this->bookmarkRepository = $bookmarkRepository;
+        $this->commandBus = $commandBus;
         $this->engine = $engine;
     }
 
@@ -47,12 +39,10 @@ class CollectionAction
      */
     public function __invoke(int $collectionId)
     {
-        $collection = $this->collectionRepository->findOneById($collectionId);
-        $bookmarks = $this->bookmarkRepository->findAllByCollectionId($collectionId, 0, 100);
+        $collection = $this->commandBus->handle(new CollectionViewQuery($collectionId));
 
         return $this->engine->renderResponse('collection.html.twig', [
             'collection' => $collection,
-            'bookmarks' => $bookmarks,
         ]);
     }
 }

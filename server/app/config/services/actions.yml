@@ -24,8 +24,7 @@ services:
     app.ui.action.collection_action:
         class: App\Ui\Action\CollectionAction
         arguments:
-            - '@app.infrastructure.repository.collection_repository'
-            - '@app.infrastructure.repository.bookmark_repository'
+            - '@tactician.commandbus'
             - '@templating'
 
     app.ui.action.collection.add_action:
