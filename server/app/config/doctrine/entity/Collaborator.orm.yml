@@ -1,0 +1,20 @@
+App\Domain\Model\Collaborator:
+    type:   entity
+    table:  collaborator
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        email:
+            type: string
+            unique: true
+        password:
+            type: string
+        firstname:
+            type: string
+        lastname:
+            type: string
+        admin:
+            type: boolean

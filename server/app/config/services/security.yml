@@ -1,0 +1,5 @@
+services:
+    app.infrastructure.security.user.symfony_user_provider:
+        class: App\Infrastructure\Security\User\SymfonyUserProvider
+        arguments:
+            - '@app.infrastructure.repository.collaborator_repository'

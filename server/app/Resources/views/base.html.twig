@@ -20,6 +20,14 @@
                         <img src="{{ asset('assets/images/elephant.svg') }}" width="40" height="30" alt="Elephant">
                         Elephant
                     </a>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <span href="#" class="nav-link">{{ app.user }}</span>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('logout') }}" class="nav-link">Déconnexion</a>
+                        </li>
+                    </ul>
                 </nav>
 
                 <div class="container-fluid">

@@ -1,0 +1,24 @@
+.form-login {
+    max-width: 300px;
+    margin: auto;
+
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+        max-width: 80%;
+    }
+
+    input[type=email] {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    input[type=password] {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        position: relative;
+        top: -1px;
+    }
+}

@@ -3,6 +3,17 @@ home:
     defaults: { _controller: app.ui.action.home_action }
     methods: [GET]
 
+login:
+    path: /login
+    defaults: { _controller: app.ui.action.security.form_login_action }
+    methods: [GET]
+
+login_check:
+    path: /login-check
+
+logout:
+    path: /logout
+
 collection_add:
     path: /collection/add
     defaults: { _controller: app.ui.action.collection.add_action }

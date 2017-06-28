@@ -4,6 +4,12 @@ services:
         arguments:
             - '@templating'
 
+    app.ui.action.security.form_login_action:
+        class: App\Ui\Action\Security\FormLoginAction
+        arguments:
+            - '@security.authentication_utils'
+            - '@templating'
+
     app.ui.action.collection_nav_action:
         class: App\Ui\Action\CollectionNavAction
         arguments:

@@ -2,10 +2,15 @@
 # https://symfony.com/doc/current/security.html
 security:
 
+    encoders:
+        App\Infrastructure\Security\User\SymfonyUser:
+            algorithm: bcrypt
+            cost:      12
+
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        main:
+            id: 'app.infrastructure.security.user.symfony_user_provider'
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,11 +19,16 @@ security:
             security: false
 
         main:
+            pattern: ^/
             anonymous: ~
-            # activate different ways to authenticate
+            form_login:
+                login_path: login
+                check_path: login_check
+                require_previous_session: false
+            logout:
+                path: logout
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+    access_control:
+        - { path: ^/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

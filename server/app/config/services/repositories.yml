@@ -8,3 +8,8 @@ services:
         class: App\Infrastructure\Repository\CollectionRepository
         arguments:
             - '@doctrine.orm.entity_manager'
+
+    app.infrastructure.repository.collaborator_repository:
+        class: App\Infrastructure\Repository\CollaboratorRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
