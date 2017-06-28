@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ModelNotFoundExceptionSubscriber implements EventSubscriberInterface
 {
     /**
-     * Handle ModelNotFoundException
+     * ModelNotFoundException => 404
      *
      * @param GetResponseForExceptionEvent $event
      */

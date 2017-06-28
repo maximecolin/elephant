@@ -8,16 +8,19 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 
-class ExceptionSubscriber implements EventSubscriberInterface
+class InvalidCommandExceptionSubscriber implements EventSubscriberInterface
 {
     /**
-     * {@inheritdoc}
+     * Handle InvalidCommandException thrown by Tactician command validation middleware on json request.
+     *
+     * @param GetResponseForExceptionEvent $event
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
         $exception = $event->getException();
+        $accepts = $event->getRequest()->getAcceptableContentTypes();
 
-        if ($exception instanceof InvalidCommandException) {
+        if (in_array('application/json', $accepts) && $exception instanceof InvalidCommandException) {
             $event->setResponse(new JsonResponse([
                 'errors' => array_map(function (ConstraintViolationInterface $violation) {
                     return [

@@ -1,6 +1,6 @@
 services:
     app.infrastructure.event_listener.exception_subscriber:
-        class: App\Infrastructure\EventListener\ExceptionSubscriber
+        class: App\Infrastructure\EventListener\InvalidCommandExceptionSubscriber
         tags:
             - { name: kernel.event_subscriber }
 
