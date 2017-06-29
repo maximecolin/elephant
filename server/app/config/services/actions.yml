@@ -2,6 +2,7 @@ services:
     app.ui.action.home_action:
         class: App\Ui\Action\HomeAction
         arguments:
+            - '@app.infrastructure.repository.board_repository'
             - '@templating'
 
     app.ui.action.security.form_login_action:
@@ -15,6 +16,24 @@ services:
         arguments:
             - '@tactician.commandbus'
             - '@request_stack'
+            - '@templating'
+
+    #
+    # Board
+    #
+    app.ui.action.board.add_action:
+        class: App\Ui\Action\Board\AddAction
+        arguments:
+            - '@tactician.commandbus'
+            - '@form.factory'
+            - '@templating'
+            - '@router'
+            - '@session.flash_bag'
+
+    app.ui.action.board_action:
+        class: App\Ui\Action\BoardAction
+        arguments:
+            - '@app.infrastructure.repository.board_repository'
             - '@templating'
 
     #

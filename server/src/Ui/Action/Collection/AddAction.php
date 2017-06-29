@@ -19,10 +19,12 @@ class AddAction
      * @var CommandBus
      */
     private $commandBus;
+
     /**
      * @var FormFactoryInterface
      */
     private $formFactory;
+
     /**
      * @var EngineInterface
      */
@@ -63,22 +65,24 @@ class AddAction
 
     /**
      * @param Request $request
+     * @param int     $boardId
      *
      * @return RedirectResponse|Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, int $boardId)
     {
-        $command = new CreateCollectionCommand();
+        $command = new CreateCollectionCommand($boardId);
         $form = $this->formFactory->create(CreateType::class, $command);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle($command);
             $this->flashBag->add('inverse', 'Votre collection a été ajouté.');
 
-            return new RedirectResponse($this->router->generate('home'));
+            return new RedirectResponse($this->router->generate('board', ['boardId' => $boardId]));
         }
 
         return $this->engine->renderResponse('collection/add.html.twig', [
+            'boardId' => $boardId,
             'form' => $form->createView(),
         ]);
     }

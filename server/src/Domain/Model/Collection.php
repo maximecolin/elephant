@@ -10,6 +10,11 @@ class Collection
     private $id;
 
     /**
+     * @var Board
+     */
+    private $board;
+
+    /**
      * @var string
      */
     private $title;
@@ -17,10 +22,12 @@ class Collection
     /**
      * Collection constructor.
      *
+     * @param Board  $board
      * @param string $title
      */
-    public function __construct(string $title)
+    public function __construct(Board $board, string $title)
     {
+        $this->board = $board;
         $this->title = $title;
     }
 
@@ -32,6 +39,16 @@ class Collection
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get board
+     *
+     * @return Board
+     */
+    public function getBoard()
+    {
+        return $this->board;
     }
 
     /**

@@ -74,12 +74,13 @@ class EditAction
 
     /**
      * @param Request $request
+     * @param int     $boardId
      * @param int     $collectionId
      * @param int     $id
      *
      * @return RedirectResponse|Response
      */
-    public function __invoke(Request $request, int $collectionId, int $id)
+    public function __invoke(Request $request, int $boardId, int $collectionId, int $id)
     {
         $bookmark = $this->bookmarkRepository->findOneById($id);
 
@@ -95,6 +96,7 @@ class EditAction
             $this->flashBag->add('inverse', 'Le favoris a été modifié.');
 
             return new RedirectResponse($this->router->generate('collection', [
+                'boardId' => $boardId,
                 'collectionId' => $collectionId,
             ]));
         }

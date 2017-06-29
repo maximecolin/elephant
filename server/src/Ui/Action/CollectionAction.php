@@ -3,10 +3,8 @@
 namespace App\Ui\Action;
 
 use App\Application\Query\CollectionViewQuery;
-use App\Domain\Exception\ModelNotFoundException;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CollectionAction
 {
@@ -35,15 +33,17 @@ class CollectionAction
     }
 
     /**
+     * @param int $boardId
      * @param int $collectionId
      *
      * @return string
      */
-    public function __invoke(int $collectionId)
+    public function __invoke(int $boardId, int $collectionId)
     {
         $collection = $this->commandBus->handle(new CollectionViewQuery($collectionId));
 
         return $this->engine->renderResponse('collection.html.twig', [
+            'boardId'    => $boardId,
             'collection' => $collection,
         ]);
     }

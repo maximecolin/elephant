@@ -27,6 +27,7 @@ services:
     app.application.command.create_collection_command_handler:
         class: App\Application\Command\CreateCollectionCommandHandler
         arguments:
+            - '@app.infrastructure.repository.board_repository'
             - '@app.infrastructure.repository.collection_repository'
             - '@app.domain.rules.collection.unique_title_checker'
         tags:
@@ -46,3 +47,10 @@ services:
             - '@app.infrastructure.repository.collection_repository'
         tags:
             - { name: tactician.handler, command: App\Application\Command\RemoveCollectionCommand }
+
+    app.application.command.board.create_board_command_handler:
+        class: App\Application\Command\Board\CreateBoardCommandHandler
+        arguments:
+            - '@app.infrastructure.repository.board_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Board\CreateBoardCommand }

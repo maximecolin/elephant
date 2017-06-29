@@ -75,11 +75,12 @@ class AddAction
 
     /**
      * @param Request $request
+     * @param int     $boardId
      * @param int     $collectionId
      *
      * @return RedirectResponse|Response
      */
-    public function __invoke(Request $request, int $collectionId)
+    public function __invoke(Request $request, int $boardId, int $collectionId)
     {
         $collection = $this->collectionRepository->findOneById($collectionId);
         $command = new CreateBookmarkCommand(null, null, $collection->getId());
@@ -92,6 +93,7 @@ class AddAction
                 $this->flashBag->add('inverse', 'Votre favoris a été ajouté.');
 
                 return new RedirectResponse($this->router->generate('collection', [
+                    'boardId' => $boardId,
                     'collectionId' => $collection->getId(),
                 ]));
             } catch (DuplicateException $exception) {
@@ -100,6 +102,7 @@ class AddAction
         }
 
         return $this->engine->renderResponse('bookmark/add.html.twig', [
+            'collection' => $collection,
             'form' => $form->createView(),
         ]);
     }

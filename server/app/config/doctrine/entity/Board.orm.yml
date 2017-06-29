@@ -1,6 +1,6 @@
-App\Domain\Model\Collection:
+App\Domain\Model\Board:
     type:   entity
-    table:  collection
+    table:  board
     id:
         id:
             type: integer
@@ -10,8 +10,3 @@ App\Domain\Model\Collection:
         title:
             type: string
             unique: true
-    manyToOne:
-        board:
-            targetEntity: App\Domain\Model\Board
-            joinColumn:
-                onDelete: CASCADE

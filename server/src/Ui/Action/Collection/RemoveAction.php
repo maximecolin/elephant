@@ -40,15 +40,18 @@ class RemoveAction
     }
 
     /**
+     * @param int $boardId
      * @param int $collectionId
      *
      * @return RedirectResponse
      */
-    public function __invoke(int $collectionId)
+    public function __invoke(int $boardId, int $collectionId)
     {
         $this->commandBus->handle(new RemoveCollectionCommand($collectionId));
         $this->flashBag->add('inverse', 'La collection a été supprimé.');
 
-        return new RedirectResponse($this->router->generate('home'));
+        return new RedirectResponse($this->router->generate('board', [
+            'boardId' => $boardId,
+        ]));
     }
 }

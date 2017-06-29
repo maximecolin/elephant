@@ -31,36 +31,7 @@
                 </nav>
 
                 <div class="container-fluid">
-                    <div class="row">
-                        <nav class="col-sm-4 col-md-3 hidden-xs-down bg-faded sidebar">
-
-                            <ul class="nav nav-pills flex-column">
-                                <li class="nav-item text-sm-center pl-2 pr-2">
-                                    {% block add_bookmarks_button %}
-                                        <a href="" class="btn btn-success btn-block disabled">
-                                            <i class="fa fa-star-o"></i>
-                                            Ajouter un favoris
-                                        </a>
-                                    {% endblock %}
-                                </li>
-                            </ul>
-
-                            {{ render(controller('app.ui.action.collection_nav_action')) }}
-
-                            <ul class="nav nav-pills flex-column new-collection-menu col-sm-4 col-md-3 pl-0 pr-0">
-                                <li class="nav-item">
-                                    <a href="{{ path('collection_add') }}" class="btn btn-default btn-block">
-                                        <i class="fa fa-folder-o"></i>
-                                        Nouvelle collection ...
-                                    </a>
-                                </li>
-                            </ul>
-
-                        </nav>
-                        <main class="col-sm-8 offset-sm-4 col-md-9 offset-md-3 pt-3">
-                            {% block content %}{% endblock %}
-                        </main>
-                    </div>
+                    {% block container %}{% endblock %}
                 </div>
 
                 <div class="alerts">

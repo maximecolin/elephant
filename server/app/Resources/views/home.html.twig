@@ -1,5 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block content %}
+{% block container %}
+    <h1 class="mt-3">Boards</h1>
+
+    <div class="mb-3">
+        <a href="{{ path('board_add') }}" class="btn btn-success">
+            <i class="fa fa-plus"></i>
+            Ajouter un board
+        </a>
+    </div>
+
+    {% for board in boards %}
+        <div class="card mb-3">
+            <div class="card-block">
+                <h4 class="card-title">
+                    <a href="{{ path('board', { 'boardId': board.id }) }}">
+                        {{ board.title }}
+                    </a>
+                </h4>
+            </div>
+        </div>
+    {% endfor %}
 
 {% endblock %}

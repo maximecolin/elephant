@@ -39,16 +39,20 @@ class RemoveAction
     }
 
     /**
+     * @param int $boardId
      * @param int $collectionId
      * @param int $bookmarkId
      *
      * @return RedirectResponse
      */
-    public function __invoke(int $collectionId, int $bookmarkId)
+    public function __invoke(int $boardId, int $collectionId, int $bookmarkId)
     {
         $this->commandBus->handle(new RemoveBookmarkCommand($bookmarkId));
         $this->flashBag->add('inverse', 'Le favoris a été supprimé.');
 
-        return new RedirectResponse($this->router->generate('collection', ['collectionId' => $collectionId]));
+        return new RedirectResponse($this->router->generate('collection', [
+            'boardId' => $boardId,
+            'collectionId' => $collectionId,
+        ]));
     }
 }

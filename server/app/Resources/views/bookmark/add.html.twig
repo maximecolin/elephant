@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'board.html.twig' %}
 
 {% block content %}
     <h1>Nouveau favoris</h1>
@@ -15,7 +15,7 @@
             {{ form_errors(form.title) }}
         </div>
         <div class="form-group text-right">
-            <a href="{{ path('home') }}" class="btn btn-link">Annuler</a>
+            <a href="{{ path('collection', { boardId: collection.board.id, collectionId: collection.id }) }}" class="btn btn-link">Annuler</a>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
         </div>
     {{ form_end(form) }}

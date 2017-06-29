@@ -6,7 +6,7 @@ use App\Domain\Repository\BoardRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class HomeAction
+class BoardAction
 {
     /**
      * @var BoardRepositoryInterface
@@ -19,7 +19,7 @@ class HomeAction
     private $engine;
 
     /**
-     * HomeAction constructor.
+     * BoardAction constructor.
      *
      * @param BoardRepositoryInterface $boardRepository
      * @param EngineInterface          $engine
@@ -31,14 +31,16 @@ class HomeAction
     }
 
     /**
+     * @param int $boardId
+     *
      * @return Response
      */
-    public function __invoke()
+    public function __invoke(int $boardId)
     {
-        $boards = $this->boardRepository->findAll();
+        $board = $this->boardRepository->findOneById($boardId);
 
-        return $this->engine->renderResponse('home.html.twig', [
-            'boards' => $boards,
+        return $this->engine->renderResponse('board.html.twig', [
+            'board' => $board
         ]);
     }
 }

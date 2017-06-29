@@ -3,16 +3,21 @@
 namespace App\Application\Command;
 
 use App\Domain\Model\Collection;
+use App\Domain\Repository\BoardRepositoryInterface;
 use App\Domain\Repository\CollectionRepositoryInterface;
 use App\Domain\Rules\Collection\UniqueTitleChecker;
 
 class CreateCollectionCommandHandler
 {
     /**
+     * @var BoardRepositoryInterface
+     */
+    private $boardRepository;
+
+    /**
      * @var CollectionRepositoryInterface
      */
     private $collectionRepository;
-
 
     /**
      * @var UniqueTitleChecker
@@ -22,11 +27,16 @@ class CreateCollectionCommandHandler
     /**
      * CreateCollectionCommandHandler constructor.
      *
+     * @param BoardRepositoryInterface      $boardRepository
      * @param CollectionRepositoryInterface $collectionRepository
      * @param UniqueTitleChecker            $uniqueTitleChecker
      */
-    public function __construct(CollectionRepositoryInterface $collectionRepository, UniqueTitleChecker $uniqueTitleChecker)
-    {
+    public function __construct(
+        BoardRepositoryInterface $boardRepository,
+        CollectionRepositoryInterface $collectionRepository,
+        UniqueTitleChecker $uniqueTitleChecker
+    ) {
+        $this->boardRepository = $boardRepository;
         $this->collectionRepository = $collectionRepository;
         $this->uniqueTitleChecker = $uniqueTitleChecker;
     }
@@ -38,7 +48,9 @@ class CreateCollectionCommandHandler
      */
     public function handle(CreateCollectionCommand $command)
     {
-        $collection = new Collection($command->title);
+        $board = $this->boardRepository->findOneById($command->boardId);
+
+        $collection = new Collection($board, $command->title);
 
         $this->uniqueTitleChecker->check($collection);
         $this->collectionRepository->add($collection);

@@ -13,3 +13,8 @@ services:
         class: App\Infrastructure\Repository\UserRepository
         arguments:
             - '@doctrine.orm.entity_manager'
+
+    app.infrastructure.repository.board_repository:
+        class: App\Infrastructure\Repository\BoardRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
