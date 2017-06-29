@@ -2,7 +2,7 @@
 
 namespace App\Ui\Form\Type\Collection;
 
-use App\Application\Command\CreateCollectionCommand;
+use App\Application\Command\Collection\CreateCollectionCommand;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CreateType extends AbstractCollectionType

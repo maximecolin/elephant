@@ -2,7 +2,7 @@
 
 namespace App\Ui\Form\Type\Collection;
 
-use App\Application\Command\UpdateCollectionCommand;
+use App\Application\Command\Collection\UpdateCollectionCommand;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UpdateType extends AbstractCollectionType

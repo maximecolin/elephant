@@ -2,7 +2,7 @@
 
 namespace App\Ui\Action\Bookmark;
 
-use App\Application\Command\RemoveBookmarkCommand;
+use App\Application\Command\Bookmark\RemoveBookmarkCommand;
 use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;

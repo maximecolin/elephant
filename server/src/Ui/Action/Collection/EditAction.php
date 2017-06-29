@@ -2,7 +2,7 @@
 
 namespace App\Ui\Action\Collection;
 
-use App\Application\Command\UpdateCollectionCommand;
+use App\Application\Command\Collection\UpdateCollectionCommand;
 use App\Domain\Repository\CollectionRepositoryInterface;
 use App\Ui\Form\Type\Collection\UpdateType;
 use League\Tactician\CommandBus;

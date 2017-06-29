@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\GraphQL\Mutator;
 
-use App\Application\Command\CreateCollectionCommand;
-use App\Application\Command\RemoveCollectionCommand;
-use App\Application\Command\UpdateCollectionCommand;
+use App\Application\Command\Collection\CreateCollectionCommand;
+use App\Application\Command\Collection\RemoveCollectionCommand;
+use App\Application\Command\Collection\UpdateCollectionCommand;
 use App\Domain\Exception\DomainException;
 use App\Domain\Model\Collection;
 use App\Infrastructure\GraphQL\Normalizer\CollectionNormalizer;

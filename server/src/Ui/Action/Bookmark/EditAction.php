@@ -2,7 +2,7 @@
 
 namespace App\Ui\Action\Bookmark;
 
-use App\Application\Command\UpdateBookmarkCommand;
+use App\Application\Command\Bookmark\UpdateBookmarkCommand;
 use App\Domain\Repository\BookmarkRepositoryInterface;
 use App\Ui\Form\Type\Bookmark\UpdateType;
 use League\Tactician\CommandBus;

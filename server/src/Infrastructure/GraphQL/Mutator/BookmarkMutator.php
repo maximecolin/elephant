@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\GraphQL\Mutator;
 
-use App\Application\Command\CreateBookmarkCommand;
-use App\Application\Command\RemoveBookmarkCommand;
-use App\Application\Command\UpdateBookmarkCommand;
+use App\Application\Command\Bookmark\CreateBookmarkCommand;
+use App\Application\Command\Bookmark\RemoveBookmarkCommand;
+use App\Application\Command\Bookmark\UpdateBookmarkCommand;
 use App\Domain\Exception\DomainException;
 use App\Domain\Model\Bookmark;
 use App\Infrastructure\GraphQL\Normalizer\BookmarkNormalizer;

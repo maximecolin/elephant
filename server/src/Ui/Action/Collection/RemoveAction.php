@@ -2,7 +2,7 @@
 
 namespace App\Ui\Action\Collection;
 
-use App\Application\Command\RemoveCollectionCommand;
+use App\Application\Command\Collection\RemoveCollectionCommand;
 use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;

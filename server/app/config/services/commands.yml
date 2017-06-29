@@ -1,52 +1,52 @@
 services:
-    app.application.command.create_bookmark_command_handler:
-        class: App\Application\Command\CreateBookmarkCommandHandler
+    app.application.command.bookmark.create_bookmark_command_handler:
+        class: App\Application\Command\Bookmark\CreateBookmarkCommandHandler
         arguments:
             - '@app.infrastructure.repository.bookmark_repository'
             - '@app.infrastructure.repository.collection_repository'
             - '@app.domain.rules.bookmark.unique_url_checker'
         tags:
-            - { name: tactician.handler, command: App\Application\Command\CreateBookmarkCommand }
+            - { name: tactician.handler, command: App\Application\Command\Bookmark\CreateBookmarkCommand }
 
-    app.application.command.update_bookmark_command_handler:
-        class: App\Application\Command\UpdateBookmarkCommandHandler
+    app.application.command.bookmark.update_bookmark_command_handler:
+        class: App\Application\Command\Bookmark\UpdateBookmarkCommandHandler
         arguments:
             - '@app.infrastructure.repository.bookmark_repository'
             - '@app.infrastructure.repository.collection_repository'
             - '@app.domain.rules.bookmark.unique_url_checker'
         tags:
-            - { name: tactician.handler, command: App\Application\Command\UpdateBookmarkCommand }
+            - { name: tactician.handler, command: App\Application\Command\Bookmark\UpdateBookmarkCommand }
 
-    app.application.command.remove_bookmark_command_handler:
-        class: App\Application\Command\RemoveBookmarkCommandHandler
+    app.application.command.bookmark.remove_bookmark_command_handler:
+        class: App\Application\Command\Bookmark\RemoveBookmarkCommandHandler
         arguments:
             - '@app.infrastructure.repository.bookmark_repository'
         tags:
-            - { name: tactician.handler, command: App\Application\Command\RemoveBookmarkCommand }
+            - { name: tactician.handler, command: App\Application\Command\Bookmark\RemoveBookmarkCommand }
 
-    app.application.command.create_collection_command_handler:
-        class: App\Application\Command\CreateCollectionCommandHandler
+    app.application.command.collection.create_collection_command_handler:
+        class: App\Application\Command\Collection\CreateCollectionCommandHandler
         arguments:
             - '@app.infrastructure.repository.board_repository'
             - '@app.infrastructure.repository.collection_repository'
             - '@app.domain.rules.collection.unique_title_checker'
         tags:
-            - { name: tactician.handler, command: App\Application\Command\CreateCollectionCommand }
+            - { name: tactician.handler, command: App\Application\Command\Collection\CreateCollectionCommand }
 
-    app.application.command.update_collection_command_handler:
-        class: App\Application\Command\UpdateCollectionCommandHandler
+    app.application.command.collection.update_collection_command_handler:
+        class: App\Application\Command\Collection\UpdateCollectionCommandHandler
         arguments:
             - '@app.infrastructure.repository.collection_repository'
             - '@app.domain.rules.collection.unique_title_checker'
         tags:
-            - { name: tactician.handler, command: App\Application\Command\UpdateCollectionCommand }
+            - { name: tactician.handler, command: App\Application\Command\Collection\UpdateCollectionCommand }
 
-    app.application.command.remove_collection_command_handler:
-        class: App\Application\Command\RemoveCollectionCommandHandler
+    app.application.command.collection.remove_collection_command_handler:
+        class: App\Application\Command\Collection\RemoveCollectionCommandHandler
         arguments:
             - '@app.infrastructure.repository.collection_repository'
         tags:
-            - { name: tactician.handler, command: App\Application\Command\RemoveCollectionCommand }
+            - { name: tactician.handler, command: App\Application\Command\Collection\RemoveCollectionCommand }
 
     app.application.command.board.create_board_command_handler:
         class: App\Application\Command\Board\CreateBoardCommandHandler

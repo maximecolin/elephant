@@ -2,7 +2,7 @@
 
 namespace App\Ui\Action\Bookmark;
 
-use App\Application\Command\CreateBookmarkCommand;
+use App\Application\Command\Bookmark\CreateBookmarkCommand;
 use App\Domain\Exception\DuplicateException;
 use App\Domain\Repository\CollectionRepositoryInterface;
 use App\Ui\Form\Type\Bookmark\CreateType;

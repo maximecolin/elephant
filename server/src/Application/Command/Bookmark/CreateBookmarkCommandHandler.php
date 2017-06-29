@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Application\Command;
+namespace App\Application\Command\Bookmark;
 
 use App\Domain\Model\Bookmark;
 use App\Domain\Repository\BookmarkRepositoryInterface;
 use App\Domain\Repository\CollectionRepositoryInterface;
 use App\Domain\Rules\Bookmark\UniqueUrlChecker;
 
-class UpdateBookmarkCommandHandler
+class CreateBookmarkCommandHandler
 {
     /**
      * @var BookmarkRepositoryInterface
@@ -15,17 +15,17 @@ class UpdateBookmarkCommandHandler
     private $bookmarkRepository;
 
     /**
-     * @var CollectionRepositoryInterface
-     */
-    private $collectionRepository;
-
-    /**
      * @var UniqueUrlChecker
      */
     private $uniqueUrlChecker;
 
     /**
-     * UpdateBookmarkCommandHandler constructor.
+     * @var CollectionRepositoryInterface
+     */
+    private $collectionRepository;
+
+    /**
+     * CreateBookmarkCommandHandler constructor.
      *
      * @param BookmarkRepositoryInterface   $bookmarkRepository
      * @param CollectionRepositoryInterface $collectionRepository
@@ -37,26 +37,22 @@ class UpdateBookmarkCommandHandler
         UniqueUrlChecker $uniqueUrlChecker
     ) {
         $this->bookmarkRepository = $bookmarkRepository;
-        $this->collectionRepository = $collectionRepository;
         $this->uniqueUrlChecker = $uniqueUrlChecker;
+        $this->collectionRepository = $collectionRepository;
     }
 
     /**
-     * @param UpdateBookmarkCommand $command
+     * @param CreateBookmarkCommand $command
      *
      * @return Bookmark
      */
-    public function handle(UpdateBookmarkCommand $command)
+    public function handle(CreateBookmarkCommand $command)
     {
-        $bookmark = $this->bookmarkRepository->findOneById($command->id);
-        $bookmark->update($command->url, $command->title);
-
-        if ($bookmark->getId() !== $command->collectionId) {
-            $collection = $this->collectionRepository->findOneById($command->collectionId);
-            $bookmark->moveTo($collection);
-        }
+        $collection = $this->collectionRepository->findOneById($command->collectionId);
+        $bookmark = new Bookmark($command->url, $command->title, $collection);
 
         $this->uniqueUrlChecker->check($bookmark);
+        $this->bookmarkRepository->add($bookmark);
 
         return $bookmark;
     }

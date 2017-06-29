@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Command;
+namespace App\Application\Command\Bookmark;
 
 use App\Domain\Model\Bookmark;
 use App\Domain\Repository\BookmarkRepositoryInterface;

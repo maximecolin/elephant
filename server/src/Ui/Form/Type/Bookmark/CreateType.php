@@ -2,7 +2,7 @@
 
 namespace App\Ui\Form\Type\Bookmark;
 
-use App\Application\Command\CreateBookmarkCommand;
+use App\Application\Command\Bookmark\CreateBookmarkCommand;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CreateType extends AbstractBookmarkType

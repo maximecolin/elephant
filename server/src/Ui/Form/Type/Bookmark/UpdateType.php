@@ -2,7 +2,7 @@
 
 namespace App\Ui\Form\Type\Bookmark;
 
-use App\Application\Command\UpdateBookmarkCommand;
+use App\Application\Command\Bookmark\UpdateBookmarkCommand;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UpdateType extends AbstractBookmarkType

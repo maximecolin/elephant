@@ -2,7 +2,7 @@
 
 namespace App\Ui\Action\Collection;
 
-use App\Application\Command\CreateCollectionCommand;
+use App\Application\Command\Collection\CreateCollectionCommand;
 use App\Ui\Form\Type\Collection\CreateType;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
