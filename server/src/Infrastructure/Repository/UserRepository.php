@@ -3,25 +3,25 @@
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Exception\ModelNotFoundException;
-use App\Domain\Model\Collaborator;
-use App\Domain\Repository\CollaboratorRepositoryInterface;
-use App\Infrastructure\QueryBuilder\CollaboratorQueryBuilder;
+use App\Domain\Model\User;
+use App\Domain\Repository\UserRepositoryInterface;
+use App\Infrastructure\QueryBuilder\UserQueryBuilder;
 use Doctrine\ORM\NoResultException;
 
-class CollaboratorRepository extends AbstractDoctrineRepository implements CollaboratorRepositoryInterface
+class UserRepository extends AbstractDoctrineRepository implements UserRepositoryInterface
 {
     /**
-     * @return CollaboratorQueryBuilder
+     * @return UserQueryBuilder
      */
     private function createQueryBuilder()
     {
-        return new CollaboratorQueryBuilder($this->entityManager);
+        return new UserQueryBuilder($this->entityManager);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function findOneByEmail(string $email): Collaborator
+    public function findOneByEmail(string $email): User
     {
         try {
             return $this

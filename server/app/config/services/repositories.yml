@@ -9,7 +9,7 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
 
-    app.infrastructure.repository.collaborator_repository:
-        class: App\Infrastructure\Repository\CollaboratorRepository
+    app.infrastructure.repository.user_repository:
+        class: App\Infrastructure\Repository\UserRepository
         arguments:
             - '@doctrine.orm.entity_manager'

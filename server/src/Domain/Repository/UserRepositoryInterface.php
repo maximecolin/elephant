@@ -3,15 +3,15 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Exception\ModelNotFoundException;
-use App\Domain\Model\Collaborator;
+use App\Domain\Model\User;
 
-interface CollaboratorRepositoryInterface
+interface UserRepositoryInterface
 {
     /**
      * @param string $email
      *
-     * @return Collaborator
+     * @return User
      * @throws ModelNotFoundException
      */
-    public function findOneByEmail(string $email) : Collaborator;
+    public function findOneByEmail(string $email) : User;
 }

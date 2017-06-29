@@ -2,11 +2,11 @@
 
 namespace App\Infrastructure\QueryBuilder;
 
-use App\Domain\Model\Collaborator;
+use App\Domain\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 
-class CollaboratorQueryBuilder extends QueryBuilder
+class UserQueryBuilder extends QueryBuilder
 {
     /**
      * {@inheritdoc}
@@ -15,7 +15,7 @@ class CollaboratorQueryBuilder extends QueryBuilder
     {
         parent::__construct($em);
 
-        $this->select('collaborator')->from(Collaborator::class, 'collaborator');
+        $this->select('user')->from(User::class, 'user');
     }
 
     /**
@@ -26,7 +26,7 @@ class CollaboratorQueryBuilder extends QueryBuilder
     public function filterByEmail(string $email)
     {
         $this
-            ->andWhere('collaborator.email = :email')
+            ->andWhere('user.email = :email')
             ->setParameter('email', $email);
 
         return $this;

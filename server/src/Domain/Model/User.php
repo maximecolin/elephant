@@ -2,7 +2,7 @@
 
 namespace App\Domain\Model;
 
-class Collaborator
+class User
 {
     /**
      * @var int
@@ -35,7 +35,7 @@ class Collaborator
     private $admin = false;
 
     /**
-     * Collaborator constructor.
+     * User constructor.
      *
      * @param string $email
      * @param string $password

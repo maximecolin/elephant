@@ -2,34 +2,34 @@
 
 namespace App\Infrastructure\Security\User;
 
-use App\Domain\Model\Collaborator;
+use App\Domain\Model\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class SymfonyUser implements UserInterface
 {
     /**
-     * @var Collaborator
+     * @var User
      */
-    private $collaborator;
+    private $model;
 
     /**
      * SymfonyUser constructor.
      *
-     * @param Collaborator $collaborator
+     * @param User $model
      */
-    public function __construct(Collaborator $collaborator)
+    public function __construct(User $model)
     {
-        $this->collaborator = $collaborator;
+        $this->model = $model;
     }
 
     /**
-     * Get collaborator
+     * Get model
      *
-     * @return Collaborator
+     * @return User
      */
-    public function getCollaborator()
+    public function getModel()
     {
-        return $this->collaborator;
+        return $this->model;
     }
 
     /**
@@ -37,7 +37,7 @@ class SymfonyUser implements UserInterface
      */
     public function getRoles()
     {
-        return $this->collaborator->isAdmin() ? ['ROLE_ADMIN'] : ['ROLE_USER'];
+        return $this->model->isAdmin() ? ['ROLE_ADMIN'] : ['ROLE_USER'];
     }
 
     /**
@@ -45,7 +45,7 @@ class SymfonyUser implements UserInterface
      */
     public function getPassword()
     {
-        return $this->collaborator->getPassword();
+        return $this->model->getPassword();
     }
 
     /**
@@ -62,7 +62,7 @@ class SymfonyUser implements UserInterface
      */
     public function getUsername()
     {
-        return $this->collaborator->getEmail();
+        return $this->model->getEmail();
     }
 
     /**
@@ -77,6 +77,6 @@ class SymfonyUser implements UserInterface
      */
     public function __toString()
     {
-        return sprintf('%s %s', $this->collaborator->getFirstname(), $this->collaborator->getLastname());
+        return sprintf('%s %s', $this->model->getFirstname(), $this->model->getLastname());
     }
 }

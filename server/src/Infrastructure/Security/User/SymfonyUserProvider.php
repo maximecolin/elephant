@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Security\User;
 
 use App\Domain\Exception\ModelNotFoundException;
-use App\Domain\Repository\CollaboratorRepositoryInterface;
+use App\Domain\Repository\UserRepositoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -12,18 +12,18 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class SymfonyUserProvider implements UserProviderInterface
 {
     /**
-     * @var CollaboratorRepositoryInterface
+     * @var UserRepositoryInterface
      */
-    private $collaboratorRepository;
+    private $userRepository;
 
     /**
      * SymfonyUserProvider constructor.
      *
-     * @param CollaboratorRepositoryInterface $collaboratorRepository
+     * @param UserRepositoryInterface $userRepository
      */
-    public function __construct(CollaboratorRepositoryInterface $collaboratorRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-        $this->collaboratorRepository = $collaboratorRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -32,9 +32,9 @@ class SymfonyUserProvider implements UserProviderInterface
     public function loadUserByUsername($username)
     {
         try {
-            $collaborator = $this->collaboratorRepository->findOneByEmail($username);
+            $user = $this->userRepository->findOneByEmail($username);
 
-            return new SymfonyUser($collaborator);
+            return new SymfonyUser($user);
         } catch (ModelNotFoundException $exception) {
             throw new UsernameNotFoundException('Username not found.', $exception->getCode(), $exception);
         }

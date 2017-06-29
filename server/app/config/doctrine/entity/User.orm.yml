@@ -1,6 +1,6 @@
-App\Domain\Model\Collaborator:
+App\Domain\Model\User:
     type:   entity
-    table:  collaborator
+    table:  user
     id:
         id:
             type: integer
