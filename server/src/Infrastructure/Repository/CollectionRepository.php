@@ -91,11 +91,12 @@ class CollectionRepository extends AbstractDoctrineRepository implements Collect
     /**
      * {@inheritdoc}
      */
-    public function getNavItems() : array
+    public function getNavItems(int $boardId) : array
     {
         return $this
             ->createQueryBuilder()
             ->getNavItems()
+            ->filterByBoardId($boardId)
             ->getQuery()
             ->getResult();
     }

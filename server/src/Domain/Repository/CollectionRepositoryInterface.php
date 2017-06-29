@@ -48,7 +48,9 @@ interface CollectionRepositoryInterface
     public function remove(Collection $collection);
 
     /**
-     * @return CollectionNavItem[]
+     * @param int $boardId
+     *
+     * @return CollectionNavItem[]|array
      */
-    public function getNavItems() : array;
+    public function getNavItems(int $boardId) : array;
 }

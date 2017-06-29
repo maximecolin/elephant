@@ -50,7 +50,7 @@ class CollectionNavAction
     {
         $boardId = $this->requestStack->getMasterRequest()->attributes->getInt('boardId');
         $collectionId = $this->requestStack->getMasterRequest()->attributes->getInt('collectionId');
-        $collections = $this->commandBus->handle(new CollectionNavQuery($collectionId));
+        $collections = $this->commandBus->handle(new CollectionNavQuery($boardId, $collectionId));
 
         return $this->engine->renderResponse('collection-nav.html.twig', [
             'boardId' => $boardId,

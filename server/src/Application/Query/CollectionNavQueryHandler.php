@@ -29,7 +29,7 @@ class CollectionNavQueryHandler
      */
     public function handle(CollectionNavQuery $query)
     {
-        $items = $this->collectionRepository->getNavItems();
+        $items = $this->collectionRepository->getNavItems($query->boardId);
 
         foreach ($items as $item) {
             if ($item->getId() === $query->collectionId) {

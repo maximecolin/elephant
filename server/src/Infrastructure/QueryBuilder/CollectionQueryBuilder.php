@@ -76,6 +76,20 @@ class CollectionQueryBuilder extends QueryBuilder
     }
 
     /**
+     * @param int $boardId
+     *
+     * @return $this
+     */
+    public function filterByBoardId(int $boardId)
+    {
+        $this
+            ->andWhere('collection.board = :boardId')
+            ->setParameter('boardId', $boardId);
+
+        return $this;
+    }
+
+    /**
      * @return $this
      */
     public function getNavItems()
