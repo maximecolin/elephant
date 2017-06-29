@@ -52,5 +52,6 @@ services:
         class: App\Application\Command\Board\CreateBoardCommandHandler
         arguments:
             - '@app.infrastructure.repository.board_repository'
+            - '@app.infrastructure.repository.collaborator_repository'
         tags:
             - { name: tactician.handler, command: App\Application\Command\Board\CreateBoardCommand }

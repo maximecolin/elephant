@@ -1,0 +1,23 @@
+App\Domain\Model\Collaborator:
+    type:   entity
+    table:  collaborator
+    id:
+        board:
+            associationKey: true
+        user:
+            associationKey: true
+    fields:
+        type:
+            type: string
+    manyToOne:
+        board:
+            targetEntity: App\Domain\Model\Board
+            joinColumn:
+                onDelete: CASCADE
+        user:
+            targetEntity: App\Domain\Model\User
+            joinColumn:
+                onDelete: CASCADE
+    uniqueConstraints:
+        board_user_unique_idx:
+            columns: [board_id, user_id]

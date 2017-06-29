@@ -3,6 +3,7 @@
 namespace App\Ui\Action\Board;
 
 use App\Application\Command\Board\CreateBoardCommand;
+use App\Infrastructure\Security\User\SymfonyUser;
 use App\Ui\Form\Type\Board\CreateType;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -12,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class AddAction
 {
@@ -64,13 +67,18 @@ class AddAction
     }
 
     /**
-     * @param Request $request
+     * @param Request       $request
+     * @param UserInterface $user
      *
      * @return RedirectResponse|Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, UserInterface $user)
     {
-        $command = new CreateBoardCommand(null);
+        if (!$user instanceof SymfonyUser) {
+            throw new AccessDeniedException();
+        }
+
+        $command = new CreateBoardCommand($user->getModel());
         $form = $this->formFactory->create(CreateType::class, $command);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {

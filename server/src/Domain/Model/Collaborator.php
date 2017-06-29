@@ -2,7 +2,7 @@
 
 namespace App\Domain\Model;
 
-class Collaboration
+class Collaborator
 {
     const TYPE_OWNER = 'owner';
     const TYPE_WRITE = 'write';
@@ -26,15 +26,15 @@ class Collaboration
     /**
      * Collaboration constructor.
      *
-     * @param User $user
-     * @param Board   $board
-     * @param string       $type
+     * @param User   $user
+     * @param Board  $board
+     * @param string $type
      */
     public function __construct(User $user, Board $board, string $type)
     {
-        $this->user = $user;
-        $this->board   = $board;
-        $this->type         = $type;
+        $this->user  = $user;
+        $this->board = $board;
+        $this->type  = $type;
     }
 
     /**
