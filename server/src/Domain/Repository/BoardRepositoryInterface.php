@@ -3,6 +3,7 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Model\Board;
+use App\Domain\Model\User;
 
 interface BoardRepositoryInterface
 {
@@ -22,4 +23,11 @@ interface BoardRepositoryInterface
      * @return Board
      */
     public function findOneById(int $id) : Board;
+
+    /**
+     * @param User $user
+     *
+     * @return array
+     */
+    public function getNavItems(User $user) : array;
 }

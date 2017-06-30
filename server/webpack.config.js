@@ -24,6 +24,11 @@ Encore
   // allow legacy applications to use $/jQuery as a global variable
   .autoProvidejQuery()
 
+  // allow legacy applications to use Tether as a global variable
+  .autoProvideVariables({
+    'Tether': 'tether'
+  })
+
   .enableSourceMaps(!Encore.isProduction())
 
   // create hashed filenames (e.g. app.abc123.css)

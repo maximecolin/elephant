@@ -1,0 +1,31 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a href="{{ path('home') }}" class="navbar-brand">
+        <img src="{{ asset('assets/images/elephant.svg') }}" width="40" height="30" alt="Elephant">
+        Elephant
+    </a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="{{ path('home') }}" id="boardsDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Boards
+                </a>
+                <div class="dropdown-menu" aria-labelledby="boardsDropdownMenuLink">
+                    {% for board in boards %}
+                        <a class="dropdown-item" href="{{ path('board', { boardId: board.id }) }}">{{ board.title }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <span href="#" class="nav-link">{{ app.user }}</span>
+            </li>
+            <li class="nav-item">
+                <a href="{{ path('logout') }}" class="nav-link">Déconnexion</a>
+            </li>
+        </ul>
+    </div>
+</nav>

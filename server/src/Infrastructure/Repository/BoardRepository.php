@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Model\Board;
+use App\Domain\Model\User;
 use App\Domain\Repository\BoardRepositoryInterface;
 use App\Infrastructure\QueryBuilder\BoardQueryBuilder;
 
@@ -45,5 +46,18 @@ class BoardRepository extends AbstractDoctrineRepository implements BoardReposit
             ->filterById($id)
             ->getQuery()
             ->getSingleResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getNavItems(User $user) : array
+    {
+        return $this
+            ->createQueryBuilder()
+            ->selectNavItems()
+            ->filterByUser($user)
+            ->getQuery()
+            ->getResult();
     }
 }

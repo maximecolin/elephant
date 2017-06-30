@@ -18,6 +18,13 @@ services:
             - '@request_stack'
             - '@templating'
 
+    app.ui.action.menu.topbar_action:
+        class: App\Ui\Action\Menu\TopbarAction
+        arguments:
+            - '@tactician.commandbus'
+            - '@security.token_storage'
+            - '@templating'
+
     #
     # Board
     #
