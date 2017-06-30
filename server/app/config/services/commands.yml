@@ -55,3 +55,10 @@ services:
             - '@app.infrastructure.repository.collaborator_repository'
         tags:
             - { name: tactician.handler, command: App\Application\Command\Board\CreateBoardCommand }
+
+    app.application.command.board.update_settings_command_handler:
+        class: App\Application\Command\Board\UpdateSettingsCommandHandler
+        arguments:
+            - '@app.infrastructure.repository.collaborator_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Board\UpdateSettingsCommand }

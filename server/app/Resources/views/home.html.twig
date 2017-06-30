@@ -14,6 +14,10 @@
         <div class="card mb-3">
             <div class="card-block">
                 <h4 class="card-title">
+                    <a href="{{ path('board_settings', { 'boardId': board.id }) }}" class="btn btn-primary float-right" data-toggle="tooltip" title="Configuration">
+                        <i class="fa fa-cog"></i>
+                        <span class="sr-only">Configuration</span>
+                    </a>
                     <a href="{{ path('board', { 'boardId': board.id }) }}">
                         {{ board.title }}
                     </a>

@@ -43,6 +43,17 @@ services:
             - '@app.infrastructure.repository.board_repository'
             - '@templating'
 
+    app.ui.action.board.settings_action:
+        class: App\Ui\Action\Board\SettingsAction
+        arguments:
+            - '@tactician.commandbus'
+            - '@app.infrastructure.repository.board_repository'
+            - '@app.infrastructure.repository.collaborator_repository'
+            - '@form.factory'
+            - '@session.flash_bag'
+            - '@router'
+            - '@templating'
+
     #
     # Collection
     #

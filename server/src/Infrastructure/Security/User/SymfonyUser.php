@@ -77,6 +77,6 @@ class SymfonyUser implements UserInterface
      */
     public function __toString()
     {
-        return sprintf('%s %s', $this->model->getFirstname(), $this->model->getLastname());
+        return (string) $this->model;
     }
 }

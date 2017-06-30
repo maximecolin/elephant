@@ -109,4 +109,12 @@ class User
     {
         return $this->admin;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __toString()
+    {
+        return sprintf('%s %s', $this->getFirstname(), $this->getLastname());
+    }
 }
