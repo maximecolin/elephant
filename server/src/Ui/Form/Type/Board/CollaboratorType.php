@@ -15,11 +15,11 @@ class CollaboratorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', ChoiceType::class, [
+            ->add('level', ChoiceType::class, [
                 'choices' => [
-                    Collaborator::TYPE_OWNER => Collaborator::TYPE_OWNER,
-                    Collaborator::TYPE_WRITE => Collaborator::TYPE_WRITE,
-                    Collaborator::TYPE_READ => Collaborator::TYPE_READ,
+                    Collaborator::LEVEL_OWNER => Collaborator::LEVEL_OWNER,
+                    Collaborator::LEVEL_WRITE => Collaborator::LEVEL_WRITE,
+                    Collaborator::LEVEL_READ => Collaborator::LEVEL_READ,
                 ]
             ])
         ;

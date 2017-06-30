@@ -74,7 +74,7 @@ class BoardQueryBuilder extends QueryBuilder
             ->select(sprintf('NEW %s(
                 board.id, 
                 board.title, 
-                collaborator.type,
+                collaborator.level,
                 (SELECT COUNT(cb.user) FROM %s cb WHERE cb.board = board),
                 (SELECT COUNT(co.id) FROM %s co WHERE co.board = board),
                 (SELECT COUNT(bm.id) FROM %s bm INNER JOIN %s bmc WITH bm.collection = bmc WHERE bmc.board = board)

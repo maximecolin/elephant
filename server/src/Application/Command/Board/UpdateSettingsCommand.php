@@ -31,7 +31,7 @@ class UpdateSettingsCommand
                 'user' => (string) $collaborator->getUser(),
                 'user_id' => $collaborator->getUser()->getId(),
                 'board_id' => $collaborator->getBoard()->getId(),
-                'type' => $collaborator->getType(),
+                'level' => $collaborator->getLevel(),
             ];
         }, $collaborators);
     }

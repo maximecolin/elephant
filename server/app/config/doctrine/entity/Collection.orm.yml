@@ -9,9 +9,11 @@ App\Domain\Model\Collection:
     fields:
         title:
             type: string
-            unique: true
     manyToOne:
         board:
             targetEntity: App\Domain\Model\Board
             joinColumn:
                 onDelete: CASCADE
+    uniqueConstraints:
+        unique_title_idx:
+            columns: [board_id, title]

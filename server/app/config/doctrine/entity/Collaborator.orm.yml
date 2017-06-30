@@ -7,7 +7,7 @@ App\Domain\Model\Collaborator:
         user:
             associationKey: true
     fields:
-        type:
+        level:
             type: string
     manyToOne:
         board:

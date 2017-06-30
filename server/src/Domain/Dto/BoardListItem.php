@@ -17,7 +17,7 @@ class BoardListItem
     /**
      * @var string
      */
-    public $type;
+    public $level;
 
     /**
      * @var int
@@ -39,16 +39,16 @@ class BoardListItem
      *
      * @param int    $id
      * @param string $title
-     * @param string $type
+     * @param string $level
      * @param int    $collaborators
      * @param int    $collections
      * @param int    $bookmarks
      */
-    public function __construct(int $id, string $title, string $type, int $collaborators, int $collections, int $bookmarks)
+    public function __construct(int $id, string $title, string $level, int $collaborators, int $collections, int $bookmarks)
     {
         $this->id = $id;
         $this->title = $title;
-        $this->type = $type;
+        $this->level = $level;
         $this->collaborators = $collaborators;
         $this->collections = $collections;
         $this->bookmarks = $bookmarks;

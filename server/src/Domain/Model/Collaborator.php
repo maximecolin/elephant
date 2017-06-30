@@ -4,9 +4,9 @@ namespace App\Domain\Model;
 
 class Collaborator
 {
-    const TYPE_OWNER = 'owner';
-    const TYPE_WRITE = 'write';
-    const TYPE_READ  = 'read';
+    const LEVEL_OWNER = 'owner';
+    const LEVEL_WRITE = 'write';
+    const LEVEL_READ  = 'read';
 
     /**
      * @var User
@@ -21,20 +21,20 @@ class Collaborator
     /**
      * @var string
      */
-    private $type;
+    private $level;
 
     /**
      * Collaboration constructor.
      *
      * @param User   $user
      * @param Board  $board
-     * @param string $type
+     * @param string $level
      */
-    public function __construct(User $user, Board $board, string $type)
+    public function __construct(User $user, Board $board, string $level)
     {
         $this->user  = $user;
         $this->board = $board;
-        $this->type  = $type;
+        $this->level  = $level;
     }
 
     /**
@@ -58,12 +58,12 @@ class Collaborator
     }
 
     /**
-     * Get type
+     * Get level
      *
      * @return string
      */
-    public function getType()
+    public function getLevel()
     {
-        return $this->type;
+        return $this->level;
     }
 }

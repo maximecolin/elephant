@@ -43,7 +43,7 @@ class CreateBoardCommandHandler
         $board = new Board($command->title);
         $this->boardRepository->add($board);
 
-        $collaborator = new Collaborator($command->user, $board, Collaborator::TYPE_OWNER);
+        $collaborator = new Collaborator($command->user, $board, Collaborator::LEVEL_OWNER);
         $this->collaboratorRepository->add($collaborator);
 
         return $board;
