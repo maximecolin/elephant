@@ -3,7 +3,6 @@
 namespace App\Application\Query;
 
 use App\Domain\Dto\BoardListItem;
-use App\Domain\Model\Board;
 use App\Domain\Repository\BoardRepositoryInterface;
 
 class BoardListQueryHandler
@@ -30,10 +29,6 @@ class BoardListQueryHandler
      */
     public function handle(BoardListQuery $command)
     {
-        $boards = $this->boardRepository->findByUser($command->user);
-
-        return array_map(function (Board $board) {
-            return new BoardListItem($board->getId(), $board->getTitle());
-        }, $boards);
+        return $this->boardRepository->getListItems($command->user);
     }
 }

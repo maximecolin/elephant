@@ -2,9 +2,12 @@
 
 namespace App\Infrastructure\QueryBuilder;
 
+use App\Domain\Dto\BoardListItem;
 use App\Domain\Dto\BoardNavItem;
 use App\Domain\Model\Board;
+use App\Domain\Model\Bookmark;
 use App\Domain\Model\Collaborator;
+use App\Domain\Model\Collection;
 use App\Domain\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -18,7 +21,7 @@ class BoardQueryBuilder extends QueryBuilder
     {
         parent::__construct($em);
 
-        $this->select('board')->from(Board::class, 'board');
+        $this->select('board')->from(Board::class, 'board', 'board.id');
     }
 
     /**
@@ -55,6 +58,27 @@ class BoardQueryBuilder extends QueryBuilder
     public function selectNavItems()
     {
         $this->select(sprintf('NEW %s(board.id, board.title)', BoardNavItem::class));
+
+        return $this;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return $this
+     */
+    public function selectListItem(User $user)
+    {
+        $this
+            ->filterByUser($user)
+            ->select(sprintf('NEW %s(
+                board.id, 
+                board.title, 
+                collaborator.type,
+                (SELECT COUNT(cb.user) FROM %s cb WHERE cb.board = board),
+                (SELECT COUNT(co.id) FROM %s co WHERE co.board = board),
+                (SELECT COUNT(bm.id) FROM %s bm INNER JOIN %s bmc WITH bm.collection = bmc WHERE bmc.board = board)
+            )', BoardListItem::class, Collaborator::class, Collection::class, Bookmark::class, Collection::class));
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Domain\Repository;
 
+use App\Domain\Dto\BoardListItem;
 use App\Domain\Model\Board;
 use App\Domain\Model\User;
 
@@ -37,4 +38,11 @@ interface BoardRepositoryInterface
      * @return array
      */
     public function getNavItems(User $user) : array;
+
+    /**
+     * @param User $user
+     *
+     * @return BoardListItem[]
+     */
+    public function getListItems(User $user) : array;
 }

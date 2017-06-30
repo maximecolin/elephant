@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Repository;
 
+use App\Domain\Dto\BoardListItem;
 use App\Domain\Model\Board;
 use App\Domain\Model\User;
 use App\Domain\Repository\BoardRepositoryInterface;
@@ -71,6 +72,18 @@ class BoardRepository extends AbstractDoctrineRepository implements BoardReposit
         return $this
             ->createQueryBuilder()
             ->filterByUser($user)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getListItems(User $user) : array
+    {
+        return $this
+            ->createQueryBuilder()
+            ->selectListItem($user)
             ->getQuery()
             ->getResult();
     }

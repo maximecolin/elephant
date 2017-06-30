@@ -18,6 +18,24 @@
                         {{ board.title }}
                     </a>
                 </h4>
+                <ul class="list-inline">
+                    <li class="list-inline-item mr-4">
+                        <i class="fa fa-user"></i>
+                        {{ board.type }}
+                    </li>
+                    <li class="list-inline-item mr-4">
+                        <i class="fa fa-users"></i>
+                        {{ board.collaborators }} collaborateurs
+                    </li>
+                    <li class="list-inline-item mr-4">
+                        <i class="fa fa-archive"></i>
+                        {{ board.collections }} collections
+                    </li>
+                    <li class="list-inline-item mr-4">
+                        <i class="fa fa-star"></i>
+                        {{ board.bookmarks }} favoris
+                    </li>
+                </ul>
             </div>
         </div>
     {% endfor %}
