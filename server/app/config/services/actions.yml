@@ -2,7 +2,7 @@ services:
     app.ui.action.home_action:
         class: App\Ui\Action\HomeAction
         arguments:
-            - '@app.infrastructure.repository.board_repository'
+            - '@tactician.commandbus'
             - '@templating'
 
     app.ui.action.security.form_login_action:

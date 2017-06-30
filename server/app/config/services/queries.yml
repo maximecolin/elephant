@@ -20,3 +20,10 @@ services:
             - '@app.infrastructure.repository.board_repository'
         tags:
             - { name: tactician.handler, command: App\Application\Query\BoardNavQuery }
+
+    app.application.query.board_list_query_handler:
+        class: App\Application\Query\BoardListQueryHandler
+        arguments:
+            - '@app.infrastructure.repository.board_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Query\BoardListQuery }

@@ -60,4 +60,18 @@ class BoardRepository extends AbstractDoctrineRepository implements BoardReposit
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param User $user
+     *
+     * @return array
+     */
+    public function findByUser(User $user): array
+    {
+        return $this
+            ->createQueryBuilder()
+            ->filterByUser($user)
+            ->getQuery()
+            ->getResult();
+    }
 }

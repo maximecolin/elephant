@@ -2,16 +2,20 @@
 
 namespace App\Ui\Action;
 
-use App\Domain\Repository\BoardRepositoryInterface;
+use App\Application\Query\BoardListQuery;
+use App\Infrastructure\Security\User\SymfonyUser;
+use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class HomeAction
 {
     /**
-     * @var BoardRepositoryInterface
+     * @var CommandBus
      */
-    private $boardRepository;
+    private $commandBus;
 
     /**
      * @var EngineInterface
@@ -21,21 +25,27 @@ class HomeAction
     /**
      * HomeAction constructor.
      *
-     * @param BoardRepositoryInterface $boardRepository
+     * @param CommandBus $commandBus
      * @param EngineInterface          $engine
      */
-    public function __construct(BoardRepositoryInterface $boardRepository, EngineInterface $engine)
+    public function __construct(CommandBus $commandBus, EngineInterface $engine)
     {
-        $this->boardRepository = $boardRepository;
+        $this->commandBus = $commandBus;
         $this->engine = $engine;
     }
 
     /**
+     * @param UserInterface $user
+     *
      * @return Response
      */
-    public function __invoke()
+    public function __invoke(UserInterface $user)
     {
-        $boards = $this->boardRepository->findAll();
+        if (!$user instanceof SymfonyUser) {
+            throw new AccessDeniedException();
+        }
+
+        $boards = $this->commandBus->handle(new BoardListQuery($user->getModel()));
 
         return $this->engine->renderResponse('home.html.twig', [
             'boards' => $boards,

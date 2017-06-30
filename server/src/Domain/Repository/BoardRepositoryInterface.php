@@ -29,5 +29,12 @@ interface BoardRepositoryInterface
      *
      * @return array
      */
+    public function findByUser(User $user) : array;
+
+    /**
+     * @param User $user
+     *
+     * @return array
+     */
     public function getNavItems(User $user) : array;
 }
