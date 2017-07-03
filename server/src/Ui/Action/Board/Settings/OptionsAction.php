@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Ui\Action\Board;
+namespace App\Ui\Action\Board\Settings;
 
-use App\Application\Command\Board\UpdateSettingsCommand;
+use App\Application\Command\Board\UpdateBoardCommand;
 use App\Domain\Repository\BoardRepositoryInterface;
-use App\Domain\Repository\CollaboratorRepositoryInterface;
-use App\Ui\Form\Type\Board\UpdateSettingsType;
+use App\Ui\Form\Type\Board\UpdateType;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -14,58 +13,46 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-class SettingsAction
+class OptionsAction
 {
     /**
      * @var CommandBus
      */
     private $commandBus;
-
     /**
      * @var BoardRepositoryInterface
      */
     private $boardRepository;
-
-    /**
-     * @var CollaboratorRepositoryInterface
-     */
-    private $collaboratorRepository;
-
     /**
      * @var FormFactoryInterface
      */
     private $formFactory;
-
     /**
      * @var FlashBagInterface
      */
     private $flashBag;
-
     /**
      * @var RouterInterface
      */
     private $router;
-
     /**
      * @var EngineInterface
      */
     private $engine;
 
     /**
-     * SettingsAction constructor.
+     * OptionsAction constructor.
      *
-     * @param CommandBus                      $commandBus
-     * @param BoardRepositoryInterface        $boardRepository
-     * @param CollaboratorRepositoryInterface $collaboratorRepository
-     * @param FormFactoryInterface            $formFactory
-     * @param FlashBagInterface               $flashBag
-     * @param RouterInterface                 $router
-     * @param EngineInterface                 $engine
+     * @param CommandBus               $commandBus
+     * @param BoardRepositoryInterface $boardRepository
+     * @param FormFactoryInterface     $formFactory
+     * @param FlashBagInterface        $flashBag
+     * @param RouterInterface          $router
+     * @param EngineInterface          $engine
      */
     public function __construct(
         CommandBus $commandBus,
         BoardRepositoryInterface $boardRepository,
-        CollaboratorRepositoryInterface $collaboratorRepository,
         FormFactoryInterface $formFactory,
         FlashBagInterface $flashBag,
         RouterInterface $router,
@@ -73,7 +60,6 @@ class SettingsAction
     ) {
         $this->commandBus = $commandBus;
         $this->boardRepository = $boardRepository;
-        $this->collaboratorRepository = $collaboratorRepository;
         $this->formFactory = $formFactory;
         $this->flashBag = $flashBag;
         $this->router = $router;
@@ -83,10 +69,9 @@ class SettingsAction
     public function __invoke(Request $request, int $boardId)
     {
         $board = $this->boardRepository->findOneById($boardId);
-        $collaborators = $this->collaboratorRepository->findByBoardId($boardId);
 
-        $command = new UpdateSettingsCommand($board, $collaborators);
-        $form = $this->formFactory->create(UpdateSettingsType::class, $command);
+        $command = new UpdateBoardCommand($board);
+        $form = $this->formFactory->create(UpdateType::class, $command);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle($command);
@@ -95,7 +80,8 @@ class SettingsAction
             return new RedirectResponse($this->router->generate());
         }
 
-        return $this->engine->renderResponse('board/settings.html.twig', [
+        return $this->engine->renderResponse('board/settings/options.html.twig', [
+            'board' => $board,
             'form' => $form->createView(),
         ]);
     }

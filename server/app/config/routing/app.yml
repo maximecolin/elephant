@@ -24,9 +24,14 @@ board:
     defaults: { _controller: app.ui.action.board_action }
     methods: [GET]
 
-board_settings:
-    path: /board/{boardId}/settings
-    defaults: { _controller: app.ui.action.board.settings_action }
+board_settings_options:
+    path: /board/{boardId}/settings/options
+    defaults: { _controller: app.ui.action.board.settings.options_action }
+    methods: [GET, POST]
+
+board_settings_collaborator:
+    path: /board/{boardId}/settings/collaborators
+    defaults: { _controller: app.ui.action.board.settings.collaborators_action }
     methods: [GET, POST]
 
 collection_add:

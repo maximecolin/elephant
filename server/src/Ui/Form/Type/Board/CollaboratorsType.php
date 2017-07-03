@@ -2,12 +2,12 @@
 
 namespace App\Ui\Form\Type\Board;
 
-use App\Application\Command\Board\UpdateSettingsCommand;
+use App\Application\Command\Board\UpdateCollaboratorsCommand;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UpdateSettingsType extends AbstractBoardType
+class CollaboratorsType extends AbstractBoardType
 {
     /**
      * {@inheritdoc}
@@ -26,6 +26,6 @@ class UpdateSettingsType extends AbstractBoardType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault('data_class', UpdateSettingsCommand::class);
+        $resolver->setDefault('data_class', UpdateCollaboratorsCommand::class);
     }
 }

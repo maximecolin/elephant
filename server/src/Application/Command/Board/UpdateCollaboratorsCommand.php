@@ -5,7 +5,7 @@ namespace App\Application\Command\Board;
 use App\Domain\Model\Board;
 use App\Domain\Model\Collaborator;
 
-class UpdateSettingsCommand
+class UpdateCollaboratorsCommand
 {
     /**
      * @var Board

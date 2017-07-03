@@ -56,9 +56,9 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\Board\CreateBoardCommand }
 
-    app.application.command.board.update_settings_command_handler:
-        class: App\Application\Command\Board\UpdateSettingsCommandHandler
+    app.application.command.board.update_collaborators_command_handler:
+        class: App\Application\Command\Board\UpdateCollaboratorsCommandHandler
         arguments:
             - '@app.infrastructure.repository.collaborator_repository'
         tags:
-            - { name: tactician.handler, command: App\Application\Command\Board\UpdateSettingsCommand }
+            - { name: tactician.handler, command: App\Application\Command\Board\UpdateCollaboratorsCommand }

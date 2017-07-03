@@ -1,0 +1,18 @@
+{% extends 'board/settings/base.html.twig' %}
+
+{% block settings_title %}Options{% endblock %}
+
+{% block settings_content %}
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="form-group">
+            {{ form_label(form.title) }}
+            {{ form_widget(form.title, { attr: { class: 'form-control' } }) }}
+            {{ form_errors(form.title) }}
+        </div>
+        <div class="form-group text-right">
+            <a href="{{ path('home') }}" class="btn btn-link">Annuler</a>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

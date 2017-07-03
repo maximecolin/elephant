@@ -4,7 +4,7 @@ namespace App\Application\Command\Board;
 
 use App\Domain\Repository\CollaboratorRepositoryInterface;
 
-class UpdateSettingsCommandHandler
+class UpdateCollaboratorsCommandHandler
 {
     /**
      * @var CollaboratorRepositoryInterface
@@ -22,9 +22,9 @@ class UpdateSettingsCommandHandler
     }
 
     /**
-     * @var UpdateSettingsCommand $command
+     * @var UpdateCollaboratorsCommand $command
      */
-    public function handle(UpdateSettingsCommand $command)
+    public function handle(UpdateCollaboratorsCommand $command)
     {
 
     }

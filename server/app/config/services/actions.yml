@@ -43,8 +43,18 @@ services:
             - '@app.infrastructure.repository.board_repository'
             - '@templating'
 
-    app.ui.action.board.settings_action:
-        class: App\Ui\Action\Board\SettingsAction
+    app.ui.action.board.settings.options_action:
+        class: App\Ui\Action\Board\Settings\OptionsAction
+        arguments:
+            - '@tactician.commandbus'
+            - '@app.infrastructure.repository.board_repository'
+            - '@form.factory'
+            - '@session.flash_bag'
+            - '@router'
+            - '@templating'
+
+    app.ui.action.board.settings.collaborators_action:
+        class: App\Ui\Action\Board\Settings\CollaboratorsAction
         arguments:
             - '@tactician.commandbus'
             - '@app.infrastructure.repository.board_repository'
