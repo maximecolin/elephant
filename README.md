@@ -4,11 +4,11 @@ Elephant is a fake collaborative bookmarks manager project to experiment archite
 
 It's composed by a:
 
-* [Symfony backend](/maximecolin/elephant/tree/master/server) with:
+* [Symfony backend](/server) with:
     * Clean/Hexagonal architecture
     * Best practicies
     * GraphQL API
-* [Vue.js client](/maximecolin/elephant/tree/master/vue-pwa) with:
+* [Vue.js client](/vue-pwa) with:
     * vue-cli
     * PWA
     * vue-router
