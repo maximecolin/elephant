@@ -1,6 +1,9 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: doctrine.yml }
+    - { resource: graphql.yml }
+    - { resource: tactician.yml }
     - { resource: services.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -42,35 +45,6 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
 
-# Doctrine Configuration
-doctrine:
-    dbal:
-        driver: pdo_mysql
-        host: '%database_host%'
-        port: '%database_port%'
-        dbname: '%database_name%'
-        user: '%database_user%'
-        password: '%database_password%'
-        charset: UTF8
-        # if using pdo_sqlite as your database driver:
-        #   1. add the path in parameters.yml
-        #     e.g. database_path: "%kernel.project_dir%/var/data/data.sqlite"
-        #   2. Uncomment database_path in parameters.yml.dist
-        #   3. Uncomment next line:
-        #path: '%database_path%'
-
-    orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: false
-        mappings:
-            entity:
-                type: yml
-                prefix: App\Domain\Model
-                dir: "%kernel.root_dir%/../app/config/doctrine/entity"
-                alias: App
-                is_bundle: false
-
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
@@ -78,24 +52,3 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
-
-# GraphQL Bundle Configuration
-overblog_graphql:
-    definitions:
-        schema:
-            query: Query
-            mutation: Mutation
-        mappings:
-            types:
-                -
-                    type: yml # or xml
-                    dir: "%kernel.project_dir%/app/config/graphql"
-
-# Tactician CommandBus configuration
-tactician:
-    commandbus:
-        default:
-            middleware:
-                - tactician.middleware.validator
-                - tactician.middleware.doctrine
-                - tactician.middleware.command_handler

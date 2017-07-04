@@ -1,0 +1,11 @@
+# GraphQL Bundle Configuration
+overblog_graphql:
+    definitions:
+        schema:
+            query: Query
+            mutation: Mutation
+        mappings:
+            types:
+                -
+                    type: yml # or xml
+                    dir: "%kernel.project_dir%/app/config/graphql"

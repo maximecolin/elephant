@@ -1,0 +1,8 @@
+# Tactician CommandBus configuration
+tactician:
+    commandbus:
+        default:
+            middleware:
+                - tactician.middleware.validator
+                - tactician.middleware.doctrine
+                - tactician.middleware.command_handler
