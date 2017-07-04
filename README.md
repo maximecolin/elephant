@@ -4,7 +4,7 @@ Elephant is a fake collaborative bookmarks manager project to experiment archite
 
 It's composed by a:
 
-* [Symfony backend](/server) with:
+* [Symfony backend/frontend](/server) with:
     * Clean/Hexagonal architecture
     * Best practicies
     * GraphQL API
