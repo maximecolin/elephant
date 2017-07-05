@@ -44,3 +44,11 @@ Split your config files in smaller files for better readability. For example, sp
 In order to keep Symfony user concept appart from your User model, you can use a [Symfony user adapter](/server/src/Infrastructure/Security/User/SymfonyUser.php) provided by a custom [user provider](/server/src/Infrastructure/Security/User/SymfonyUserProvider.php).
 
 See configuration [here](/server/app/config/security.yml#L12).
+
+## Enhance Doctrine QueryBuidler
+
+Extends Doctrine QueryBuilder to add your business logic in reusable and chainable methods.
+ 
+See:
+* [Query builders examples](/server/src/Infrastructure/QueryBuilder)
+* [Usages examples](/server/src/Infrastructure/Repository)
