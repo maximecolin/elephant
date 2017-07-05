@@ -3,6 +3,9 @@ tactician:
     commandbus:
         default:
             middleware:
+                # Validate commands with Symfony validator component
                 - tactician.middleware.validator
+                # Process commands in a Doctrine transaction (automatic flush, rollback in case of failure)
                 - tactician.middleware.doctrine
+                # Handle command with handlers defined in services
                 - tactician.middleware.command_handler

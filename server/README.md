@@ -35,6 +35,14 @@ Same for validation, use [validation yml file](/server/app/config/validation) in
 
 Business rules should be defined in [classes in Domain](/server/src/Domain/Rules) to be reusable and not repeated accross code.
 
+## Tactician
+
+Take advantage of [Tacician middlewares](/server/app/config/tactician.yml) to handle your commands.
+
+## CQRS
+
+Separate [writing](/server/src/Application/Command) from [reading](/server/src/Application/Query).
+
 ## Much files, so tiny
 
 Split your config files in smaller files for better readability. For example, split services [in several files](/server/app/config/services) grouping them by theme. You can also split `router.yml` or `config.yml` for example.
