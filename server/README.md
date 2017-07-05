@@ -20,7 +20,7 @@ Business code and technical code are separated.
 
 For example, for persistence:
 
-* Interface of repositories are defined in [business code](/server/src/Infrastructure/Repository)
+* Interfaces of repositories are defined in [business code](/server/src/Infrastructure/Repository)
 * Doctrine implementations are defined in [technical code](/server/src/Domain/Repository)
 
 ## Keep your model framework agnostic
