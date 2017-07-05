@@ -1,6 +1,6 @@
 # Elephant
 
-This is a fake project used to show example of architecture, pattern and best practices I use in my Symfony projects. 
+This is a fake project used to show examples of architectures, patterns and best practices I use in my Symfony projects. 
 
 ## Clean architecture
 
