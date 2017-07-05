@@ -43,6 +43,10 @@ Take advantage of [Tacician middlewares](/server/app/config/tactician.yml) to ha
 
 Separate [writing](/server/src/Application/Command) from [reading](/server/src/Application/Query).
 
+## DTO
+
+Use [DTOs](/server/src/Domain/Dto) to carry data that don't need to be persisted (i.e. read only data, form data, ...). DTOs allow you to format/organize data the way is the most convenient for your usage without regardless of persistence models.
+
 ## Much files, so tiny
 
 Split your config files in smaller files for better readability. For example, split services [in several files](/server/app/config/services) grouping them by theme. You can also split `router.yml` or `config.yml` for example.
@@ -60,3 +64,9 @@ Extends Doctrine QueryBuilder to add your business logic in reusable and chainab
 See:
 * [Query builders examples](/server/src/Infrastructure/QueryBuilder)
 * [Usages examples](/server/src/Infrastructure/Repository)
+
+## Todos / Coming soon
+
+* Split the command bus into two separate Query and Command buses
+* Query cache
+* API Plateform
