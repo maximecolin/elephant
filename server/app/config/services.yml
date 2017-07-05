@@ -33,12 +33,6 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
-    app.infrastructure.console.gantz_download_command:
-        class: App\Infrastructure\Console\GantzDownloadCommand
-        arguments:
-            - 'app:gantz:download'
-        tags:
-            - { name: console.command }
 
 imports:
     - { resource: services/actions.yml }
