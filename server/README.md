@@ -37,7 +37,7 @@ Business rules should be defined in [classes in Domain](/server/src/Domain/Rules
 
 ## Tactician
 
-Take advantage of [Tacician middlewares](/server/app/config/tactician.yml) to handle your commands.
+Take advantage of [Tactician middlewares](/server/app/config/tactician.yml) to handle your commands.
 
 ## CQRS
 
