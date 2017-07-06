@@ -28,6 +28,7 @@ class UpdateCollaboratorsCommand
         $this->board = $board;
         $this->collaborators = array_map(function (Collaborator $collaborator) {
             return [
+                'model' => $collaborator,
                 'user' => (string) $collaborator->getUser(),
                 'user_id' => $collaborator->getUser()->getId(),
                 'board_id' => $collaborator->getBoard()->getId(),

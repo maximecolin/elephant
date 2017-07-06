@@ -2,9 +2,10 @@
 
 namespace App\Application\Command\Board;
 
+use App\Domain\Model\Collaborator;
 use App\Domain\Repository\CollaboratorRepositoryInterface;
 
-class UpdateCollaboratorsCommandHandler
+class AddCollaboratorCommandHandler
 {
     /**
      * @var CollaboratorRepositoryInterface
@@ -12,7 +13,7 @@ class UpdateCollaboratorsCommandHandler
     private $collaboratorRepository;
 
     /**
-     * UpdateSettingsCommandHandler constructor.
+     * AddCollaboratorCommandHandler constructor.
      *
      * @param CollaboratorRepositoryInterface $collaboratorRepository
      */
@@ -22,12 +23,17 @@ class UpdateCollaboratorsCommandHandler
     }
 
     /**
-     * @var UpdateCollaboratorsCommand $command
+     * @var AddCollaboratorCommand $command
+     *
+     * @return Collaborator
      */
-    public function handle(UpdateCollaboratorsCommand $command)
+    public function handle(AddCollaboratorCommand $command)
     {
-        foreach ($command->collaborators as $collaborator) {
-            $collaborator['model']->setLevel($collaborator['level']);
-        }
+        $collaborator = new Collaborator($command->user, $command->board, Collaborator::LEVEL_READ);
+
+        $this->collaboratorRepository->add($collaborator);
+
+        return $collaborator;
     }
 }
+

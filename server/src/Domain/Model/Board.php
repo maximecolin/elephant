@@ -43,4 +43,16 @@ class Board
     {
         return $this->title;
     }
+
+    /**
+     * @param string $title
+     *
+     * @return $this
+     */
+    public function update(string $title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
 }

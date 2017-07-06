@@ -62,3 +62,15 @@ services:
             - '@app.infrastructure.repository.collaborator_repository'
         tags:
             - { name: tactician.handler, command: App\Application\Command\Board\UpdateCollaboratorsCommand }
+
+    app.application.command.board.update_board_command_handler:
+        class: App\Application\Command\Board\UpdateBoardCommandHandler
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Board\UpdateBoardCommand }
+
+    app.application.command.board.add_collaborator_command_handler:
+        class: App\Application\Command\Board\AddCollaboratorCommandHandler
+        arguments:
+            - '@app.infrastructure.repository.collaborator_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Board\AddCollaboratorCommand }

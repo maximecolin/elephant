@@ -2,9 +2,11 @@
 
 namespace App\Ui\Action\Board\Settings;
 
+use App\Application\Command\Board\AddCollaboratorCommand;
 use App\Application\Command\Board\UpdateCollaboratorsCommand;
 use App\Domain\Repository\BoardRepositoryInterface;
 use App\Domain\Repository\CollaboratorRepositoryInterface;
+use App\Ui\Form\Type\Board\AddCollaboratorType;
 use App\Ui\Form\Type\Board\CollaboratorsType;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -92,19 +94,36 @@ class CollaboratorsAction
         $board = $this->boardRepository->findOneById($boardId);
         $collaborators = $this->collaboratorRepository->findByBoardId($boardId);
 
-        $command = new UpdateCollaboratorsCommand($board, $collaborators);
-        $form = $this->formFactory->create(CollaboratorsType::class, $command);
+        // Handle collaborators update
+        $updateCommand = new UpdateCollaboratorsCommand($board, $collaborators);
+        $updateForm = $this->formFactory->create(CollaboratorsType::class, $updateCommand);
 
-        if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle($command);
+        if ($updateForm->handleRequest($request)->isSubmitted() && $updateForm->isValid()) {
+            $this->commandBus->handle($updateCommand);
             $this->flashBag->add('inverse', 'La configuration a été mis à jour');
 
-            return new RedirectResponse($this->router->generate());
+            return new RedirectResponse($this->router->generate('board_settings_collaborator', [
+                'boardId' => $board->getId(),
+            ]));
+        }
+
+        // Handle collaborator add
+        $addCommand = new AddCollaboratorCommand($board);
+        $addForm = $this->formFactory->create(AddCollaboratorType::class, $addCommand);
+
+        if ($addForm->handleRequest($request)->isSubmitted() && $addForm->isValid()) {
+            $this->commandBus->handle($addCommand);
+            $this->flashBag->add('inverse', 'Le collaborator a été ajouté');
+
+            return new RedirectResponse($this->router->generate('board_settings_collaborator', [
+                'boardId' => $board->getId(),
+            ]));
         }
 
         return $this->engine->renderResponse('board/settings/collaborators.html.twig', [
             'board' => $board,
-            'form' => $form->createView(),
+            'update_form' => $updateForm->createView(),
+            'add_form' => $addForm->createView(),
         ]);
     }
 }

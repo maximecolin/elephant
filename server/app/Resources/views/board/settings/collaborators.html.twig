@@ -1,30 +1,47 @@
 {% extends 'board/settings/base.html.twig' %}
 
-{% block settings_title %}Collaborateurs{% endblock %}
-
 {% block settings_content %}
-    {{ form_start(form) }}
-        {{ form_errors(form) }}
-        <div class="form-group">
+    <div class="card">
+        <div class="card-header">
+            Collaborateurs
+        </div>
+        <div class="card-block">
+            {{ form_start(update_form) }}
+                {{ form_errors(update_form) }}
+                <div class="form-group">
 
-            {% for collaborator in form.collaborators.children %}
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        {{ collaborator.vars.data.user }}
-                    </div>
-                    <div class="col-md-2">
-                        {{ form_widget(collaborator.level, { attr: { class: 'form-control' } }) }}
-                    </div>
-                    <div class="col-md-7 text-right">
-                        <a href="" class="btn btn-danger">&times;</a>
-                    </div>
+                    {% for collaborator in update_form.collaborators.children %}
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                {{ collaborator.vars.data.user }}
+                            </div>
+                            <div class="col-md-2">
+                                {{ form_widget(collaborator.level, { attr: { class: 'form-control' } }) }}
+                            </div>
+                            <div class="col-md-7 text-right">
+                                <a href="" class="btn btn-danger">&times;</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+
                 </div>
-            {% endfor %}
-
+                <div class="form-group text-right">
+                    <a href="{{ path('home') }}" class="btn btn-link">Annuler</a>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+            {{ form_end(update_form) }}
         </div>
-        <div class="form-group text-right">
-            <a href="{{ path('home') }}" class="btn btn-link">Annuler</a>
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        <div class="card-footer">
+            <h5>Ajouter un collaborateur</h5>
+            {{ form_start(add_form) }}
+                {{ form_errors(add_form) }}
+                {{ form_label(add_form.user, 'User' , { label_attr: { class: 'sr-only' } }) }}
+                <div class="input-group">
+                    {{ form_widget(add_form.user, { attr: { class: 'form-control' } }) }}
+                    <button class="btn btn-primary">Ajouter</button>
+                </div>
+                {{ form_errors(add_form.user) }}
+            {{ form_end(add_form) }}
         </div>
-    {{ form_end(form) }}
+    </div>
 {% endblock %}

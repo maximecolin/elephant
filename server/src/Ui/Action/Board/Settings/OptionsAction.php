@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -66,6 +67,12 @@ class OptionsAction
         $this->engine = $engine;
     }
 
+    /**
+     * @param Request $request
+     * @param int     $boardId
+     *
+     * @return RedirectResponse|Response
+     */
     public function __invoke(Request $request, int $boardId)
     {
         $board = $this->boardRepository->findOneById($boardId);
@@ -77,7 +84,9 @@ class OptionsAction
             $this->commandBus->handle($command);
             $this->flashBag->add('inverse', 'La configuration a été mis à jour');
 
-            return new RedirectResponse($this->router->generate());
+            return new RedirectResponse($this->router->generate('board_settings_options', [
+                'boardId' => $board->getId(),
+            ]));
         }
 
         return $this->engine->renderResponse('board/settings/options.html.twig', [

@@ -9,7 +9,8 @@ class UpdateBoardCommandHandler
      */
     public function handle(UpdateBoardCommand $command)
     {
-
+        $board = $command->board;
+        $board->update($command->title);
     }
 }
 

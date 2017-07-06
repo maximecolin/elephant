@@ -66,4 +66,18 @@ class Collaborator
     {
         return $this->level;
     }
+
+    /**
+     * Set level
+     *
+     * @param string $level
+     *
+     * @return Collaborator
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
+
+        return $this;
+    }
 }
