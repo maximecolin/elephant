@@ -74,3 +74,10 @@ services:
             - '@app.infrastructure.repository.collaborator_repository'
         tags:
             - { name: tactician.handler, command: App\Application\Command\Board\AddCollaboratorCommand }
+
+    app.application.command.board.remove_collaborator_command_handler:
+        class: App\Application\Command\Board\RemoveCollaboratorCommandHandler
+        arguments:
+            - '@app.infrastructure.repository.collaborator_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Board\RemoveCollaboratorCommand }

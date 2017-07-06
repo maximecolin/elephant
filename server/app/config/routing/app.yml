@@ -23,16 +23,30 @@ board:
     path: /board/{boardId}
     defaults: { _controller: app.ui.action.board_action }
     methods: [GET]
+    requirements:
+        boardId: \d+
 
 board_settings_options:
     path: /board/{boardId}/settings/options
     defaults: { _controller: app.ui.action.board.settings.options_action }
     methods: [GET, POST]
+    requirements:
+        boardId: \d+
 
 board_settings_collaborator:
     path: /board/{boardId}/settings/collaborators
     defaults: { _controller: app.ui.action.board.settings.collaborators_action }
     methods: [GET, POST]
+    requirements:
+        boardId: \d+
+
+board_settings_remove_collaborator:
+    path: /board/{boardId}/settings/collaborators/{userId}/remove
+    defaults: { _controller: app.ui.action.board.settings.remove_collaborator_action }
+    methods: [DELETE]
+    requirements:
+        boardId: \d+
+        userId: \d+
 
 collection_add:
     path: /board/{boardId}/collection/add

@@ -43,6 +43,10 @@ services:
             - '@app.infrastructure.repository.board_repository'
             - '@templating'
 
+    #
+    # Board settings
+    #
+
     app.ui.action.board.settings.options_action:
         class: App\Ui\Action\Board\Settings\OptionsAction
         arguments:
@@ -63,6 +67,13 @@ services:
             - '@session.flash_bag'
             - '@router'
             - '@templating'
+
+    app.ui.action.board.settings.remove_collaborator_action:
+        class: App\Ui\Action\Board\Settings\RemoveCollaboratorAction
+        arguments:
+            - '@tactician.commandbus'
+            - '@session.flash_bag'
+            - '@router'
 
     #
     # Collection

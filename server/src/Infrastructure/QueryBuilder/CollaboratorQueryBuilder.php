@@ -31,4 +31,18 @@ class CollaboratorQueryBuilder extends QueryBuilder
 
         return $this;
     }
+
+    /**
+     * @param int $id
+     *
+     * @return $this
+     */
+    public function filterByUserId(int $id)
+    {
+        $this
+            ->andWhere('collaborator.user = :user_id')
+            ->setParameter('user_id', $id);
+
+        return $this;
+    }
 }
