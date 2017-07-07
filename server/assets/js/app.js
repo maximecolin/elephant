@@ -2,19 +2,29 @@
 
 import 'bootstrap'
 import Vue from 'vue'
-import DataDelete from './component/DataDelete'
 import UserAutocomplete from './vue/UserAutocomplete.vue'
 
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 })
 
-const elements = document.querySelectorAll('[data-delete]')
-for (let element of elements) { new DataDelete(element) }
-
 new Vue({
   el: '#app',
   components: {
     UserAutocomplete
+  },
+  methods: {
+    deleteForm (url) {
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = url;
+      const method = document.createElement('input');
+      method.type = 'hidden';
+      method.name = '_method';
+      method.value = 'DELETE';
+      form.append(method);
+      document.body.appendChild(form);
+      form.submit();
+    }
   }
 })

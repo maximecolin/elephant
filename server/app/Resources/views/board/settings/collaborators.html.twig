@@ -19,7 +19,7 @@
                                 {{ form_widget(collaborator.level, { attr: { class: 'form-control' } }) }}
                             </div>
                             <div class="col-md-7 text-right">
-                                <button type="button" data-delete="{{ path('board_settings_remove_collaborator', { boardId: collaborator.vars.data.board_id, userId: collaborator.vars.data.user_id }) }}" class="btn btn-danger">&times;</button>
+                                <button type="button" v-on:click="deleteForm('{{ path('board_settings_remove_collaborator', { boardId: collaborator.vars.data.board_id, userId: collaborator.vars.data.user_id }) }}')" class="btn btn-danger">&times;</button>
                             </div>
                         </div>
                     {% endfor %}
