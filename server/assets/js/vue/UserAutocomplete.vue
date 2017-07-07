@@ -84,8 +84,8 @@
         <input type="hidden" v-bind:name="name" v-model="user.id" />
         <input type="text" class="form-control w-100" v-model="term" v-on:focus="open()" />
         <ul class="dropdown-menu w-100" v-show="!hasUsers && loading">
-            <li class="dropdown-item">
-                Chargement...
+            <li class="dropdown-item text-center">
+                <i class="fa fa-spinner fa-spin"></i>
             </li>
         </ul>
         <ul class="dropdown-menu w-100" v-show="hasUsers && isOpen">
