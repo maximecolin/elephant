@@ -65,6 +65,13 @@ See:
 * [Query builders examples](/server/src/Infrastructure/QueryBuilder)
 * [Usages examples](/server/src/Infrastructure/Repository)
 
+## Autocomplete with Vue.js
+
+* [/server/assets/js/vue/UserAutocomplete.vue](Vue component)
+* [/server/src/Ui/Api/UserAutocompleteAction.php](Autocomplete API)
+* [/server/src/Ui/Form/Type/UserAutocompleteType.php](Form type)
+* [/server/app/Resources/views/forms.html.twig](Form theme)
+
 ## Todos / Coming soon
 
 * Split the command bus into two separate Query and Command buses
