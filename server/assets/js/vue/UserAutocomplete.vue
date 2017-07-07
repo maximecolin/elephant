@@ -83,7 +83,11 @@
     <div class="dropdown show w-100" v-on:click.stop>
         <input type="hidden" v-bind:name="name" v-model="user.id" />
         <input type="text" class="form-control w-100" v-model="term" v-on:focus="open()" />
-        <span v-show="loading">Chargement...</span>
+        <ul class="dropdown-menu w-100" v-show="!hasUsers && loading">
+            <li class="dropdown-item">
+                Chargement...
+            </li>
+        </ul>
         <ul class="dropdown-menu w-100" v-show="hasUsers && isOpen">
             <li class="dropdown-item" v-for="user in users" v-on:click="select(user)">
                 <strong>{{ user.name }}</strong><br >
