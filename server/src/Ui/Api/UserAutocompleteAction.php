@@ -4,6 +4,7 @@ namespace App\Ui\Api;
 
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
+use App\Infrastructure\Normalizer\UserAutocompleteNormalizer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -38,14 +39,8 @@ class UserAutocompleteAction
 
         $term = $request->query->get('term');
         $users = $this->userRepository->findByTerm($term);
-
-        $results = array_map(function (User $user) {
-            return [
-                'id' => $user->getId(),
-                'name' => (string) $user,
-                'email' => $user->getEmail(),
-            ];
-        }, $users);
+        $normalizer = new UserAutocompleteNormalizer();
+        $results = $normalizer->normalizeAll($users);
 
         return new JsonResponse($results);
     }
