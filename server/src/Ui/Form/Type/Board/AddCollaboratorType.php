@@ -3,8 +3,7 @@
 namespace App\Ui\Form\Type\Board;
 
 use App\Application\Command\Board\AddCollaboratorCommand;
-use App\Domain\Model\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Ui\Form\Type\UserAutocompleteType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,9 +16,7 @@ class AddCollaboratorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-            ])
+            ->add('user', UserAutocompleteType::class)
         ;
     }
 

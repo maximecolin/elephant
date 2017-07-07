@@ -36,8 +36,10 @@ services:
 
 imports:
     - { resource: services/actions.yml }
+    - { resource: services/api.yml }
     - { resource: services/commands.yml }
     - { resource: services/events.yml }
+    - { resource: services/forms.yml }
     - { resource: services/mutators.yml }
     - { resource: services/normalizers.yml }
     - { resource: services/queries.yml }

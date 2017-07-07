@@ -1,0 +1,6 @@
+App\Application\Command\Board\AddCollaboratorCommand:
+    properties:
+        board:
+            - NotBlank: ~
+        user:
+            - NotBlank: ~

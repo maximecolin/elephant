@@ -5,7 +5,6 @@ export default class DataDelete
     this.element = element;
     this.element.addEventListener('click', this.onClick.bind(this));
     this.href = this.element.getAttribute('data-delete');
-    console.log(element, element.getAttribute('data-delete'));
   }
 
   onClick(event) {

@@ -19,6 +19,20 @@ class UserQueryBuilder extends QueryBuilder
     }
 
     /**
+     * @param int $id
+     *
+     * @return $this
+     */
+    public function filterById(int $id)
+    {
+        $this
+            ->andWhere('user.id = :id')
+            ->setParameter('id', $id);
+
+        return $this;
+    }
+
+    /**
      * @param string $email
      *
      * @return $this
@@ -28,6 +42,20 @@ class UserQueryBuilder extends QueryBuilder
         $this
             ->andWhere('user.email = :email')
             ->setParameter('email', $email);
+
+        return $this;
+    }
+
+    /**
+     * @param string $term
+     *
+     * @return $this
+     */
+    public function filterByTerm(string $term)
+    {
+        $this
+            ->andWhere('user.firstname LIKE :term OR user.lastname LIKE :term OR user.email LIKE :term')
+            ->setParameter('term', '%' . $term . '%');
 
         return $this;
     }

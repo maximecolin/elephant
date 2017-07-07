@@ -21,6 +21,22 @@ class UserRepository extends AbstractDoctrineRepository implements UserRepositor
     /**
      * {@inheritdoc}
      */
+    public function findOneById(int $id): User
+    {
+        try {
+            return $this
+                ->createQueryBuilder()
+                ->filterById($id)
+                ->getQuery()
+                ->getSingleResult();
+        } catch (NoResultException $exception) {
+            throw new ModelNotFoundException('Bookmark not found.', $exception);
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findOneByEmail(string $email): User
     {
         try {
@@ -32,5 +48,19 @@ class UserRepository extends AbstractDoctrineRepository implements UserRepositor
         } catch (NoResultException $exception) {
             throw new ModelNotFoundException('Bookmark not found.', $exception);
         }
+    }
+
+    /**
+     * @param string $term
+     *
+     * @return User[]
+     */
+    public function findByTerm(string $term): array
+    {
+        return $this
+            ->createQueryBuilder()
+            ->filterByTerm($term)
+            ->getQuery()
+            ->getResult();
     }
 }

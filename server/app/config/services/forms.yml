@@ -1,0 +1,7 @@
+services:
+    app.ui.form.type.user_autocomplete_type:
+        class: App\Ui\Form\Type\UserAutocompleteType
+        arguments:
+            - '@app.infrastructure.repository.user_repository'
+        tags:
+            - { name: form.type }

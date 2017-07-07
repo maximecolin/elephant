@@ -1,3 +1,6 @@
-overblog_graphql_endpoint:
-    resource: "@OverblogGraphQLBundle/Resources/config/routing/graphql.yml"
-    prefix: /graphql
+
+
+api_user_autocomplete:
+    path: /user/autocomplete
+    defaults: { _controller: app.ui.api.user_autocomplete_action }
+    methods: [GET]

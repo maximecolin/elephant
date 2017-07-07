@@ -33,6 +33,8 @@ Encore
 
   // create hashed filenames (e.g. app.abc123.css)
   // .enableVersioning()
+
+  .enableVueLoader()
 ;
 
 // export the final configuration
