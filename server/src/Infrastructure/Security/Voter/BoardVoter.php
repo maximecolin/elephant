@@ -35,7 +35,7 @@ class BoardVoter extends Voter
         $level = CollaboratorRoleConverter::roleToLevel($attribute);
 
         if ($user instanceof SymfonyUser && $subject instanceof Board) {
-            // Use the LevelChecker domain serivice to check is the use has the requested access level
+            // Use the LevelChecker domain service to check is the use has the requested access level
             return $this->levelChecker->check($subject, $user->getModel(), $level);
         }
 
