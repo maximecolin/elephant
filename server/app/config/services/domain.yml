@@ -1,0 +1,5 @@
+services:
+    app.domain.rules.board.level_checker:
+        class: App\Domain\Rules\Board\LevelChecker
+        arguments:
+            - '@app.infrastructure.repository.collaborator_repository'

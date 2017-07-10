@@ -3,7 +3,9 @@
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Exception\ModelNotFoundException;
+use App\Domain\Model\Board;
 use App\Domain\Model\Collaborator;
+use App\Domain\Model\User;
 use App\Domain\Repository\CollaboratorRepositoryInterface;
 use App\Infrastructure\QueryBuilder\CollaboratorQueryBuilder;
 use Doctrine\ORM\NoResultException;
@@ -61,5 +63,23 @@ class CollaboratorRepository extends AbstractDoctrineRepository implements Colla
     public function remove(Collaborator $collaborator)
     {
         $this->entityManager->remove($collaborator);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneByBoardUserAndLevel(Board $board, User $user, string $level) : Collaborator
+    {
+        try {
+            return $this
+                ->createQueryBuilder()
+                ->filterByBoardId($board->getId())
+                ->filterByUserId($user->getId())
+                ->filterByLevel($level)
+                ->getQuery()
+                ->getSingleResult();
+        } catch (NoResultException $exception) {
+            throw new ModelNotFoundException('Collaborator not found', $exception);
+        }
     }
 }

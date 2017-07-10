@@ -3,7 +3,9 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Exception\ModelNotFoundException;
+use App\Domain\Model\Board;
 use App\Domain\Model\Collaborator;
+use App\Domain\Model\User;
 
 interface CollaboratorRepositoryInterface
 {
@@ -27,6 +29,16 @@ interface CollaboratorRepositoryInterface
      * @throws ModelNotFoundException
      */
     public function findOneByBoardIdAndUserId(int $boardId, int $userId) : Collaborator;
+
+    /**
+     * @param Board  $board
+     * @param User   $user
+     * @param string $level
+     *
+     * @return Collaborator
+     * @throws ModelNotFoundException
+     */
+    public function findOneByBoardUserAndLevel(Board $board, User $user, string $level) : Collaborator;
 
     /**
      * @param Collaborator $collaborator

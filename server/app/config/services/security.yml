@@ -3,3 +3,10 @@ services:
         class: App\Infrastructure\Security\User\SymfonyUserProvider
         arguments:
             - '@app.infrastructure.repository.user_repository'
+
+    app.infrastructure.security.voter.collaborator_voter:
+        class: App\Infrastructure\Security\Voter\CollaboratorVoter
+        arguments:
+            - '@app.domain.rules.board.level_checker'
+        tags:
+            - { name: security.voter }
