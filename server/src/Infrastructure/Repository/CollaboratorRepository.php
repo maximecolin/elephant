@@ -68,14 +68,13 @@ class CollaboratorRepository extends AbstractDoctrineRepository implements Colla
     /**
      * {@inheritdoc}
      */
-    public function findOneByBoardUserAndLevel(Board $board, User $user, string $level) : Collaborator
+    public function findOneByBoardUserAndLevel(Board $board, User $user) : Collaborator
     {
         try {
             return $this
                 ->createQueryBuilder()
                 ->filterByBoardId($board->getId())
                 ->filterByUserId($user->getId())
-                ->filterByLevel($level)
                 ->getQuery()
                 ->getSingleResult();
         } catch (NoResultException $exception) {

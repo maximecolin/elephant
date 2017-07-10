@@ -14,10 +14,12 @@
         <div class="card mb-3">
             <div class="card-block">
                 <h4 class="card-title">
-                    <a href="{{ path('board_settings_options', { 'boardId': board.id }) }}" class="btn btn-primary float-right" data-toggle="tooltip" title="Configuration">
-                        <i class="fa fa-cog"></i>
-                        <span class="sr-only">Configuration</span>
-                    </a>
+                    {% if is_granted('COLLABORATOR_OWNER', board) %}
+                        <a href="{{ path('board_settings_options', { 'boardId': board.id }) }}" class="btn btn-primary float-right" data-toggle="tooltip" title="Configuration">
+                            <i class="fa fa-cog"></i>
+                            <span class="sr-only">Configuration</span>
+                        </a>
+                    {% endif %}
                     <a href="{{ path('board', { 'boardId': board.id }) }}">
                         {{ board.title }}
                     </a>

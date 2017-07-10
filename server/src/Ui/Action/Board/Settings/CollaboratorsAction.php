@@ -6,6 +6,7 @@ use App\Application\Command\Board\AddCollaboratorCommand;
 use App\Application\Command\Board\UpdateCollaboratorsCommand;
 use App\Domain\Repository\BoardRepositoryInterface;
 use App\Domain\Repository\CollaboratorRepositoryInterface;
+use App\Infrastructure\Helper\SecurityTrait;
 use App\Ui\Form\Type\Board\AddCollaboratorType;
 use App\Ui\Form\Type\Board\CollaboratorsType;
 use League\Tactician\CommandBus;
@@ -16,9 +17,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CollaboratorsAction
 {
+    use SecurityTrait;
+
     /**
      * @var CommandBus
      */
@@ -64,6 +68,7 @@ class CollaboratorsAction
      * @param FlashBagInterface               $flashBag
      * @param RouterInterface                 $router
      * @param EngineInterface                 $engine
+     * @param AuthorizationCheckerInterface   $authorizationChecker
      */
     public function __construct(
         CommandBus $commandBus,
@@ -72,7 +77,8 @@ class CollaboratorsAction
         FormFactoryInterface $formFactory,
         FlashBagInterface $flashBag,
         RouterInterface $router,
-        EngineInterface $engine
+        EngineInterface $engine,
+        AuthorizationCheckerInterface $authorizationChecker
     ) {
         $this->commandBus = $commandBus;
         $this->boardRepository = $boardRepository;
@@ -81,6 +87,7 @@ class CollaboratorsAction
         $this->flashBag = $flashBag;
         $this->router = $router;
         $this->engine = $engine;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -92,6 +99,7 @@ class CollaboratorsAction
     public function __invoke(Request $request, int $boardId)
     {
         $board = $this->boardRepository->findOneById($boardId);
+        $this->denyAccessUnlessGranted('COLLABORATOR_OWNER', $board);
         $collaborators = $this->collaboratorRepository->findByBoardId($boardId);
 
         // Handle collaborators update

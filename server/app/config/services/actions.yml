@@ -42,6 +42,7 @@ services:
         arguments:
             - '@app.infrastructure.repository.board_repository'
             - '@templating'
+            - '@security.authorization_checker'
 
     #
     # Board settings
@@ -56,6 +57,7 @@ services:
             - '@session.flash_bag'
             - '@router'
             - '@templating'
+            - '@security.authorization_checker'
 
     app.ui.action.board.settings.collaborators_action:
         class: App\Ui\Action\Board\Settings\CollaboratorsAction
@@ -67,6 +69,7 @@ services:
             - '@session.flash_bag'
             - '@router'
             - '@templating'
+            - '@security.authorization_checker'
 
     app.ui.action.board.settings.remove_collaborator_action:
         class: App\Ui\Action\Board\Settings\RemoveCollaboratorAction

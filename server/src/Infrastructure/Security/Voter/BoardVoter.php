@@ -9,21 +9,21 @@ use App\Infrastructure\Security\User\SymfonyUser;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class CollaboratorVoter extends Voter
+class BoardVoter extends Voter
 {
     /**
      * @var LevelChecker
      */
-    private $checker;
+    private $levelChecker;
 
     /**
      * CollaboratorVoter constructor.
      *
-     * @param LevelChecker $checker
+     * @param LevelChecker $levelChecker
      */
-    public function __construct(LevelChecker $checker)
+    public function __construct(LevelChecker $levelChecker)
     {
-        $this->checker = $checker;
+        $this->levelChecker = $levelChecker;
     }
 
     /**
@@ -36,7 +36,7 @@ class CollaboratorVoter extends Voter
 
         if ($user instanceof SymfonyUser && $subject instanceof Board) {
             // Use the LevelChecker domain serivice to check is the use has the requested access level
-            return $this->checker->check($subject, $user->getModel(), $level);
+            return $this->levelChecker->check($subject, $user->getModel(), $level);
         }
 
         return false;
@@ -47,7 +47,7 @@ class CollaboratorVoter extends Voter
      */
     protected function supports($attribute, $subject)
     {
-        // Support COLLABORATOR_* roles and Board object
-        return 1 === strpos($attribute, 'COLLABORATOR_') && is_object($subject) && $subject instanceof Board;
+        // Support COLLABORATOR_* roles and Board objects
+        return 0 === strpos($attribute, 'COLLABORATOR_') && is_object($subject) && $subject instanceof Board;
     }
 }

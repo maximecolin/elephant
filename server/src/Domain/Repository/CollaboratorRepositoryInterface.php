@@ -33,12 +33,11 @@ interface CollaboratorRepositoryInterface
     /**
      * @param Board  $board
      * @param User   $user
-     * @param string $level
      *
      * @return Collaborator
      * @throws ModelNotFoundException
      */
-    public function findOneByBoardUserAndLevel(Board $board, User $user, string $level) : Collaborator;
+    public function findOneByBoardUserAndLevel(Board $board, User $user) : Collaborator;
 
     /**
      * @param Collaborator $collaborator

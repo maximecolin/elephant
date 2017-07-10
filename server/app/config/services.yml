@@ -41,6 +41,7 @@ imports:
     - { resource: services/domain.yml }
     - { resource: services/events.yml }
     - { resource: services/forms.yml }
+    - { resource: services/helpers.yml }
     - { resource: services/mutators.yml }
     - { resource: services/normalizers.yml }
     - { resource: services/queries.yml }

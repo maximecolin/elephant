@@ -45,18 +45,4 @@ class CollaboratorQueryBuilder extends QueryBuilder
 
         return $this;
     }
-
-    /**
-     * @param string $level
-     *
-     * @return $this
-     */
-    public function filterByLevel(string $level)
-    {
-        $this
-            ->andWhere('collaborator.level = :level')
-            ->setParameter('level', $level);
-
-        return $this;
-    }
 }

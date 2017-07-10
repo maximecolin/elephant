@@ -5,31 +5,43 @@ namespace App\Domain\Dto;
 class BoardListItem
 {
     /**
+     * Board id
+     *
      * @var int
      */
     public $id;
 
     /**
+     * Board title
+     *
      * @var string
      */
     public $title;
 
     /**
+     * User current level
+     *
      * @var string
      */
     public $level;
 
     /**
+     * The number of collaborators
+     *
      * @var int
      */
     public $collaborators;
 
     /**
+     * The number of collections
+     *
      * @var int
      */
     public $collections;
 
     /**
+     * The number of bookmarks
+     *
      * @var int
      */
     public $bookmarks;

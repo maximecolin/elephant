@@ -1,11 +1,27 @@
 services:
+
+    #
+    # User provider
+    #
+
     app.infrastructure.security.user.symfony_user_provider:
         class: App\Infrastructure\Security\User\SymfonyUserProvider
         arguments:
             - '@app.infrastructure.repository.user_repository'
 
-    app.infrastructure.security.voter.collaborator_voter:
-        class: App\Infrastructure\Security\Voter\CollaboratorVoter
+    #
+    # Voters
+    #
+
+    app.infrastructure.security.voter.board_voter:
+        class: App\Infrastructure\Security\Voter\BoardVoter
+        arguments:
+            - '@app.domain.rules.board.level_checker'
+        tags:
+            - { name: security.voter }
+
+    app.infrastructure.security.voter.board_list_item_voter:
+        class: App\Infrastructure\Security\Voter\BoardListItemVoter
         arguments:
             - '@app.domain.rules.board.level_checker'
         tags:
