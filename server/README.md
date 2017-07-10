@@ -67,10 +67,10 @@ See:
 
 ## Autocomplete with Vue.js
 
-* [/server/assets/js/vue/UserAutocomplete.vue](Vue component)
-* [/server/src/Ui/Api/UserAutocompleteAction.php](Autocomplete API)
-* [/server/src/Ui/Form/Type/UserAutocompleteType.php](Form type)
-* [/server/app/Resources/views/forms.html.twig](Form theme)
+* [Vue component](/server/assets/js/vue/UserAutocomplete.vue)
+* [Autocomplete API](/server/src/Ui/Api/UserAutocompleteAction.php)
+* [Form type](/server/src/Ui/Form/Type/UserAutocompleteType.php)
+* [Form theme](/server/app/Resources/views/forms.html.twig)
 
 ## Custom voter
 
