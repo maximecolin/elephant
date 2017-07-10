@@ -72,6 +72,15 @@ See:
 * [/server/src/Ui/Form/Type/UserAutocompleteType.php](Form type)
 * [/server/app/Resources/views/forms.html.twig](Form theme)
 
+## Custom voter
+
+Custom voters allow you to create and handle permissions based on business rules.
+
+See:
+* [Custom voters examples](/server/src/Infrastructure/Security/Voter)
+* [Services declaration](/server/app/config/services/security.yml)
+* Usage [here](/server/src/Ui/Action/Board/Settings/OptionsAction.php#L91) and [here](/server/app/Resources/views/home.html.twig#L17)
+
 ## Todos / Coming soon
 
 * Split the command bus into two separate Query and Command buses
