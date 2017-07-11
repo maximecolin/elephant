@@ -51,15 +51,14 @@ class UserRepository extends AbstractDoctrineRepository implements UserRepositor
     }
 
     /**
-     * @param string $term
-     *
-     * @return User[]
+     * {@inheritdoc}
      */
-    public function findByTerm(string $term): array
+    public function findByTerm(string $term, int $boardId) : array
     {
         return $this
             ->createQueryBuilder()
             ->filterByTerm($term)
+            ->excludeBoardCollaborator($boardId)
             ->getQuery()
             ->getResult();
     }

@@ -2,7 +2,6 @@
 
 namespace App\Ui\Api;
 
-use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Infrastructure\Normalizer\UserAutocompleteNormalizer;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -38,7 +37,8 @@ class UserAutocompleteAction
         }
 
         $term = $request->query->get('term');
-        $users = $this->userRepository->findByTerm($term);
+        $boardId = $request->query->getInt('boardId');
+        $users = $this->userRepository->findByTerm($term, $boardId);
         $normalizer = new UserAutocompleteNormalizer();
         $results = $normalizer->normalizeAll($users);
 

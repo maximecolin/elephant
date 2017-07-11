@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\QueryBuilder;
 
+use App\Domain\Model\Collaborator;
 use App\Domain\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -56,6 +57,20 @@ class UserQueryBuilder extends QueryBuilder
         $this
             ->andWhere('user.firstname LIKE :term OR user.lastname LIKE :term OR user.email LIKE :term')
             ->setParameter('term', '%' . $term . '%');
+
+        return $this;
+    }
+
+    /**
+     * @param int $boardId
+     *
+     * @return $this
+     */
+    public function excludeBoardCollaborator(int $boardId)
+    {
+        $this
+            ->andWhere(sprintf('NOT EXISTS (SELECT c.level FROM %s c WHERE c.user = user AND c.board = :board_id)', Collaborator::class))
+            ->setParameter('board_id', $boardId);
 
         return $this;
     }

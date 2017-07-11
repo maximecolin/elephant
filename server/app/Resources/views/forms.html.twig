@@ -1,3 +1,3 @@
 {% block user_autocomplete_widget %}
-    <user-autocomplete :name="'{{ form.vars.full_name }}'" :endpoint="'{{ path('api_user_autocomplete') }}'"></user-autocomplete>
+    <user-autocomplete :name="'{{ form.vars.full_name }}'" :endpoint="'{{ path(form.vars.autocomplete_path, form.vars.autocomplete_params) }}'"></user-autocomplete>
 {% endblock %}

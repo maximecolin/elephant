@@ -25,8 +25,9 @@ interface UserRepositoryInterface
 
     /**
      * @param string $term
+     * @param int    $boardId
      *
-     * @return User[]
+     * @return User[]|array
      */
-    public function findByTerm(string $term) : array;
+    public function findByTerm(string $term, int $boardId) : array;
 }
