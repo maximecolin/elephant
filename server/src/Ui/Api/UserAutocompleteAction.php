@@ -2,27 +2,34 @@
 
 namespace App\Ui\Api;
 
-use App\Domain\Repository\UserRepositoryInterface;
-use App\Infrastructure\Normalizer\UserAutocompleteNormalizer;
+use App\Application\Query\UserAutocompleteQuery;
+use App\Infrastructure\Normalizer\InvalidCommandExceptionNormalizer;
+use League\Tactician\Bundle\Middleware\InvalidCommandException;
+use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class UserAutocompleteAction
 {
     /**
-     * @var UserRepositoryInterface
+     * @var CommandBus
      */
-    private $userRepository;
+    private $commandBus;
+
+    /**
+     * @var InvalidCommandExceptionNormalizer
+     */
+    private $normalizer;
 
     /**
      * UserAutocompleteAction constructor.
      *
-     * @param UserRepositoryInterface $userRepository
+     * @param CommandBus $commandBus
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(CommandBus $commandBus)
     {
-        $this->userRepository = $userRepository;
+        $this->commandBus = $commandBus;
+        $this->normalizer = new InvalidCommandExceptionNormalizer();
     }
 
     /**
@@ -32,16 +39,17 @@ class UserAutocompleteAction
      */
     public function __invoke(Request $request)
     {
-        if (!$request->query->has('term')) {
-            throw new BadRequestHttpException('Missing term.');
+        try {
+            $command = new UserAutocompleteQuery(
+                $request->query->get('term'),
+                $request->query->getInt('boardId')
+            );
+
+            $data = $this->commandBus->handle($command);
+
+            return new JsonResponse($data);
+        } catch (InvalidCommandException $exception) {
+            return new JsonResponse($this->normalizer->normalize($exception), 400);
         }
-
-        $term = $request->query->get('term');
-        $boardId = $request->query->getInt('boardId');
-        $users = $this->userRepository->findByTerm($term, $boardId);
-        $normalizer = new UserAutocompleteNormalizer();
-        $results = $normalizer->normalizeAll($users);
-
-        return new JsonResponse($results);
     }
 }

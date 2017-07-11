@@ -2,4 +2,4 @@ services:
     app.ui.api.user_autocomplete_action:
         class: App\Ui\Api\UserAutocompleteAction
         arguments:
-            - '@app.infrastructure.repository.user_repository'
+            - '@tactician.commandbus'

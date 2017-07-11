@@ -1,0 +1,9 @@
+App\Application\Query\UserAutocompleteQuery:
+    properties:
+        term:
+            - NotBlank: ~
+            - Type: { type: string }
+        boardId:
+            - NotBlank: ~
+            - Type: { type: int }
+            - Range: { min: 1 }

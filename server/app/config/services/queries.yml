@@ -27,3 +27,10 @@ services:
             - '@app.infrastructure.repository.board_repository'
         tags:
             - { name: tactician.handler, command: App\Application\Query\BoardListQuery }
+
+    app.application.query.user_autocomplete_query_handler:
+        class: App\Application\Query\UserAutocompleteQueryHandler
+        arguments:
+            - '@app.infrastructure.repository.user_repository'
+        tags:
+            - { name: tactician.handler, command: App\Application\Query\UserAutocompleteQuery }
