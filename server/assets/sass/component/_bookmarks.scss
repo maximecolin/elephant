@@ -1,7 +1,11 @@
 .collection-bookmark {
-    .btn-danger {
+    .btns {
         position: absolute;
         right: 20px;
         top: 20px;
+
+        form {
+            display: inline-block;
+        }
     }
 }

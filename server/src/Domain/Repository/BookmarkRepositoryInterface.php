@@ -8,12 +8,13 @@ use App\Domain\Model\Bookmark;
 interface BookmarkRepositoryInterface
 {
     /**
-     * @param int $id
+     * @param int      $id
+     * @param int|null $collectionId
+     * @param int|null $boardId
      *
      * @return Bookmark
-     * @throws ModelNotFoundException
      */
-    public function findOneById(int $id) : Bookmark;
+    public function findOneById(int $id, int $collectionId = null, int $boardId = null) : Bookmark;
 
     /**
      * @param string $url

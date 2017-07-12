@@ -16,10 +16,17 @@
                 {{ bookmark.url }}<br>
 
                 {% if is_granted('COLLABORATOR_WRITE', board) %}
-                    <form action="{{ path('bookmark_remove', { 'boardId': boardId, 'collectionId': collection.id, 'bookmarkId': bookmark.id }) }}" method="POST">
-                        <input type="hidden" name="_method" value="DELETE" />
-                        <button type="submit" class="btn btn-danger btn-sm">&times;</button>
-                    </form>
+                    <div class="btns">
+                        <a href="{{ path('bookmark_edit', { 'boardId': boardId, 'collectionId': collection.id, 'bookmarkId': bookmark.id }) }}" class="btn btn-primary btn-sm">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <form action="{{ path('bookmark_remove', { 'boardId': boardId, 'collectionId': collection.id, 'bookmarkId': bookmark.id }) }}" method="POST">
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="fa fa-close"></i>
+                            </button>
+                        </form>
+                    </div>
                 {% endif %}
             </li>
         {% endfor %}

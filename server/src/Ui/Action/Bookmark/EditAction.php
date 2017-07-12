@@ -3,7 +3,9 @@
 namespace App\Ui\Action\Bookmark;
 
 use App\Application\Command\Bookmark\UpdateBookmarkCommand;
+use App\Domain\Exception\DuplicateException;
 use App\Domain\Repository\BookmarkRepositoryInterface;
+use App\Infrastructure\Helper\SecurityTrait;
 use App\Ui\Form\Type\Bookmark\UpdateType;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -12,11 +14,13 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class EditAction
 {
+    use SecurityTrait;
+
     /**
      * @var BookmarkRepositoryInterface
      */
@@ -41,6 +45,7 @@ class EditAction
      * @var RouterInterface
      */
     private $router;
+
     /**
      * @var FlashBagInterface
      */
@@ -49,12 +54,13 @@ class EditAction
     /**
      * AddAction constructor.
      *
-     * @param BookmarkRepositoryInterface $bookmarkRepository
-     * @param CommandBus                  $commandBus
-     * @param FormFactoryInterface        $formFactory
-     * @param EngineInterface             $engine
-     * @param RouterInterface             $router
-     * @param FlashBagInterface           $flashBag
+     * @param BookmarkRepositoryInterface   $bookmarkRepository
+     * @param CommandBus                    $commandBus
+     * @param FormFactoryInterface          $formFactory
+     * @param EngineInterface               $engine
+     * @param RouterInterface               $router
+     * @param FlashBagInterface             $flashBag
+     * @param AuthorizationCheckerInterface $authorizationChecker
      */
     public function __construct(
         BookmarkRepositoryInterface $bookmarkRepository,
@@ -62,7 +68,8 @@ class EditAction
         FormFactoryInterface $formFactory,
         EngineInterface $engine,
         RouterInterface $router,
-        FlashBagInterface $flashBag
+        FlashBagInterface $flashBag,
+        AuthorizationCheckerInterface $authorizationChecker
     ) {
         $this->bookmarkRepository = $bookmarkRepository;
         $this->commandBus = $commandBus;
@@ -70,23 +77,21 @@ class EditAction
         $this->engine = $engine;
         $this->router = $router;
         $this->flashBag = $flashBag;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
      * @param Request $request
      * @param int     $boardId
      * @param int     $collectionId
-     * @param int     $id
+     * @param int     $bookmarkId
      *
      * @return RedirectResponse|Response
      */
-    public function __invoke(Request $request, int $boardId, int $collectionId, int $id)
+    public function __invoke(Request $request, int $boardId, int $collectionId, int $bookmarkId)
     {
-        $bookmark = $this->bookmarkRepository->findOneById($id);
-
-        if ($bookmark->getCollection()->getId() !== $collectionId) {
-            throw new NotFoundHttpException('Bookmark not found.');
-        }
+        $bookmark = $this->bookmarkRepository->findOneById($bookmarkId, $collectionId, $boardId);
+        $this->denyAccessUnlessGranted('COLLABORATOR_WRITE', $bookmark->getCollection()->getBoard());
 
         $command = UpdateBookmarkCommand::createFromBookmark($bookmark);
         $form = $this->formFactory->create(UpdateType::class, $command);
@@ -103,6 +108,7 @@ class EditAction
 
         return $this->engine->renderResponse('bookmark/edit.html.twig', [
             'bookmark' => $bookmark,
+            'board' => $bookmark->getCollection()->getBoard(),
             'form' => $form->createView(),
         ]);
     }

@@ -88,7 +88,7 @@ bookmark_add:
         collectionId: \d+
 
 bookmark_edit:
-    path: /board/{boardId}/collection/{collectionId}/bookmark/{bookmarkId}/remove
+    path: /board/{boardId}/collection/{collectionId}/bookmark/{bookmarkId}/edit
     defaults: { _controller: app.ui.action.bookmark.edit_action }
     methods: [GET, POST]
     requirements:

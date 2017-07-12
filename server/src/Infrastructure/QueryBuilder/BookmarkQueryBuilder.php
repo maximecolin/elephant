@@ -81,8 +81,22 @@ class BookmarkQueryBuilder extends QueryBuilder
     public function filterByCollectionId(int $id)
     {
         $this
-            ->andWhere('bookmark.collection = :collection_id')
+            ->join('bookmark.collection', 'collection', 'WITH', 'collection.id = :collection_id')
             ->setParameter('collection_id', $id);
+
+        return $this;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return $this
+     */
+    public function filterByBoardId(int $id)
+    {
+        $this
+            ->join('collection.board', 'board', 'WITH', 'board.id = :board_id')
+            ->setParameter('board_id', $id);
 
         return $this;
     }

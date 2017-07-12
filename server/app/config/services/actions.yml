@@ -143,6 +143,7 @@ services:
             - '@templating'
             - '@router'
             - '@session.flash_bag'
+            - '@security.authorization_checker'
 
     app.ui.action.bookmark.remove_action:
         class: App\Ui\Action\Bookmark\RemoveAction

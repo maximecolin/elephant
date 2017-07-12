@@ -21,11 +21,20 @@ class BookmarkRepository extends AbstractDoctrineRepository implements BookmarkR
     /**
      * {@inheritdoc}
      */
-    public function findOneById(int $id) : Bookmark
+    public function findOneById(int $id, int $collectionId = null, int $boardId = null) : Bookmark
     {
         try {
-            return $this
-                ->createQueryBuilder()
+            $queryBuilder = $this->createQueryBuilder();
+
+            if (null !== $collectionId) {
+                $queryBuilder->filterByCollectionId($collectionId)->addSelect('collection');
+            }
+
+            if (null !== $boardId) {
+                $queryBuilder->filterByBoardId($boardId)->addSelect('board');
+            }
+
+            return $queryBuilder
                 ->filterById($id)
                 ->getQuery()
                 ->getSingleResult();
