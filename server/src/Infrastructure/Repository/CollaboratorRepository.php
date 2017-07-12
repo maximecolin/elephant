@@ -81,4 +81,19 @@ class CollaboratorRepository extends AbstractDoctrineRepository implements Colla
             throw new ModelNotFoundException('Collaborator not found', $exception);
         }
     }
+
+    /**
+     * @param Board  $board
+     * @param string $level
+     *
+     * @return int
+     */
+    public function countByLevel(Board $board, string $level): int
+    {
+        return $this
+            ->createQueryBuilder()
+            ->filterByBoardId($board->getId())
+            ->filterByLevel($level)
+            ->count();
+    }
 }

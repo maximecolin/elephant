@@ -43,4 +43,12 @@ interface CollaboratorRepositoryInterface
      * @param Collaborator $collaborator
      */
     public function remove(Collaborator $collaborator);
+
+    /**
+     * @param Board  $board
+     * @param string $level
+     *
+     * @return int
+     */
+    public function countByLevel(Board $board, string $level) : int;
 }

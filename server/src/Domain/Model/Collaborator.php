@@ -80,4 +80,12 @@ class Collaborator
 
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function isOwner() : bool
+    {
+        return self::LEVEL_OWNER === $this->level;
+    }
 }

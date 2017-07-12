@@ -13,6 +13,21 @@ trait SecurityTrait
     private $authorizationChecker;
 
     /**
+     * Checks if the attributes are granted against the current authentication token and optionally supplied object.
+     *
+     * @param mixed $attributes The attributes
+     * @param mixed $object     The object
+     *
+     * @return bool
+     *
+     * @throws \LogicException
+     */
+    public function isGranted($attributes, $object = null)
+    {
+        return $this->authorizationChecker->isGranted($attributes, $object);
+    }
+
+    /**
      * Throws an exception unless the attributes are granted against the current authentication token and optionally
      * supplied object.
      *
@@ -24,7 +39,7 @@ trait SecurityTrait
      */
     public function denyAccessUnlessGranted($attributes, $object = null, $message = 'Access Denied.')
     {
-        if (!$this->authorizationChecker->isGranted($attributes, $object)) {
+        if (!$this->isGranted($attributes, $object)) {
             $exception = $this->createAccessDeniedException($message);
             $exception->setAttributes($attributes);
             $exception->setSubject($object);
