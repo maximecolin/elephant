@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
-class ContainterExpressionValidator extends ConstraintValidator
+class ContainerExpressionValidator extends ConstraintValidator
 {
     /**
      * @var ContainerInterface
@@ -22,7 +22,7 @@ class ContainterExpressionValidator extends ConstraintValidator
     private $expressionLanguage;
 
     /**
-     * ContainterExpressionValidator constructor.
+     * ContainerExpressionValidator constructor.
      *
      * @param ContainerInterface $container
      */
