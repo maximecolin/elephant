@@ -38,11 +38,11 @@ class UniqueUrlChecker
 
     /**
      * @param string $url
-     * @param string $id
+     * @param int    $id
      *
      * @return bool
      */
-    public function isUnique(string $url, string $id = null)
+    public function isUnique(string $url, int $id = null)
     {
         try {
             return $this->bookmarkRepository->findOneByUrl($url)->getId() === $id;
