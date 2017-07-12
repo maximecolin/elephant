@@ -1,4 +1,4 @@
-App\Application\Command\UpdateBookmarkCommand:
+App\Application\Command\Bookmark\UpdateBookmarkCommand:
     properties:
         id:
             - NotBlank: ~

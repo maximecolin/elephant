@@ -1,4 +1,4 @@
-App\Application\Command\CreateBookmarkCommand:
+App\Application\Command\Bookmark\CreateBookmarkCommand:
     properties:
         url:
             - NotBlank: ~

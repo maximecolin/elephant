@@ -1,4 +1,4 @@
-App\Application\Command\RemoveBookmarkCommand:
+App\Application\Command\Bookmark\RemoveBookmarkCommand:
     properties:
         id:
             - NotBlank: ~

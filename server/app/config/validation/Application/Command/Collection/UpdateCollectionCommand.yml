@@ -1,4 +1,4 @@
-App\Application\Command\UpdateCollectionCommand:
+App\Application\Command\Collection\UpdateCollectionCommand:
     properties:
         id:
             - NotBlank: ~

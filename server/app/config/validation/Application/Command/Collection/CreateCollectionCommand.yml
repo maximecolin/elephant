@@ -1,4 +1,4 @@
-App\Application\Command\CreateCollectionCommand:
+App\Application\Command\Collection\CreateCollectionCommand:
     properties:
         title:
             - NotBlank: ~
