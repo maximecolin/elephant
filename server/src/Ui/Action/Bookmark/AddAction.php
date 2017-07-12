@@ -4,7 +4,9 @@ namespace App\Ui\Action\Bookmark;
 
 use App\Application\Command\Bookmark\CreateBookmarkCommand;
 use App\Domain\Exception\DuplicateException;
+use App\Domain\Repository\BoardRepositoryInterface;
 use App\Domain\Repository\CollectionRepositoryInterface;
+use App\Infrastructure\Helper\SecurityTrait;
 use App\Ui\Form\Type\Bookmark\CreateType;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -14,13 +16,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class AddAction
 {
+    use SecurityTrait;
+
     /**
      * @var CollectionRepositoryInterface
      */
     private $collectionRepository;
+
+    /**
+     * @var BoardRepositoryInterface
+     */
+    private $boardRepository;
 
     /**
      * @var CommandBus
@@ -50,27 +60,33 @@ class AddAction
     /**
      * AddAction constructor.
      *
+     * @param BoardRepositoryInterface      $boardRepository
      * @param CollectionRepositoryInterface $collectionRepository
      * @param CommandBus                    $commandBus
      * @param FormFactoryInterface          $formFactory
      * @param EngineInterface               $engine
      * @param RouterInterface               $router
      * @param FlashBagInterface             $flashBag
+     * @param AuthorizationCheckerInterface $authorizationChecker
      */
     public function __construct(
+        BoardRepositoryInterface $boardRepository,
         CollectionRepositoryInterface $collectionRepository,
         CommandBus $commandBus,
         FormFactoryInterface $formFactory,
         EngineInterface $engine,
         RouterInterface $router,
-        FlashBagInterface $flashBag
+        FlashBagInterface $flashBag,
+        AuthorizationCheckerInterface $authorizationChecker
     ) {
+        $this->boardRepository = $boardRepository;
+        $this->collectionRepository = $collectionRepository;
         $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
         $this->engine = $engine;
         $this->router = $router;
-        $this->collectionRepository = $collectionRepository;
         $this->flashBag = $flashBag;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -82,6 +98,9 @@ class AddAction
      */
     public function __invoke(Request $request, int $boardId, int $collectionId)
     {
+        $board = $this->boardRepository->findOneById($boardId);
+        $this->denyAccessUnlessGranted('COLLABORATOR_WRITE', $board);
+        
         $collection = $this->collectionRepository->findOneById($collectionId);
         $command = new CreateBookmarkCommand(null, null, $collection->getId());
         $form = $this->formFactory->create(CreateType::class, $command);
@@ -102,6 +121,7 @@ class AddAction
         }
 
         return $this->engine->renderResponse('bookmark/add.html.twig', [
+            'board' => $board,
             'collection' => $collection,
             'form' => $form->createView(),
         ]);

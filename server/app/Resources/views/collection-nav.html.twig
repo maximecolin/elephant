@@ -1,17 +1,19 @@
 <ul class="nav nav-pills flex-column collections-nav">
     {% for collection in collections %}
-        <li class="nav-item toggle-item-hover">
+        <li class="nav-item{% if is_granted('COLLABORATOR_WRITE', board) %} toggle-item-hover{% endif %}">
             <a href="{{ path('collection', { boardId: boardId, collectionId: collection.id }) }}" class="nav-link{% if collection.active %} active{% endif %}">
                 {{ collection.title }}
                 <span class="badge badge-pill badge-default pull-right toggle-item-hover-show">{{ collection.bookmarks }}</span>
             </a>
-            <div class="nav-link toggle-item-hover-hide{% if collection.active %} active{% endif %}">
-                <a href="{{ path('collection_edit', { boardId: boardId, collectionId: collection.id }) }}" class="btn btn-link btn-sm mr-2">Edit.</a>
-                <form action="{{ path('collection_remove', { boardId: boardId, collectionId: collection.id }) }}" method="POST" style="display: inline">
-                    <input type="hidden" name="_method" value="DELETE" />
-                    <button type="submit" class="btn btn-link btn-sm">Suppr.</button>
-                </form>
-            </div>
+            {% if is_granted('COLLABORATOR_WRITE', board) %}
+                <div class="nav-link toggle-item-hover-hide{% if collection.active %} active{% endif %}">
+                    <a href="{{ path('collection_edit', { boardId: boardId, collectionId: collection.id }) }}" class="btn btn-link btn-sm mr-2">Edit.</a>
+                    <form action="{{ path('collection_remove', { boardId: boardId, collectionId: collection.id }) }}" method="POST" style="display: inline">
+                        <input type="hidden" name="_method" value="DELETE" />
+                        <button type="submit" class="btn btn-link btn-sm">Suppr.</button>
+                    </form>
+                </div>
+            {% endif %}
         </li>
     {% endfor %}
 </ul>

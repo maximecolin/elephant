@@ -74,9 +74,11 @@ services:
     app.ui.action.board.settings.remove_collaborator_action:
         class: App\Ui\Action\Board\Settings\RemoveCollaboratorAction
         arguments:
+            - '@app.infrastructure.repository.board_repository'
             - '@tactician.commandbus'
             - '@session.flash_bag'
             - '@router'
+            - '@security.authorization_checker'
 
     #
     # Collection
@@ -86,7 +88,9 @@ services:
         class: App\Ui\Action\CollectionAction
         arguments:
             - '@tactician.commandbus'
+            - '@app.infrastructure.repository.board_repository'
             - '@templating'
+            - '@security.authorization_checker'
 
     app.ui.action.collection.add_action:
         class: App\Ui\Action\Collection\AddAction
@@ -121,12 +125,14 @@ services:
     app.ui.action.bookmark.add_action:
         class: App\Ui\Action\Bookmark\AddAction
         arguments:
+            - '@app.infrastructure.repository.board_repository'
             - '@app.infrastructure.repository.collection_repository'
             - '@tactician.commandbus'
             - '@form.factory'
             - '@templating'
             - '@router'
             - '@session.flash_bag'
+            - '@security.authorization_checker'
 
     app.ui.action.bookmark.edit_action:
         class: App\Ui\Action\Bookmark\EditAction
