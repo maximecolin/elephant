@@ -46,6 +46,8 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes:
         - 'forms.html.twig'
+    globals:
+        graphiql_api_key: '%graphiql_api_key%'
 
 # Swiftmailer Configuration
 swiftmailer:

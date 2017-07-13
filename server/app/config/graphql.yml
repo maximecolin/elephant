@@ -9,3 +9,5 @@ overblog_graphql:
                 -
                     type: yml # or xml
                     dir: "%kernel.project_dir%/app/config/graphql"
+    templates:
+        graphiql: '::graphiql.html.twig'
