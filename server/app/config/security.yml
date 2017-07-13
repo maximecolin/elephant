@@ -12,6 +12,9 @@ security:
         main:
             id: 'app.infrastructure.security.user.symfony_user_provider'
 
+        # api_key_user_provider:
+        #     id: 'app.infrastructure.security.api.api_key_user_provider'
+
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -28,7 +31,16 @@ security:
             logout:
                 path: logout
 
+
+        # graphql:
+        #     pattern: ^/graphql
+        #     stateless: true
+        #     provider: api_key_user_provider
+        #     simple_preauth:
+        #         authenticator: app.infrastructure.security.api_key_authenticator
+
     access_control:
+        # - { path: ^/graphql, roles: ROLE_API }
         - { path: ^/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

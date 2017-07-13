@@ -26,3 +26,15 @@ services:
             - '@app.domain.rules.board.level_checker'
         tags:
             - { name: security.voter }
+
+    #
+    # Api
+    #
+
+    # app.infrastructure.security.api.api_key_user_provider:
+    #     class: App\Infrastructure\Security\Api\ApiKeyUserProvider
+    #     arguments:
+    #         - '%api_keys%'
+
+    # app.infrastructure.security.api.api_key_authenticator:
+    #     class: App\Infrastructure\Security\Api\ApiKeyAuthenticator
