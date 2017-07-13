@@ -81,6 +81,18 @@ See:
 * [Services declaration](/server/app/config/services/security.yml)
 * Usage [here](/server/src/Ui/Action/Board/Settings/OptionsAction.php#L91) and [here](/server/app/Resources/views/home.html.twig#L17)
 
+## Api key authenticator
+
+Example of authenticator protecting the graphql API by requiring an API key in the request headers for being authenticated:
+
+* [ApiKeyUserProvider](/server/src/Infrastructure/Security/Api/ApiKeyUserProvider.php) will provide users based on api keys,
+* [ApiKeyAuthenticator](/server/src/Infrastructure/Security/Api/ApiKeyAuthenticator.php) will authenticated the founded user and create a preauth token,
+* The [graphql firewall](/server/app/config/security.yml#L24) and the [access control](/server/app/config/security.yml#L42) will require authentication.
+* See also [service declaration](/server/app/config/services/security.yml#L34)
+* Make sure your [CORS config](/server/ansible/group_vars/app.yml#L110) allow the chosen key header name ("key" in this example) for cross domain usage. 
+
+In this example, pairs of api key and username are stored in configs and a very simple user is used. You can easilly modify `ApiKeyUserProvider::getUsernameForApiKey` in order to looking for keys in database for example and `ApiKeyUserProvider::loadUserByUsername` to return a more complexe user.
+
 ## Todos / Coming soon
 
 * Split the command bus into two separate Query and Command buses
