@@ -68,7 +68,7 @@ class CollaboratorRepository extends AbstractDoctrineRepository implements Colla
     /**
      * {@inheritdoc}
      */
-    public function findOneByBoardUserAndLevel(Board $board, User $user) : Collaborator
+    public function findOneByBoardAndUser(Board $board, User $user) : Collaborator
     {
         try {
             return $this

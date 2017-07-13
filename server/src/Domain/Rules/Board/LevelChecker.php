@@ -46,7 +46,7 @@ class LevelChecker
     public function check(Board $board, User $user, string $level) : bool
     {
         try {
-            $collaborator = $this->collaboratorRepository->findOneByBoardUserAndLevel($board, $user);
+            $collaborator = $this->collaboratorRepository->findOneByBoardAndUser($board, $user);
 
             return $this->checkLevel($collaborator->getLevel(), $level);
         } catch (ModelNotFoundException $exception) {
