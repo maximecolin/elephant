@@ -31,10 +31,10 @@ services:
     # Api
     #
 
-    # app.infrastructure.security.api.api_key_user_provider:
-    #     class: App\Infrastructure\Security\Api\ApiKeyUserProvider
-    #     arguments:
-    #         - '%api_keys%'
+    app.infrastructure.security.api.api_key_user_provider:
+        class: App\Infrastructure\Security\Api\ApiKeyUserProvider
+        arguments:
+            - '%api_keys%'
 
-    # app.infrastructure.security.api.api_key_authenticator:
-    #     class: App\Infrastructure\Security\Api\ApiKeyAuthenticator
+    app.infrastructure.security.api.api_key_authenticator:
+        class: App\Infrastructure\Security\Api\ApiKeyAuthenticator
