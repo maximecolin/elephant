@@ -93,6 +93,8 @@ Example of authenticator protecting the graphql API by requiring an API key in t
 
 In this example, pairs of api key and username are stored in configs and a very simple user is used. You can easilly modify `ApiKeyUserProvider::getUsernameForApiKey` in order to looking for keys in database for example and `ApiKeyUserProvider::loadUserByUsername` to return a more complexe user.
 
+In order to make **graphiql** working with this authenticator, you must extends the [graphiql.html.twig](/server/app/Resources/views/graphiql.html.twig) template to make graphiql send the key header and [configure the GraphQL bundle](/server/app/config/graphql.yml#L13) to use it. 
+
 ## Todos / Coming soon
 
 * Split the command bus into two separate Query and Command buses
