@@ -39,3 +39,8 @@ monolog:
 
 #swiftmailer:
 #    delivery_addresses: ['me@example.com']
+
+# Twig Configuration
+twig:
+    globals:
+        graphiql_api_key: '%graphiql_api_key%'
