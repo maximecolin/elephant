@@ -16,6 +16,8 @@
                     {% for board in boards %}
                         <a class="dropdown-item" href="{{ path('board', { boardId: board.id }) }}">{{ board.title }}</a>
                     {% endfor %}
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('home') }}">Tous</a>
                 </div>
             </li>
         </ul>
