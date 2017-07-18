@@ -41,7 +41,7 @@ class CollectionViewQueryHandler
     public function handle(CollectionViewQuery $query)
     {
         $collection = $this->collectionRepository->findOneById($query->id);
-        $bookmarks = $this->bookmarkRepository->findAllByCollectionId($query->id, $query->offset, $query->limit);
+        $bookmarks = $this->bookmarkRepository->paginateByCollectionId($query->id, $query->offset, $query->limit);
 
         $assembler = new CollectionViewAssembler();
 

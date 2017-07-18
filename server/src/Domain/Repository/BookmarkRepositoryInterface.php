@@ -4,6 +4,7 @@ namespace App\Domain\Repository;
 
 use App\Domain\Exception\ModelNotFoundException;
 use App\Domain\Model\Bookmark;
+use App\Domain\Model\Collection;
 
 interface BookmarkRepositoryInterface
 {
@@ -56,10 +57,17 @@ interface BookmarkRepositoryInterface
      *
      * @return array
      */
-    public function findAllByCollectionId(int $id, int $offset, int $limit) : array;
+    public function paginateByCollectionId(int $id, int $offset, int $limit) : array;
 
     /**
      * @param Bookmark $bookmark
      */
     public function remove(Bookmark $bookmark);
+
+    /**
+     * @param Collection $collection
+     *
+     * @return Bookmark[]
+     */
+    public function findByCollection(Collection $collection) : array;
 }

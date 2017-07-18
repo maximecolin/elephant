@@ -1,0 +1,37 @@
+services:
+
+    app.application.exporter.collection_exporter:
+        class: App\Application\Exporter\CollectionExporter
+        arguments:
+            -
+                json: '@app.application.exporter.json_collection_exporter'
+                csv: '@app.application.exporter.csv_collection_exporter'
+                xml: '@app.application.exporter.xml_collection_exporter'
+
+    #
+    # Normalizer
+    #
+
+    app.application.exporter.normalizer.bookmark_normalizer:
+        class: App\Application\Exporter\Normalizer\BookmarkNormalizer
+
+    #
+    # Exporter
+    #
+
+    app.application.exporter.csv_collection_exporter:
+        class: App\Application\Exporter\CsvCollectionExporter
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'
+            - '@app.application.exporter.normalizer.bookmark_normalizer'
+
+    app.application.exporter.json_collection_exporter:
+        class: App\Application\Exporter\JsonCollectionExporter
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'
+            - '@app.application.exporter.normalizer.bookmark_normalizer'
+
+    app.application.exporter.xml_collection_exporter:
+        class: App\Application\Exporter\XmlCollectionExporter
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'

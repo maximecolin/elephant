@@ -9,12 +9,12 @@ use App\Domain\Model\Collection;
 interface CollectionRepositoryInterface
 {
     /**
-     * @param int $id
+     * @param int      $id
+     * @param int|null $boardId
      *
      * @return Collection
-     * @throws ModelNotFoundException
      */
-    public function findOneById(int $id) : Collection;
+    public function findOneById(int $id, int $boardId = null) : Collection;
 
     /**
      * @param string $title

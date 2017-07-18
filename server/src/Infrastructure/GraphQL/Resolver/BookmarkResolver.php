@@ -93,7 +93,7 @@ class BookmarkResolver
             : 0;
 
         $edges = $selection->has('edges')
-            ? $this->repository->findAllByCollectionId($collection['id'], $argument['offset'], $argument['limit'])
+            ? $this->repository->paginateByCollectionId($collection['id'], $argument['offset'], $argument['limit'])
             : [];
 
         return [

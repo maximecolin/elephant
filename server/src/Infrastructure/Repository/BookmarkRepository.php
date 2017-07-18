@@ -4,6 +4,7 @@ namespace App\Infrastructure\Repository;
 
 use App\Domain\Exception\ModelNotFoundException;
 use App\Domain\Model\Bookmark;
+use App\Domain\Model\Collection;
 use App\Domain\Repository\BookmarkRepositoryInterface;
 use App\Infrastructure\QueryBuilder\BookmarkQueryBuilder;
 use Doctrine\ORM\NoResultException;
@@ -103,7 +104,7 @@ class BookmarkRepository extends AbstractDoctrineRepository implements BookmarkR
     /**
      * {@inheritdoc}
      */
-    public function findAllByCollectionId(int $id, int $offset, int $limit) : array
+    public function paginateByCollectionId(int $id, int $offset, int $limit) : array
     {
         return $this
             ->createQueryBuilder()
@@ -119,5 +120,17 @@ class BookmarkRepository extends AbstractDoctrineRepository implements BookmarkR
     public function remove(Bookmark $bookmark)
     {
         $this->entityManager->remove($bookmark);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByCollection(Collection $collection): array
+    {
+        return $this
+            ->createQueryBuilder()
+            ->filterByCollectionId($collection->getId())
+            ->getQuery()
+            ->getResult();
     }
 }

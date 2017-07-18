@@ -79,6 +79,15 @@ collection_remove:
         boardId: \d+
         collectionId: \d+
 
+collection_export:
+    path: /board/{boardId}/collection/{collectionId}/export/{format}
+    defaults: { _controller: app.ui.action.collection.export_action }
+    methods: [GET]
+    requirements:
+        boardId: \d+
+        collectionId: \d+
+        format: csv|json|xml
+
 bookmark_add:
     path: /board/{boardId}/collection/{collectionId}/bookmark/add
     defaults: { _controller: app.ui.action.bookmark.add_action }

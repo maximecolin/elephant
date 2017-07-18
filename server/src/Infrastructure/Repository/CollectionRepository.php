@@ -21,11 +21,16 @@ class CollectionRepository extends AbstractDoctrineRepository implements Collect
     /**
      * {@inheritdoc}
      */
-    public function findOneById(int $id) : Collection
+    public function findOneById(int $id, int $boardId = null) : Collection
     {
         try {
-            return $this
-                ->createQueryBuilder()
+            $queryBuilder = $this->createQueryBuilder();
+
+            if (null !== $boardId) {
+                $queryBuilder->filterByBoardId($boardId);
+            }
+
+            return $queryBuilder
                 ->filterById($id)
                 ->getQuery()
                 ->getSingleResult();

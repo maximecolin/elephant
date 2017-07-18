@@ -8,7 +8,22 @@
 {% endblock %}
 
 {% block content %}
-    <h1>{{ collection.title }}</h1>
+    <h1>
+        {{ collection.title }}
+
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-download"></i>
+                <span class="sr-only">Exporter</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="{{ path('collection_export', { boardId: boardId, collectionId: collection.id, format: 'json' }) }}">json</a>
+                <a class="dropdown-item" href="{{ path('collection_export', { boardId: boardId, collectionId: collection.id, format: 'csv' }) }}">csv</a>
+                <a class="dropdown-item" href="{{ path('collection_export', { boardId: boardId, collectionId: collection.id, format: 'xml' }) }}">xml</a>
+            </div>
+        </div>
+    </h1>
+
     <ul class="list-group">
         {% for bookmark in collection.bookmarks %}
             <li class="list-group-item collection-bookmark">
