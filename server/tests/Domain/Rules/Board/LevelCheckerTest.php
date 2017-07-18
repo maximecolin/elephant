@@ -47,7 +47,7 @@ class LevelCheckerTest extends TestCase
         $board = new Board('title');
 
         $collaboratorRepository = $this->prophesize(CollaboratorRepositoryInterface::class);
-        $shouldBeCalled = $collaboratorRepository->findOneByBoardUserAndLevel($board, $user)->shouldBeCalled();
+        $shouldBeCalled = $collaboratorRepository->findOneByBoardAndUser($board, $user)->shouldBeCalled();
 
         if ($actualLevel === null) {
             $shouldBeCalled->willThrow(new ModelNotFoundException());
