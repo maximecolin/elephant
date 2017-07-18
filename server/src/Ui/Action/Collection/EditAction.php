@@ -81,7 +81,7 @@ class EditAction
      */
     public function __invoke(Request $request, int $boardId, int $collectionId)
     {
-        $collection = $this->collectionRepository->findOneById($collectionId);
+        $collection = $this->collectionRepository->findOneById($collectionId, $boardId);
         $command = UpdateCollectionCommand::createFromCollection($collection);
         $form = $this->formFactory->create(UpdateType::class, $command);
 
@@ -97,6 +97,7 @@ class EditAction
 
         return $this->engine->renderResponse('collection/edit.html.twig', [
             'collection' => $collection,
+            'board' => $collection->getBoard(),
             'form' => $form->createView(),
         ]);
     }

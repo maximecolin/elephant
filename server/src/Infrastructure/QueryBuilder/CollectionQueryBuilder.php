@@ -83,7 +83,7 @@ class CollectionQueryBuilder extends QueryBuilder
     public function filterByBoardId(int $boardId)
     {
         $this
-            ->andWhere('collection.board = :boardId')
+            ->join('collection.board', 'board', 'WITH', 'board.id = :boardId')
             ->setParameter('boardId', $boardId);
 
         return $this;

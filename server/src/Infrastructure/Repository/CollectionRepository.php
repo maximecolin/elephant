@@ -27,7 +27,7 @@ class CollectionRepository extends AbstractDoctrineRepository implements Collect
             $queryBuilder = $this->createQueryBuilder();
 
             if (null !== $boardId) {
-                $queryBuilder->filterByBoardId($boardId);
+                $queryBuilder->filterByBoardId($boardId)->addSelect('board');
             }
 
             return $queryBuilder
