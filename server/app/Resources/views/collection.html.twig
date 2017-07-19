@@ -11,7 +11,7 @@
     <h1>
         {{ collection.title }}
 
-        <div class="btn-group float-right">
+        <div class="btn-group float-right" data-toggle="tooltip" title="Exporter">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-download"></i>
                 <span class="sr-only">Exporter</span>
@@ -32,12 +32,12 @@
 
                 {% if is_granted('COLLABORATOR_WRITE', board) %}
                     <div class="btns">
-                        <a href="{{ path('bookmark_edit', { 'boardId': boardId, 'collectionId': collection.id, 'bookmarkId': bookmark.id }) }}" class="btn btn-primary btn-sm">
+                        <a href="{{ path('bookmark_edit', { 'boardId': boardId, 'collectionId': collection.id, 'bookmarkId': bookmark.id }) }}" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Modifier">
                             <i class="fa fa-edit"></i>
                         </a>
                         <form action="{{ path('bookmark_remove', { 'boardId': boardId, 'collectionId': collection.id, 'bookmarkId': bookmark.id }) }}" method="POST">
                             <input type="hidden" name="_method" value="DELETE" />
-                            <button type="submit" class="btn btn-danger btn-sm">
+                            <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Supprimer">
                                 <i class="fa fa-close"></i>
                             </button>
                         </form>
