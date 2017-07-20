@@ -5,12 +5,12 @@ const client = new ApolloClient({
   networkInterface: createNetworkInterface({
     uri: 'http://server.elephant.dev/graphql/',
     transportBatching: true,
-    dataIdFromObject: object => object.id
-    // opts: {
-    //   headers: {
-    //     key: 'SecretKey',
-    //   },
-    // },
+    dataIdFromObject: object => object.id,
+    opts: {
+      headers: {
+        Authorization: 'Bearer DyJcQ8QDdAajUzerHANaXrsHPzuD9pppHpbVNtXJQ9nXutMgKirkEyY2RadEdGCC',
+      },
+    },
   })
 })
 
