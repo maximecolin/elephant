@@ -119,7 +119,11 @@ deploy@prod:
 # Custom #
 ##########
 
+cc:
+	php bin/console cache:clear --no-warmup
+	php bin/console cache:warmup
+
 cc@prod: export SYMFONY_ENV = prod
 cc@prod:
-	php bin/console cache:clear
+	php bin/console cache:clear --no-warmup
 	php bin/console cache:warmup
