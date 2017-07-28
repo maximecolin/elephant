@@ -123,6 +123,17 @@ app_patterns:
           - include:     conf.d/app_gzip
           - include:     conf.d/app_access_control
           - location /:
+            - rewrite: "/_mails http://{{ app.host }}:8025/ break"
+            - rewrite: "/_supervisor http://{{ app.host }}:9001/ break"
+            - rewrite: "/_logs http://{{ app.host }}:8888/ break"
+            - rewrite: "/_opcache http://{{ app.host }}:2013/ break"
+            - rewrite: "/_mysql http://{{ app.host }}:1979/ break"
+            - rewrite: "/_postgresql http://{{ app.host }}:1980/ break"
+            - rewrite: "/_redis http://{{ app.host }}:1981/ break"
+            - rewrite: "/_mongo http://{{ app.host }}:8081/ break"
+            - rewrite: "/_elasticsearch http://{{ app.host }}:9200/_plugin/head/ break"
+            - rewrite: "/_ngrok http://{{ app.host }}:4040/ break"
+            - rewrite: "/_influxdb http://{{ app.host }}:8083/ break"
             - try_files: $uri /app.php$is_args$args
           - location ~ ^/(app(_[-\w]+)?)\.php(/|$):
             - include: conf.d/app_php_fpm
