@@ -1,0 +1,12 @@
+{% extends 'mail/base.html.twig' %}
+
+{% block body %}
+    <p>
+        Bonjour {{ collaborator.user }},<br>
+        <br>
+        vous avez été ajouter au board <a href="{{ path('board', { boardId: collaborator.board.id }) }}">{{ collaborator.board.title }}</a> par {{ addedBy }}.<br>
+        <br>
+        <br>
+        L'équipe Elephant.<br>
+    </p>
+{% endblock %}

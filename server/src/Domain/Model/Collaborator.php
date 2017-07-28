@@ -34,7 +34,7 @@ class Collaborator
     {
         $this->user  = $user;
         $this->board = $board;
-        $this->level  = $level;
+        $this->level = $level;
     }
 
     /**

@@ -5,6 +5,8 @@ tactician:
             middleware:
                 # Validate commands with Symfony validator component
                 - tactician.middleware.validator
+                # Process Events recorded by the handler (must be before doctrine middleware)
+                - tactician.middleware.recorded_events
                 # Process commands in a Doctrine transaction (automatic flush, rollback in case of failure)
                 - tactician.middleware.doctrine
                 # Handle command with handlers defined in services

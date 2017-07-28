@@ -18,12 +18,19 @@ class AddCollaboratorCommand
     public $user;
 
     /**
+     * @var User
+     */
+    public $addedBy;
+
+    /**
      * AddCollaboratorCommand constructor.
      *
      * @param Board $board
+     * @param User  $addedBy
      */
-    public function __construct(Board $board)
+    public function __construct(Board $board, User $addedBy)
     {
         $this->board = $board;
+        $this->addedBy = $addedBy;
     }
 }

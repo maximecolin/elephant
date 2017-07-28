@@ -1,4 +1,31 @@
 services:
+    #
+    # Tactician middleware
+    #
+    app.infrastructure.tactician.recorded_events_middleware:
+        class: App\Infrastructure\Tactician\RecordedEventsMiddleware
+        arguments:
+            - '@app.application.event.event_recorder'
+            - '@event_dispatcher'
+
+    tactician.middleware.recorded_events:
+        alias: app.infrastructure.tactician.recorded_events_middleware
+
+    #
+    # Application
+    #
+    app.application.event.event_recorder:
+        class: App\Application\Event\EventRecorder
+
+    app.application.event_listener.collaborator_added_event_subscriber:
+        class: App\Application\EventListener\CollaboratorAddedEventSubscriber
+        arguments: ['@app.infrastructure.mail.collaborator_added_mail']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    #
+    # EventListener
+    #
     app.infrastructure.event_listener.exception_subscriber:
         class: App\Infrastructure\EventListener\InvalidCommandExceptionSubscriber
         tags:

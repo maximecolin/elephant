@@ -8,3 +8,8 @@ services:
         class: App\Domain\Rules\Collection\UniqueTitleChecker
         arguments:
             - '@app.infrastructure.repository.collection_repository'
+
+    app.domain.rules.collaborator.unique_checker:
+        class: App\Domain\Rules\Collaborator\UniqueChecker
+        arguments:
+            - '@app.infrastructure.repository.collaborator_repository'

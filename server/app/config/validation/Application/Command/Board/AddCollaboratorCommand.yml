@@ -4,3 +4,6 @@ App\Application\Command\Board\AddCollaboratorCommand:
             - NotBlank: ~
         user:
             - NotBlank: ~
+            - App\Infrastructure\Validator\Constraints\ContainerExpression:
+                expression: "service('app.domain.rules.collaborator.unique_checker').isUnique(this.board, this.user)"
+                message: "Cet utilisateur a déjà été ajouté aux collaborateurs."

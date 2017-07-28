@@ -1,0 +1,6 @@
+services:
+    app.infrastructure.mail.collaborator_added_mail:
+        class: App\Infrastructure\Mail\CollaboratorAddedMail
+        arguments:
+            - '@mailer'
+            - '@templating'

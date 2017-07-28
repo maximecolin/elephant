@@ -71,7 +71,9 @@ services:
     app.application.command.board.add_collaborator_command_handler:
         class: App\Application\Command\Board\AddCollaboratorCommandHandler
         arguments:
+            - '@app.domain.rules.collaborator.unique_checker'
             - '@app.infrastructure.repository.collaborator_repository'
+            - '@app.application.event.event_recorder'
         tags:
             - { name: tactician.handler, command: App\Application\Command\Board\AddCollaboratorCommand }
 

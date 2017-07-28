@@ -118,7 +118,7 @@ class CollaboratorsAction
         }
 
         // Handle collaborator add
-        $addCommand = new AddCollaboratorCommand($board);
+        $addCommand = new AddCollaboratorCommand($board, $user);
         $addForm = $this->formFactory->create(AddCollaboratorType::class, $addCommand, ['board' => $board]);
 
         if ($addForm->handleRequest($request)->isSubmitted() && $addForm->isValid()) {
