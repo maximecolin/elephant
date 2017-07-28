@@ -38,6 +38,7 @@ imports:
     - { resource: services/actions.yml }
     - { resource: services/api.yml }
     - { resource: services/commands.yml }
+    - { resource: services/controllers.yml }
     - { resource: services/domain.yml }
     - { resource: services/events.yml }
     - { resource: services/exporter.yml }

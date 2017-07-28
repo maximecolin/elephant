@@ -4,6 +4,7 @@ namespace App\Ui\Action\Board\Settings;
 
 use App\Application\Command\Board\AddCollaboratorCommand;
 use App\Application\Command\Board\UpdateCollaboratorsCommand;
+use App\Domain\Model\User;
 use App\Domain\Repository\BoardRepositoryInterface;
 use App\Domain\Repository\CollaboratorRepositoryInterface;
 use App\Infrastructure\Helper\SecurityTrait;
@@ -92,11 +93,12 @@ class CollaboratorsAction
 
     /**
      * @param Request $request
+     * @param User    $user
      * @param int     $boardId
      *
      * @return RedirectResponse|Response
      */
-    public function __invoke(Request $request, int $boardId)
+    public function __invoke(Request $request, User $user, int $boardId)
     {
         $board = $this->boardRepository->findOneById($boardId);
         $this->denyAccessUnlessGranted('COLLABORATOR_OWNER', $board);

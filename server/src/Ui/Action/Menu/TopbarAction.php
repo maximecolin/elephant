@@ -3,12 +3,10 @@
 namespace App\Ui\Action\Menu;
 
 use App\Application\Query\BoardNavQuery;
-use App\Infrastructure\Security\User\SymfonyUser;
+use App\Domain\Model\User;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class TopbarAction
 {
@@ -16,11 +14,6 @@ class TopbarAction
      * @var CommandBus
      */
     private $commandBus;
-
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
 
     /**
      * @var EngineInterface
@@ -31,28 +24,22 @@ class TopbarAction
      * TopbarAction constructor.
      *
      * @param CommandBus            $commandBus
-     * @param TokenStorageInterface $tokenStorage
      * @param EngineInterface       $engine
      */
-    public function __construct(CommandBus $commandBus, TokenStorageInterface $tokenStorage, EngineInterface $engine)
+    public function __construct(CommandBus $commandBus, EngineInterface $engine)
     {
         $this->commandBus = $commandBus;
-        $this->tokenStorage = $tokenStorage;
         $this->engine = $engine;
     }
 
     /**
+     * @param User $user
+     *
      * @return Response
      */
-    public function __invoke()
+    public function __invoke(User $user)
     {
-        $user = $this->tokenStorage->getToken()->getUser();
-
-        if (!$user instanceof SymfonyUser) {
-            throw new AccessDeniedException();
-        }
-
-        $boards = $this->commandBus->handle(new BoardNavQuery($user->getModel()));
+        $boards = $this->commandBus->handle(new BoardNavQuery($user));
 
         return $this->engine->renderResponse('menu/topbar.html.twig', [
             'boards' => $boards

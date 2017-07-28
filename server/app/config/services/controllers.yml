@@ -1,0 +1,7 @@
+services:
+    app.infrastructure.controller.user_value_resolver:
+        class: App\Infrastructure\Controller\UserValueResolver
+        arguments:
+            - '@security.token_storage'
+        tags:
+            - { name: controller.argument_value_resolver, priority: 40 }

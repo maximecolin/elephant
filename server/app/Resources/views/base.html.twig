@@ -12,7 +12,7 @@
         {% block body %}
             <div id="app">
 
-                {{ render(controller('app.ui.action.menu.topbar_action')) }}
+                {{ render(controller('app.ui.action.menu.topbar_action', { user: app.user.model })) }}
 
                 <div class="container-fluid">
                     {% block container %}{% endblock %}

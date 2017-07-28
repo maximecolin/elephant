@@ -22,7 +22,6 @@ services:
         class: App\Ui\Action\Menu\TopbarAction
         arguments:
             - '@tactician.commandbus'
-            - '@security.token_storage'
             - '@templating'
 
     #
