@@ -4,3 +4,9 @@ services:
         arguments:
             - '@mailer'
             - '@templating'
+
+    app.infrastructure.mail.collaborator_removed_mail:
+        class: App\Infrastructure\Mail\CollaboratorRemovedMail
+        arguments:
+            - '@mailer'
+            - '@templating'

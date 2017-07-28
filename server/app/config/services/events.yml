@@ -19,7 +19,15 @@ services:
 
     app.application.event_listener.collaborator_added_event_subscriber:
         class: App\Application\EventListener\CollaboratorAddedEventSubscriber
-        arguments: ['@app.infrastructure.mail.collaborator_added_mail']
+        arguments:
+            - '@app.infrastructure.mail.collaborator_added_mail'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.application.event_listener.collaborator_removed_event_subscriber:
+        class: App\Application\EventListener\CollaboratorRemovedEventSubscriber
+        arguments:
+            - '@app.infrastructure.mail.collaborator_removed_mail'
         tags:
             - { name: kernel.event_subscriber }
 

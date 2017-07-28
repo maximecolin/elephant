@@ -81,5 +81,6 @@ services:
         class: App\Application\Command\Board\RemoveCollaboratorCommandHandler
         arguments:
             - '@app.infrastructure.repository.collaborator_repository'
+            - '@app.application.event.event_recorder'
         tags:
             - { name: tactician.handler, command: App\Application\Command\Board\RemoveCollaboratorCommand }

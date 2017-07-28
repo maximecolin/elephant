@@ -1,0 +1,12 @@
+{% extends 'mail/base.html.twig' %}
+
+{% block body %}
+    <p>
+        Bonjour {{ collaborator.user }},<br>
+        <br>
+        vous avez été retiré des callaborateurs du board {{ collaborator.board.title }} par {{ removedBy }}.<br>
+        <br>
+        <br>
+        L'équipe Elephant.<br>
+    </p>
+{% endblock %}

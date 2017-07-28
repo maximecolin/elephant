@@ -2,6 +2,8 @@
 
 namespace App\Application\Command\Board;
 
+use App\Application\Event\EventRecorderInterface;
+use App\Domain\Event\CollaboratorRemovedEvent;
 use App\Domain\Exception\Collaborator\NoOwnerLeftException;
 use App\Domain\Model\Collaborator;
 use App\Domain\Repository\CollaboratorRepositoryInterface;
@@ -14,13 +16,22 @@ class RemoveCollaboratorCommandHandler
     private $collaboratorRepository;
 
     /**
+     * @var EventRecorderInterface
+     */
+    private $eventRecorder;
+
+    /**
      * RemoveCollaboratorCommandHandler constructor.
      *
      * @param CollaboratorRepositoryInterface $collaboratorRepository
+     * @param EventRecorderInterface          $eventRecorder
      */
-    public function __construct(CollaboratorRepositoryInterface $collaboratorRepository)
-    {
+    public function __construct(
+        CollaboratorRepositoryInterface $collaboratorRepository,
+        EventRecorderInterface $eventRecorder
+    ) {
         $this->collaboratorRepository = $collaboratorRepository;
+        $this->eventRecorder = $eventRecorder;
     }
 
     /**
@@ -37,6 +48,8 @@ class RemoveCollaboratorCommandHandler
         }
 
         $this->collaboratorRepository->remove($collaborator);
+
+        $this->eventRecorder->record(new CollaboratorRemovedEvent($collaborator, $command->removedBy));
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Ui\Action\Board\Settings;
 
 use App\Application\Command\Board\RemoveCollaboratorCommand;
 use App\Domain\Exception\Collaborator\NoOwnerLeftException;
+use App\Domain\Model\User;
 use App\Domain\Repository\BoardRepositoryInterface;
 use App\Infrastructure\Helper\SecurityTrait;
 use League\Tactician\CommandBus;
@@ -60,18 +61,19 @@ class RemoveCollaboratorAction
     }
 
     /**
-     * @param int $boardId
-     * @param int $userId
+     * @param User $user
+     * @param int  $boardId
+     * @param int  $userId
      *
      * @return RedirectResponse
      */
-    public function __invoke(int $boardId, int $userId)
+    public function __invoke(User $user, int $boardId, int $userId)
     {
         $board = $this->boardRepository->findOneById($boardId);
         $this->denyAccessUnlessGranted('COLLABORATOR_OWNER', $board);
 
         try {
-            $this->commandBus->handle(new RemoveCollaboratorCommand($boardId, $userId));
+            $this->commandBus->handle(new RemoveCollaboratorCommand($boardId, $userId, $user));
             $this->flashBag->add('inverse', 'Le collaborateur a été supprimé.');
         } catch (NoOwnerLeftException $exception) {
             $this->flashBag->add('danger', $exception->getMessage());
