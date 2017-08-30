@@ -120,8 +120,7 @@ services:
     app.ui.action.collection.export_action:
         class: App\Ui\Action\Collection\ExportAction
         arguments:
-            - '@app.infrastructure.repository.collection_repository'
-            - '@app.application.exporter.collection_exporter'
+            - '@tactician.commandbus'
 
     #
     # Bookmarks

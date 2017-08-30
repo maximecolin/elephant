@@ -84,3 +84,11 @@ services:
             - '@app.application.event.event_recorder'
         tags:
             - { name: tactician.handler, command: App\Application\Command\Board\RemoveCollaboratorCommand }
+
+    app.application.command.collection.export_command_handler:
+        class: App\Application\Command\Collection\ExportCommandHandler
+        arguments:
+            - '@app.infrastructure.repository.collection_repository'
+            - '@app.application.exporter.collection_exporter'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Collection\ExportCommand }

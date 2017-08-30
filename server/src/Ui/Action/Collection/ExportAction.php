@@ -2,34 +2,26 @@
 
 namespace App\Ui\Action\Collection;
 
-use App\Application\Exporter\CollectionExporter;
-use App\Domain\Repository\CollectionRepositoryInterface;
+use App\Application\Command\Collection\ExportCommand;
+use App\Domain\Dto\ExportedFile;
 use App\Ui\Response\DownloadResponse;
+use League\Tactician\CommandBus;
 
 class ExportAction
 {
     /**
-     * @var CollectionRepositoryInterface
+     * @var CommandBus
      */
-    private $collectionRepository;
-
-    /**
-     * @var CollectionExporter
-     */
-    private $collectionExporter;
+    private $commandBus;
 
     /**
      * ExportAction constructor.
      *
-     * @param CollectionRepositoryInterface $collectionRepository
-     * @param CollectionExporter            $collectionExporter
+     * @param CommandBus $commandBus
      */
-    public function __construct(
-        CollectionRepositoryInterface $collectionRepository,
-        CollectionExporter $collectionExporter
-    ) {
-        $this->collectionRepository = $collectionRepository;
-        $this->collectionExporter = $collectionExporter;
+    public function __construct(CommandBus $commandBus)
+    {
+        $this->commandBus = $commandBus;
     }
 
     /**
@@ -41,11 +33,11 @@ class ExportAction
      */
     public function __invoke(int $boardId, int $collectionId, string $format)
     {
-        $collection = $this->collectionRepository->findOneById($collectionId, $boardId);
-        $file = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'export' . uniqid();
-        $this->collectionExporter->export($collection, $file, $format);
-        $filename = sprintf('%s.%s', $collection->getTitle(), $format);
+        $command = new ExportCommand($collectionId, $boardId, $format);
 
-        return new DownloadResponse($file, $filename);
+        /** @var ExportedFile $file */
+        $file = $this->commandBus->handle($command);
+
+        return new DownloadResponse($file->filepath, $file->filename);
     }
 }
