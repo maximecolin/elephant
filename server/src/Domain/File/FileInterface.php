@@ -2,7 +2,7 @@
 
 namespace App\Domain\File;
 
-interface UploadedFileInterface
+interface FileInterface
 {
     /**
      * @param string      $directory

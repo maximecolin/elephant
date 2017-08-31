@@ -10,10 +10,10 @@
 
 namespace App\Infrastructure\File;
 
-use App\Domain\File\UploadedFileInterface;
+use App\Domain\File\FileInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class SymfonyUploadedFile implements UploadedFileInterface
+class SymfonyFile implements FileInterface
 {
     /**
      * @var UploadedFile

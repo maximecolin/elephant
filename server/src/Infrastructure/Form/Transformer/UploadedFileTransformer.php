@@ -10,7 +10,7 @@
 
 namespace App\Infrastructure\Form\Transformer;
 
-use App\Infrastructure\File\SymfonyUploadedFile;
+use App\Infrastructure\File\SymfonyFile;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -26,7 +26,7 @@ class UploadedFileTransformer implements DataTransformerInterface
             return $value;
         }
 
-        if ($value instanceof  SymfonyUploadedFile) {
+        if ($value instanceof  SymfonyFile) {
             return $value->getFile();
         }
 
@@ -43,7 +43,7 @@ class UploadedFileTransformer implements DataTransformerInterface
         }
 
         if ($value instanceof UploadedFile) {
-            return new SymfonyUploadedFile($value);
+            return new SymfonyFile($value);
         }
 
         throw new TransformationFailedException('Unable to transform.');

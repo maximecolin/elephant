@@ -11,7 +11,7 @@
 namespace App\Infrastructure\File\Storage;
 
 use App\Domain\File\Storage\FileStorageInterface;
-use App\Domain\File\UploadedFileInterface;
+use App\Domain\File\FileInterface;
 use App\Infrastructure\File\Naming\NamingStrategyInterface;
 
 class LocalFileStorageAdapter implements FileStorageInterface
@@ -39,7 +39,7 @@ class LocalFileStorageAdapter implements FileStorageInterface
     /**
      * {@inheritdoc}
      */
-    public function add(UploadedFileInterface $file) : string
+    public function add(FileInterface $file) : string
     {
         $filepath = $this->namingStrategy->getName($file->getClientOriginalName());
         $file->move($this->rootPath . pathinfo($filepath, PATHINFO_DIRNAME), pathinfo($filepath, PATHINFO_BASENAME));

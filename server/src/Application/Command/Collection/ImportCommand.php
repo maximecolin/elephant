@@ -2,7 +2,7 @@
 
 namespace App\Application\Command\Collection;
 
-use App\Domain\File\UploadedFileInterface;
+use App\Domain\File\FileInterface;
 use App\Domain\Model\Collection;
 
 class ImportCommand
@@ -13,7 +13,7 @@ class ImportCommand
     public $collection;
 
     /**
-     * @var UploadedFileInterface
+     * @var FileInterface
      */
     public $file;
 

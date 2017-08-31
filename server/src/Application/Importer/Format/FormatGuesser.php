@@ -2,7 +2,7 @@
 
 namespace App\Application\Importer\Format;
 
-use App\Domain\File\UploadedFileInterface;
+use App\Domain\File\FileInterface;
 
 class FormatGuesser implements FormatGuesserInterface
 {
@@ -19,7 +19,7 @@ class FormatGuesser implements FormatGuesserInterface
     /**
      * {@inheritdoc}
      */
-    public function guess(UploadedFileInterface $file): string
+    public function guess(FileInterface $file): string
     {
         if (isset(self::$mimetypes[$file->getMimeType()])) {
             return self::$mimetypes[$file->getMimeType()];
