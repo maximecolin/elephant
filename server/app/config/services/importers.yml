@@ -17,7 +17,6 @@ services:
             - '@app.infrastructure.repository.bookmark_repository'
             - '@app.application.exporter.normalizer.bookmark_normalizer'
 
-
     app.application.importer.json_collection_importer:
         class: App\Application\Importer\JsonCollectionImporter
         arguments:
