@@ -71,4 +71,12 @@ class SymfonyFile implements FileInterface
     {
         return $this->file->getClientMimeType();
     }
+
+    /**
+     * @return string
+     */
+    public function getContent(): string
+    {
+        return file_get_contents($this->getPath());
+    }
 }

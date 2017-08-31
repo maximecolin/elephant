@@ -3,12 +3,9 @@ services:
         class: App\Application\Importer\CollectionImporter
         arguments:
             -
-                csv: '@app.application.importer.csv_collection_importer'
-                json: '@app.application.importer.json_collection_importer'
-                xml: '@app.application.importer.xml_collection_importer'
-
-    app.application.importer.format.format_guesser:
-        class: App\Application\Importer\Format\FormatGuesser
+                - '@app.application.importer.csv_collection_importer'
+                - '@app.application.importer.json_collection_importer'
+                - '@app.application.importer.xml_collection_importer'
 
     #
     # Importers

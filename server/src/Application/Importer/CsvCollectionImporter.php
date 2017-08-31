@@ -3,6 +3,7 @@
 namespace App\Application\Importer;
 
 use App\Application\Exporter\Normalizer\BookmarkNormalizer;
+use App\Domain\File\FileInterface;
 use App\Domain\Model\Collection;
 use App\Domain\Repository\BookmarkRepositoryInterface;
 
@@ -33,9 +34,9 @@ class CsvCollectionImporter implements CollectionImporterInterface
     /**
      * {@inheritdoc}
      */
-    public function import(Collection $collection, string $filename)
+    public function import(Collection $collection, FileInterface $file)
     {
-        $file = new \SplFileObject($filename, 'r');
+        $file = new \SplFileObject($file->getPath(), 'r');
 
         while ($data = $file->fgetcsv(';')) {
             $bookmark = $this->normalizer->denormalize($data);
@@ -43,5 +44,13 @@ class CsvCollectionImporter implements CollectionImporterInterface
 
             $this->bookmarkRepository->add($bookmark);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function support(FileInterface $file) : bool
+    {
+        return 'text/csv' === $file->getMimeType();
     }
 }

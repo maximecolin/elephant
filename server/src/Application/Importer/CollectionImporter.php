@@ -2,6 +2,7 @@
 
 namespace App\Application\Importer;
 
+use App\Domain\File\FileInterface;
 use App\Domain\Model\Collection;
 
 class CollectionImporter
@@ -18,53 +19,35 @@ class CollectionImporter
      */
     public function __construct(array $importers)
     {
-        foreach ($importers as $format => $importer) {
-            $this->register($format, $importer);
+        foreach ($importers as $importer) {
+            $this->register($importer);
         }
     }
 
     /**
-     * @param Collection $collection
-     * @param string     $filename
-     * @param string     $format
+     * @param Collection    $collection
+     * @param FileInterface $file
      */
-    public function import(Collection $collection, string $filename, string $format)
+    public function import(Collection $collection, FileInterface $file)
     {
-        $this->getImporter($format)->import($collection, $filename);
-    }
-
-    /**
-     * @param $format
-     *
-     * @return CollectionImporterInterface
-     */
-    public function getImporter($format) : CollectionImporterInterface
-    {
-        if (in_array($format, $this->getAvailableFormats())) {
-            return $this->importers[$format];
+        foreach ($this->importers as $importer) {
+            if ($importer->support($file)) {
+                return $importer->import($collection, $file);
+            }
         }
 
         throw new \LogicException('Importer not found');
     }
 
     /**
-     * @param string                      $format
      * @param CollectionImporterInterface $importer
      *
      * @return $this
      */
-    public function register(string $format, CollectionImporterInterface $importer)
+    public function register(CollectionImporterInterface $importer)
     {
-        $this->importers[$format] = $importer;
+        $this->importers[] = $importer;
 
         return $this;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAvailableFormats() : array
-    {
-        return array_keys($this->importers);
     }
 }

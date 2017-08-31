@@ -3,6 +3,7 @@
 namespace App\Application\Importer;
 
 use App\Application\Exporter\Normalizer\BookmarkNormalizer;
+use App\Domain\File\FileInterface;
 use App\Domain\Model\Collection;
 use App\Domain\Repository\BookmarkRepositoryInterface;
 
@@ -33,11 +34,9 @@ class JsonCollectionImporter implements CollectionImporterInterface
     /**
      * {@inheritdoc}
      */
-    public function import(Collection $collection, string $filename)
+    public function import(Collection $collection, FileInterface $file)
     {
-        $rows = json_decode(file_get_contents($filename), true);
-
-        dump($filename, file_get_contents($filename), $rows);
+        $rows = json_decode($file->getContent(), true);
 
         foreach ($rows as $row) {
             $bookmark = $this->normalizer->denormalize($row);
@@ -45,5 +44,13 @@ class JsonCollectionImporter implements CollectionImporterInterface
 
             $this->bookmarkRepository->add($bookmark);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function support(FileInterface $file) : bool
+    {
+        return 'application/json' === $file->getMimeType();
     }
 }

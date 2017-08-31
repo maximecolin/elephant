@@ -3,7 +3,6 @@
 namespace App\Application\Command\Collection;
 
 use App\Application\Importer\CollectionImporter;
-use App\Application\Importer\Format\FormatGuesserInterface;
 
 class ImportCommandHandler
 {
@@ -13,20 +12,13 @@ class ImportCommandHandler
     private $collectionImporter;
 
     /**
-     * @var FormatGuesserInterface
-     */
-    private $formatGuesser;
-
-    /**
      * ImportCommandHandler constructor.
      *
-     * @param FormatGuesserInterface $formatGuesser
      * @param CollectionImporter     $collectionImporter
      */
-    public function  __construct(FormatGuesserInterface $formatGuesser, CollectionImporter $collectionImporter)
+    public function  __construct(CollectionImporter $collectionImporter)
     {
         $this->collectionImporter = $collectionImporter;
-        $this->formatGuesser      = $formatGuesser;
     }
 
     /**
@@ -34,8 +26,6 @@ class ImportCommandHandler
      */
     public function handle(ImportCommand $command)
     {
-        $format = $this->formatGuesser->guess($command->file);
-
-        $this->collectionImporter->import($command->collection, $command->file->getPath(), $format);
+        $this->collectionImporter->import($command->collection, $command->file);
     }
 }

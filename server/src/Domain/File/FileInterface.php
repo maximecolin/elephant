@@ -26,4 +26,9 @@ interface FileInterface
      * @return string
      */
     public function getMimeType() : string;
+
+    /**
+     * @return string
+     */
+    public function getContent() : string;
 }
