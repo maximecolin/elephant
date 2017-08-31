@@ -2,6 +2,7 @@ services:
     app.application.importer.collection_importer:
         class: App\Application\Importer\CollectionImporter
         arguments:
+            - '@app.infrastructure.repository.bookmark_repository'
             -
                 - '@app.application.importer.csv_collection_importer'
                 - '@app.application.importer.json_collection_importer'
@@ -14,18 +15,15 @@ services:
     app.application.importer.csv_collection_importer:
         class: App\Application\Importer\CsvCollectionImporter
         arguments:
-            - '@app.infrastructure.repository.bookmark_repository'
             - '@app.application.exporter.normalizer.bookmark_normalizer'
 
     app.application.importer.json_collection_importer:
         class: App\Application\Importer\JsonCollectionImporter
         arguments:
-            - '@app.infrastructure.repository.bookmark_repository'
             - '@app.application.exporter.normalizer.bookmark_normalizer'
 
 
     app.application.importer.xml_collection_importer:
         class: App\Application\Importer\XmlCollectionImporter
         arguments:
-            - '@app.infrastructure.repository.bookmark_repository'
             - '@app.application.exporter.normalizer.bookmark_normalizer'

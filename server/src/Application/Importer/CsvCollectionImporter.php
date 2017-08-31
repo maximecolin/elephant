@@ -5,15 +5,9 @@ namespace App\Application\Importer;
 use App\Application\Exporter\Normalizer\BookmarkNormalizer;
 use App\Domain\File\FileInterface;
 use App\Domain\Model\Collection;
-use App\Domain\Repository\BookmarkRepositoryInterface;
 
 class CsvCollectionImporter implements CollectionImporterInterface
 {
-    /**
-     * @var BookmarkRepositoryInterface
-     */
-    private $bookmarkRepository;
-
     /**
      * @var BookmarkNormalizer
      */
@@ -22,13 +16,11 @@ class CsvCollectionImporter implements CollectionImporterInterface
     /**
      * CsvCollectionImporter constructor.
      *
-     * @param BookmarkRepositoryInterface $bookmarkRepository
-     * @param BookmarkNormalizer          $normalizer
+     * @param BookmarkNormalizer $normalizer
      */
-    public function __construct(BookmarkRepositoryInterface $bookmarkRepository, BookmarkNormalizer $normalizer)
+    public function __construct(BookmarkNormalizer $normalizer)
     {
-        $this->bookmarkRepository = $bookmarkRepository;
-        $this->normalizer         = $normalizer;
+        $this->normalizer = $normalizer;
     }
 
     /**
@@ -42,7 +34,7 @@ class CsvCollectionImporter implements CollectionImporterInterface
             $bookmark = $this->normalizer->denormalize($data);
             $bookmark->moveTo($collection);
 
-            $this->bookmarkRepository->add($bookmark);
+            yield $bookmark;
         }
     }
 

@@ -4,9 +4,15 @@ namespace App\Application\Importer;
 
 use App\Domain\File\FileInterface;
 use App\Domain\Model\Collection;
+use App\Domain\Repository\BookmarkRepositoryInterface;
 
 class CollectionImporter
 {
+    /**
+     * @var BookmarkRepositoryInterface
+     */
+    private $bookmarkRepository;
+
     /**
      * @var CollectionImporterInterface[]
      */
@@ -15,10 +21,13 @@ class CollectionImporter
     /**
      * CollectionImporter constructor.
      *
-     * @param array $importers
+     * @param BookmarkRepositoryInterface $bookmarkRepository
+     * @param array                       $importers
      */
-    public function __construct(array $importers)
+    public function __construct(BookmarkRepositoryInterface $bookmarkRepository, array $importers)
     {
+        $this->bookmarkRepository = $bookmarkRepository;
+
         foreach ($importers as $importer) {
             $this->register($importer);
         }
@@ -32,7 +41,11 @@ class CollectionImporter
     {
         foreach ($this->importers as $importer) {
             if ($importer->support($file)) {
-                return $importer->import($collection, $file);
+                foreach ($importer->import($collection, $file) as $bookmark) {
+                    $this->bookmarkRepository->add($bookmark);
+                }
+
+                return;
             }
         }
 
