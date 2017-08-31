@@ -1,0 +1,8 @@
+services:
+    app.infrastructure.file.naming.date_naming_strategy:
+        class: App\Infrastructure\File\Naming\DateNamingStrategy
+        arguments:
+            - '@datetime'
+
+    datetime:
+        class: DateTimeImmutable

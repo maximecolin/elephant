@@ -92,3 +92,11 @@ services:
             - '@app.application.exporter.collection_exporter'
         tags:
             - { name: tactician.handler, command: App\Application\Command\Collection\ExportCommand }
+
+    app.application.command.collection.import_command_handler:
+        class: App\Application\Command\Collection\ImportCommandHandler
+        arguments:
+            - '@app.application.importer.format.format_guesser'
+            - '@app.application.importer.collection_importer'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Collection\ImportCommand }

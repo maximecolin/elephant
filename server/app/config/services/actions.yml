@@ -122,6 +122,16 @@ services:
         arguments:
             - '@tactician.commandbus'
 
+    app.ui.action.collection.import_action:
+        class: App\Ui\Action\Collection\ImportAction
+        arguments:
+            - '@app.infrastructure.repository.collection_repository'
+            - '@tactician.commandbus'
+            - '@form.factory'
+            - '@session.flash_bag'
+            - '@router'
+            - '@templating'
+
     #
     # Bookmarks
     #

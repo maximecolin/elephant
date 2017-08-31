@@ -11,16 +11,25 @@
     <h1>
         {{ collection.title }}
 
-        <div class="btn-group float-right" data-toggle="tooltip" title="Exporter">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-download"></i>
-                <span class="sr-only">Exporter</span>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="{{ path('collection_export', { boardId: boardId, collectionId: collection.id, format: 'json' }) }}">json</a>
-                <a class="dropdown-item" href="{{ path('collection_export', { boardId: boardId, collectionId: collection.id, format: 'csv' }) }}">csv</a>
-                <a class="dropdown-item" href="{{ path('collection_export', { boardId: boardId, collectionId: collection.id, format: 'xml' }) }}">xml</a>
+        <div class="float-right">
+            {# Export button #}
+            <div class="btn-group" data-toggle="tooltip" title="Exporter">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-download"></i>
+                    <span class="sr-only">Exporter</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="{{ path('collection_export', { boardId: boardId, collectionId: collection.id, format: 'json' }) }}">json</a>
+                    <a class="dropdown-item" href="{{ path('collection_export', { boardId: boardId, collectionId: collection.id, format: 'csv' }) }}">csv</a>
+                    <a class="dropdown-item" href="{{ path('collection_export', { boardId: boardId, collectionId: collection.id, format: 'xml' }) }}">xml</a>
+                </div>
             </div>
+
+            {# Import button #}
+            <a href="{{ path('collection_import', { boardId: boardId, collectionId: collection.id }) }}" class="btn btn-primary" data-toggle="tooltip" title="Importer">
+                <i class="fa fa-upload"></i>
+                <span class="sr-only">Importer</span>
+            </a>
         </div>
     </h1>
 

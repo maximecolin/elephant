@@ -5,3 +5,8 @@ services:
             - '@app.infrastructure.repository.user_repository'
         tags:
             - { name: form.type }
+
+    app.infrastructure.form.extension.file_type_extension:
+        class: App\Infrastructure\Form\Extension\FileTypeExtension
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FileType }

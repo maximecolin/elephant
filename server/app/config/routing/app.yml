@@ -88,6 +88,14 @@ collection_export:
         collectionId: \d+
         format: csv|json|xml
 
+collection_import:
+    path: /board/{boardId}/collection/{collectionId}/import
+    defaults: { _controller: app.ui.action.collection.import_action }
+    methods: [GET, POST]
+    requirements:
+        boardId: \d+
+        collectionId: \d+
+
 bookmark_add:
     path: /board/{boardId}/collection/{collectionId}/bookmark/add
     defaults: { _controller: app.ui.action.bookmark.add_action }

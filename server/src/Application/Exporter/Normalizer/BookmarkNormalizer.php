@@ -18,4 +18,17 @@ class BookmarkNormalizer
             'url' => $bookmark->getUrl(),
         ];
     }
+
+    /**
+     * @param array $data
+     *
+     * @return Bookmark
+     */
+    public function denormalize(array $data)
+    {
+        return new Bookmark(
+            $data['title'],
+            $data['url']
+        );
+    }
 }

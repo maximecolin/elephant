@@ -1,0 +1,16 @@
+{% extends 'board.html.twig' %}
+
+{% block content %}
+    <h1>Importer</h1>
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.file, 'Fichier') }}
+            {{ form_widget(form.file, { attr: { class: 'form-control' } }) }}
+            {{ form_errors(form.file) }}
+        </div>
+        <div class="form-group text-right">
+            <a href="{{ path('board', { boardId: boardId }) }}" class="btn btn-link">Annuler</a>
+            <button type="submit" class="btn btn-primary">Importer</button>
+        </div>
+    {{ form_end(form) }}
+{% endblock %}

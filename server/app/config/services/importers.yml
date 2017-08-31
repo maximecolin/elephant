@@ -1,0 +1,35 @@
+services:
+    app.application.importer.collection_importer:
+        class: App\Application\Importer\CollectionImporter
+        arguments:
+            -
+                csv: '@app.application.importer.csv_collection_importer'
+                json: '@app.application.importer.json_collection_importer'
+                xml: '@app.application.importer.xml_collection_importer'
+
+    app.application.importer.format.format_guesser:
+        class: App\Application\Importer\Format\FormatGuesser
+
+    #
+    # Importers
+    #
+
+    app.application.importer.csv_collection_importer:
+        class: App\Application\Importer\CsvCollectionImporter
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'
+            - '@app.application.exporter.normalizer.bookmark_normalizer'
+
+
+    app.application.importer.json_collection_importer:
+        class: App\Application\Importer\JsonCollectionImporter
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'
+            - '@app.application.exporter.normalizer.bookmark_normalizer'
+
+
+    app.application.importer.xml_collection_importer:
+        class: App\Application\Importer\XmlCollectionImporter
+        arguments:
+            - '@app.infrastructure.repository.bookmark_repository'
+            - '@app.application.exporter.normalizer.bookmark_normalizer'
