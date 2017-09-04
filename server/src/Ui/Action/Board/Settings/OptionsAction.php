@@ -4,6 +4,7 @@ namespace App\Ui\Action\Board\Settings;
 
 use App\Application\Command\Board\UpdateBoardCommand;
 use App\Domain\Repository\BoardRepositoryInterface;
+use App\Infrastructure\Helper\RoutingTrait;
 use App\Infrastructure\Helper\SecurityTrait;
 use App\Ui\Form\Type\Board\UpdateType;
 use League\Tactician\CommandBus;
@@ -19,6 +20,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class OptionsAction
 {
     use SecurityTrait;
+    use RoutingTrait;
 
     /**
      * @var CommandBus
@@ -39,11 +41,6 @@ class OptionsAction
      * @var FlashBagInterface
      */
     private $flashBag;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
 
     /**
      * @var EngineInterface
@@ -97,9 +94,9 @@ class OptionsAction
             $this->commandBus->handle($command);
             $this->flashBag->add('inverse', 'La configuration a été mis à jour');
 
-            return new RedirectResponse($this->router->generate('board_settings_options', [
+            return $this->redirectToRoute('board_settings_options', [
                 'boardId' => $board->getId(),
-            ]));
+            ]);
         }
 
         return $this->engine->renderResponse('board/settings/options.html.twig', [

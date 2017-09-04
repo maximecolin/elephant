@@ -5,6 +5,7 @@ namespace App\Ui\Action\Bookmark;
 use App\Application\Command\Bookmark\UpdateBookmarkCommand;
 use App\Domain\Exception\DuplicateException;
 use App\Domain\Repository\BookmarkRepositoryInterface;
+use App\Infrastructure\Helper\RoutingTrait;
 use App\Infrastructure\Helper\SecurityTrait;
 use App\Ui\Form\Type\Bookmark\UpdateType;
 use League\Tactician\CommandBus;
@@ -20,6 +21,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class EditAction
 {
     use SecurityTrait;
+    use RoutingTrait;
 
     /**
      * @var BookmarkRepositoryInterface
@@ -40,11 +42,6 @@ class EditAction
      * @var EngineInterface
      */
     private $engine;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
 
     /**
      * @var FlashBagInterface
@@ -100,10 +97,10 @@ class EditAction
             $this->commandBus->handle($command);
             $this->flashBag->add('inverse', 'Le favoris a été modifié.');
 
-            return new RedirectResponse($this->router->generate('collection', [
+            return $this->redirectToRoute('collection', [
                 'boardId' => $boardId,
                 'collectionId' => $collectionId,
-            ]));
+            ]);
         }
 
         return $this->engine->renderResponse('bookmark/edit.html.twig', [

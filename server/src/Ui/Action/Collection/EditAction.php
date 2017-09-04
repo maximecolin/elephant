@@ -4,6 +4,7 @@ namespace App\Ui\Action\Collection;
 
 use App\Application\Command\Collection\UpdateCollectionCommand;
 use App\Domain\Repository\CollectionRepositoryInterface;
+use App\Infrastructure\Helper\RoutingTrait;
 use App\Ui\Form\Type\Collection\UpdateType;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -16,6 +17,8 @@ use Symfony\Component\Routing\RouterInterface;
 
 class EditAction
 {
+    use RoutingTrait;
+
     /**
      * @var CollectionRepositoryInterface
      */
@@ -35,11 +38,6 @@ class EditAction
      * @var EngineInterface
      */
     private $engine;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
 
     /**
      * @var FlashBagInterface
@@ -89,10 +87,10 @@ class EditAction
             $this->commandBus->handle($command);
             $this->flashBag->add('inverse', 'La collection a été modifié.');
 
-            return new RedirectResponse($this->router->generate('collection', [
+            return $this->redirectToRoute('collection', [
                 'boardId' => $boardId,
                 'collectionId' => $collection->getId(),
-            ]));
+            ]);
         }
 
         return $this->engine->renderResponse('collection/edit.html.twig', [

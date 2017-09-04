@@ -3,6 +3,7 @@
 namespace App\Ui\Action\Board;
 
 use App\Application\Command\Board\CreateBoardCommand;
+use App\Infrastructure\Helper\RoutingTrait;
 use App\Infrastructure\Security\User\SymfonyUser;
 use App\Ui\Form\Type\Board\CreateType;
 use League\Tactician\CommandBus;
@@ -18,6 +19,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class AddAction
 {
+    use RoutingTrait;
+
     /**
      * @var CommandBus
      */
@@ -32,11 +35,6 @@ class AddAction
      * @var EngineInterface
      */
     private $engine;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
 
     /**
      * @var FlashBagInterface
@@ -85,7 +83,7 @@ class AddAction
             $this->commandBus->handle($command);
             $this->flashBag->add('inverse', 'Votre board a été ajouté.');
 
-            return new RedirectResponse($this->router->generate('home'));
+            $this->redirectToRoute('home');
         }
 
         return $this->engine->renderResponse('board/add.html.twig', [

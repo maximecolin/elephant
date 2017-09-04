@@ -3,6 +3,7 @@
 namespace App\Ui\Action\Bookmark;
 
 use App\Application\Command\Bookmark\RemoveBookmarkCommand;
+use App\Infrastructure\Helper\RoutingTrait;
 use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -10,15 +11,13 @@ use Symfony\Component\Routing\RouterInterface;
 
 class RemoveAction
 {
+    use RoutingTrait;
+
     /**
      * @var CommandBus
      */
     private $commandBus;
 
-    /**
-     * @var RouterInterface
-     */
-    private $router;
     /**
      * @var FlashBagInterface
      */
@@ -50,9 +49,9 @@ class RemoveAction
         $this->commandBus->handle(new RemoveBookmarkCommand($bookmarkId));
         $this->flashBag->add('inverse', 'Le favoris a été supprimé.');
 
-        return new RedirectResponse($this->router->generate('collection', [
+        return $this->redirectToRoute('collection', [
             'boardId' => $boardId,
             'collectionId' => $collectionId,
-        ]));
+        ]);
     }
 }

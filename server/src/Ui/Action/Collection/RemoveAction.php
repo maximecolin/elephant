@@ -3,6 +3,7 @@
 namespace App\Ui\Action\Collection;
 
 use App\Application\Command\Collection\RemoveCollectionCommand;
+use App\Infrastructure\Helper\RoutingTrait;
 use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -10,15 +11,12 @@ use Symfony\Component\Routing\RouterInterface;
 
 class RemoveAction
 {
+    use RoutingTrait;
+
     /**
      * @var CommandBus
      */
     private $commandBus;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
 
     /**
      * @var FlashBagInterface
@@ -50,8 +48,8 @@ class RemoveAction
         $this->commandBus->handle(new RemoveCollectionCommand($collectionId));
         $this->flashBag->add('inverse', 'La collection a été supprimé.');
 
-        return new RedirectResponse($this->router->generate('board', [
+        return $this->redirectToRoute('board', [
             'boardId' => $boardId,
-        ]));
+        ]);
     }
 }

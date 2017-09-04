@@ -6,6 +6,7 @@ use App\Application\Command\Board\RemoveCollaboratorCommand;
 use App\Domain\Exception\Collaborator\NoOwnerLeftException;
 use App\Domain\Model\User;
 use App\Domain\Repository\BoardRepositoryInterface;
+use App\Infrastructure\Helper\RoutingTrait;
 use App\Infrastructure\Helper\SecurityTrait;
 use League\Tactician\CommandBus;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -16,6 +17,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class RemoveCollaboratorAction
 {
     use SecurityTrait;
+    use RoutingTrait;
 
     /**
      * @var BoardRepositoryInterface
@@ -31,11 +33,6 @@ class RemoveCollaboratorAction
      * @var FlashBagInterface
      */
     private $flashBag;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
 
     /**
      * RemoveCollaborator constructor.
@@ -80,11 +77,9 @@ class RemoveCollaboratorAction
         }
 
         if ($this->isGranted('COLLABORATOR_OWNER', $board)) {
-            $url = $this->router->generate('board_settings_collaborator', ['boardId' => $boardId]);
-        } else {
-            $url = $this->router->generate('home');
+            return $this->redirectToRoute('board_settings_collaborator', ['boardId' => $boardId]);
         }
 
-        return new RedirectResponse($url);
+        return $this->redirectToRoute('home');
     }
 }

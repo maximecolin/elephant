@@ -3,6 +3,7 @@
 namespace App\Ui\Action\Collection;
 
 use App\Application\Command\Collection\CreateCollectionCommand;
+use App\Infrastructure\Helper\RoutingTrait;
 use App\Ui\Form\Type\Collection\CreateType;
 use League\Tactician\CommandBus;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -15,6 +16,8 @@ use Symfony\Component\Routing\RouterInterface;
 
 class AddAction
 {
+    use RoutingTrait;
+
     /**
      * @var CommandBus
      */
@@ -29,11 +32,6 @@ class AddAction
      * @var EngineInterface
      */
     private $engine;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
 
     /**
      * @var FlashBagInterface
@@ -78,7 +76,7 @@ class AddAction
             $this->commandBus->handle($command);
             $this->flashBag->add('inverse', 'Votre collection a été ajouté.');
 
-            return new RedirectResponse($this->router->generate('board', ['boardId' => $boardId]));
+            return $this->redirectToRoute('board', ['boardId' => $boardId]);
         }
 
         return $this->engine->renderResponse('collection/add.html.twig', [

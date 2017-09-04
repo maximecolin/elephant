@@ -6,6 +6,7 @@ use App\Application\Command\Bookmark\CreateBookmarkCommand;
 use App\Domain\Exception\DuplicateException;
 use App\Domain\Repository\BoardRepositoryInterface;
 use App\Domain\Repository\CollectionRepositoryInterface;
+use App\Infrastructure\Helper\RoutingTrait;
 use App\Infrastructure\Helper\SecurityTrait;
 use App\Ui\Form\Type\Bookmark\CreateType;
 use League\Tactician\CommandBus;
@@ -21,6 +22,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class AddAction
 {
     use SecurityTrait;
+    use RoutingTrait;
 
     /**
      * @var CollectionRepositoryInterface
@@ -46,11 +48,6 @@ class AddAction
      * @var EngineInterface
      */
     private $engine;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
 
     /**
      * @var FlashBagInterface
@@ -111,10 +108,10 @@ class AddAction
                 $this->commandBus->handle($command);
                 $this->flashBag->add('inverse', 'Votre favoris a été ajouté.');
 
-                return new RedirectResponse($this->router->generate('collection', [
+                return $this->redirectToRoute('collection', [
                     'boardId' => $boardId,
                     'collectionId' => $collection->getId(),
-                ]));
+                ]);
             } catch (DuplicateException $exception) {
                 $this->flashBag->add('inverse', $exception->getMessage());
             }

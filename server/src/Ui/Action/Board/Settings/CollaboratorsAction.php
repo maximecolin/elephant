@@ -7,6 +7,7 @@ use App\Application\Command\Board\UpdateCollaboratorsCommand;
 use App\Domain\Model\User;
 use App\Domain\Repository\BoardRepositoryInterface;
 use App\Domain\Repository\CollaboratorRepositoryInterface;
+use App\Infrastructure\Helper\RoutingTrait;
 use App\Infrastructure\Helper\SecurityTrait;
 use App\Ui\Form\Type\Board\AddCollaboratorType;
 use App\Ui\Form\Type\Board\CollaboratorsType;
@@ -23,6 +24,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class CollaboratorsAction
 {
     use SecurityTrait;
+    use RoutingTrait;
 
     /**
      * @var CommandBus
@@ -48,11 +50,6 @@ class CollaboratorsAction
      * @var FlashBagInterface
      */
     private $flashBag;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
 
     /**
      * @var EngineInterface
@@ -112,9 +109,9 @@ class CollaboratorsAction
             $this->commandBus->handle($updateCommand);
             $this->flashBag->add('inverse', 'La configuration a été mis à jour');
 
-            return new RedirectResponse($this->router->generate('board_settings_collaborator', [
+            return $this->redirectToRoute('board_settings_collaborator', [
                 'boardId' => $board->getId(),
-            ]));
+            ]);
         }
 
         // Handle collaborator add
@@ -125,9 +122,9 @@ class CollaboratorsAction
             $this->commandBus->handle($addCommand);
             $this->flashBag->add('inverse', 'Le collaborator a été ajouté');
 
-            return new RedirectResponse($this->router->generate('board_settings_collaborator', [
+            return $this->redirectToRoute('board_settings_collaborator', [
                 'boardId' => $board->getId(),
-            ]));
+            ]);
         }
 
         return $this->engine->renderResponse('board/settings/collaborators.html.twig', [
