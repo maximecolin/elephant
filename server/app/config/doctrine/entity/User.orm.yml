@@ -12,9 +12,14 @@ App\Domain\Model\User:
             unique: true
         password:
             type: string
+            nullable: true
         firstname:
             type: string
         lastname:
             type: string
         admin:
             type: boolean
+        legacyPassword:
+            type: string
+        legacySalt:
+            type: string
