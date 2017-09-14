@@ -31,7 +31,12 @@ security:
         main:
             pattern: ^/
             anonymous: ~
-            form_login:
+            #form_login:
+            #    login_path: login
+            #    check_path: login_check
+            #    require_previous_session: false
+            simple_form:
+                authenticator: app.infrastructure.security.authentication.migration_authenticator
                 login_path: login
                 check_path: login_check
                 require_previous_session: false

@@ -38,3 +38,12 @@ services:
 
     app.infrastructure.security.api.api_key_authenticator:
         class: App\Infrastructure\Security\Api\ApiKeyAuthenticator
+
+    #
+    # Authenticator
+    #
+    app.infrastructure.security.authentication.migration_authenticator:
+        class: App\Infrastructure\Security\Authentication\MigrationAuthenticator
+        arguments:
+            - '@security.user_password_encoder.generic'
+            - '@doctrine.orm.entity_manager'

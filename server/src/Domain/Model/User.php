@@ -4,6 +4,8 @@ namespace App\Domain\Model;
 
 class User
 {
+    use LegacyPassword;
+
     /**
      * @var int
      */
@@ -108,6 +110,20 @@ class User
     public function isAdmin()
     {
         return $this->admin;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function updatePassword(string $password)
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
     /**
